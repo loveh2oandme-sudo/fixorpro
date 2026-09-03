@@ -416,9 +416,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="item-price">Est. ${mat.est_price || '$5-$20'}</div>
                     </div>
                     <div class="item-links">
-                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">📦 Amazon</a>
-                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">🔨 Home Depot</a>
-                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">🏠 Lowe's</a>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">📦 Buy on Amazon</a>
+                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">🔨 Pick up at Home Depot Today</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">🏠 Lowe's Store / Ship</a>
                     </div>
                 `;
                 materialsContainer.appendChild(matEl);
@@ -438,9 +438,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 toolEl.innerHTML = `
                     <div class="item-name">🛠️ ${tool.name}</div>
                     <div class="item-links">
-                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">Amazon</a>
-                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">Home Depot</a>
-                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">Lowe's</a>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">📦 Buy on Amazon</a>
+                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">🔨 Home Depot</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">🏠 Lowe's</a>
                     </div>
                 `;
                 toolsContainer.appendChild(toolEl);
