@@ -23,7 +23,7 @@
       <div class="ticker-item">📍 <span class="city">Denver, CO</span>: Drywall Hole Patched • <span class="savings">Saved $220</span> (7m ago)</div>
       <div class="ticker-item">📍 <span class="city">Miami, FL</span>: Sink P-Trap Washer • <span class="savings">Saved $195</span> (11m ago)</div>
       <div class="ticker-item">📍 <span class="city">Phoenix, AZ</span>: Water Heater Valve • <span class="savings">Pro Scheduled</span> (15m ago)</div>
-      <!-- Duplicate for infinite seamless scroll -->
+      <!-- Duplicate for seamless loop -->
       <div class="ticker-item">📍 <span class="city">Austin, TX</span>: Toilet Flapper Replaced • <span class="savings">Saved $175</span> (2m ago)</div>
       <div class="ticker-item">📍 <span class="city">Seattle, WA</span>: Disposal Jam Solved • <span class="savings">Saved $160</span> (4m ago)</div>
       <div class="ticker-item">📍 <span class="city">Denver, CO</span>: Drywall Hole Patched • <span class="savings">Saved $220</span> (7m ago)</div>
@@ -43,8 +43,8 @@
         </div>
       </a>
       <div class="nav-actions">
-        <a href="#samplesSection" class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.85rem;">💡 Try Samples</a>
-        <a href="#workspaceSection" class="btn btn-primary" style="padding: 8px 18px; font-size: 0.85rem;">⚡ Diagnose Issue</a>
+        <a href="#samplesSection" class="btn btn-ghost" style="padding: 8px 14px; font-size: 0.85rem;">💡 Try Samples</a>
+        <a href="#workspaceSection" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">⚡ Diagnose</a>
       </div>
     </div>
   </header>
@@ -54,21 +54,20 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-pill">
-        <span class="pulse-dot"></span>
-        <span>🇺🇸 AI Defect Inspector • 2026 US Contractor Code & Labor Pricing</span>
+        <span>🇺🇸 AI Defect Inspector • 2026 US Contractor Codes & Labor Pricing</span>
       </div>
       <h2 class="hero-title">
         Don’t spend <span class="gradient-text">$200 on a contractor</span> for a $15 fix.
       </h2>
       <p class="hero-subtitle">
-        Snap a photo of anything broken. Our AI diagnoses the problem in 5 seconds, tells you if you can DIY, links the exact Home Depot/Amazon parts, or triggers a licensed Pro safety warning.
+        Snap a photo of anything broken. Our AI diagnoses the problem in 5 seconds, tells you if you can DIY, links the exact Amazon, Home Depot & Lowe's parts, or warns you when to call a licensed Pro.
       </p>
 
-      <!-- High-Tech Metric Chips -->
+      <!-- Metric Chips -->
       <div class="metrics-row">
         <div class="metric-chip">
           <span>⚡</span>
-          <span><strong>2.4s</strong> Neural Laser Analysis</span>
+          <span><strong>Instant</strong> AI Vision Diagnosis</span>
         </div>
         <div class="metric-chip">
           <span>💰</span>
@@ -76,12 +75,12 @@
         </div>
         <div class="metric-chip">
           <span>🛡️</span>
-          <span><strong>Safety-First</strong> Code Compliance Checker</span>
+          <span><strong>Safety-First</strong> Code Compliance</span>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Upload & Laser Workspace -->
+    <!-- Interactive Upload Workspace -->
     <section class="upload-card glass-panel" id="workspaceSection">
       
       <!-- Hidden File Inputs -->
@@ -91,81 +90,73 @@
       <!-- Drop Zone -->
       <div class="drop-zone" id="dropZone">
         <div class="drop-icon">📷</div>
-        <h3 class="drop-title">Drop your broken household photo here</h3>
-        <p class="drop-desc">Supports running toilets, disposal humming, drywall holes, leaking P-traps, water heaters & switches</p>
+        <h3 class="drop-title">Tap to take or upload a photo</h3>
+        <p class="drop-desc">Toilet leaks, disposal humming, drywall holes, leaking pipes, water heaters, switches</p>
         <div class="upload-btn-group">
           <button type="button" class="btn btn-primary" id="btnSelectFile">
-            <span>📁 Upload from Device</span>
+            <span>📁 Upload Photo</span>
           </button>
           <button type="button" class="btn btn-ghost" id="btnCamera">
-            <span>📸 Snap Photo (Camera)</span>
+            <span>📸 Snap with Camera</span>
           </button>
         </div>
       </div>
 
-      <!-- Sci-Fi HUD Laser Scanner Preview -->
+      <!-- Preview -->
       <div class="preview-container" id="previewContainer">
         <div class="preview-inner">
           <div class="hud-image-wrapper">
             <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Target">
-            <!-- HUD Laser & Reticle Elements -->
             <div class="hud-laser"></div>
-            <div class="hud-corner hud-tl"></div>
-            <div class="hud-corner hud-tr"></div>
-            <div class="hud-corner hud-bl"></div>
-            <div class="hud-corner hud-br"></div>
           </div>
           <div class="preview-info">
-            <div id="previewFilename" class="preview-filename">
-              <span>TARGET_IMAGE.JPG</span>
-            </div>
-            <div id="previewMeta" class="preview-meta">RESOLUTION MATRIX OK • READY FOR AI DIAGNOSIS</div>
-            <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 7px 14px; font-size: 0.82rem;">
-              ✕ Remove & Change Photo
+            <div id="previewFilename" class="preview-filename">TARGET_IMAGE.JPG</div>
+            <div id="previewMeta" class="preview-meta">READY FOR AI DIAGNOSIS</div>
+            <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 6px 12px; font-size: 0.8rem;">
+              ✕ Change Photo
             </button>
           </div>
         </div>
       </div>
 
-      <!-- User Notes / Symptoms Input -->
+      <!-- Notes Input -->
       <input 
         type="text" 
         id="userNotes" 
         class="input-notes" 
-        placeholder="Optional: Describe symptoms (e.g. 'Humming noise when turned on', 'Dripping every 5 seconds', 'Smells like burning')..."
+        placeholder="Optional: Describe symptoms (e.g., 'Humming noise when turned on', 'Dripping every 5 seconds')..."
       >
 
-      <!-- Action Bar -->
+      <!-- Action Button -->
       <div class="action-bar">
-        <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.08rem; padding: 15px 32px;" disabled>
+        <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.05rem; padding: 14px 28px; width: 100%; justify-content: center;" disabled>
           <span>⚡ Run AI Diagnostic & Cost Check</span>
         </button>
       </div>
 
     </section>
 
-    <!-- Instant 3D Sample Scenarios Bar -->
+    <!-- Instant Sample Scenarios Bar -->
     <section class="samples-section" id="samplesSection">
       <div class="section-label">
         <h3><span>💡</span> Instant 1-Click Test Scenarios:</h3>
       </div>
       <div class="sample-grid" id="sampleCardsContainer">
-        <!-- Injected dynamically via JS with 3D Tilt -->
+        <!-- Injected dynamically via JS -->
       </div>
     </section>
 
-    <!-- Sci-Fi HUD Scanning Progress Box -->
+    <!-- Loading Box -->
     <div class="loading-box glass-panel" id="loadingBox">
       <div class="loading-spinner-wrap">
         <div class="cyber-spinner"></div>
-        <div class="cyber-spinner-inner"></div>
       </div>
       <div class="loading-text">FixOrPro AI is inspecting the image...</div>
-      <div class="loading-step-msg" id="loadingStepMsg">[1/4] Scanning surface topology & defect vectors...</div>
+      <div class="loading-step-msg" id="loadingStepMsg">[1/4] Scanning surface defect vectors...</div>
     </div>
 
     <!-- =====================================================================
-         DIAGNOSTIC REPORT DASHBOARD (Result Area)
+         DIAGNOSTIC REPORT DASHBOARD (ALL SECTIONS STACKED VERTICALLY)
          ===================================================================== -->
     <section class="report-container" id="reportContainer">
 
@@ -186,8 +177,8 @@
       </div>
 
       <!-- Problem Summary -->
-      <div class="glass-panel" style="padding: 24px 28px; margin-bottom: 28px; border-left: 4px solid var(--cyan);">
-        <p id="problemSummary" style="font-size: 1.05rem; color: #f1f5f9; line-height: 1.7;">
+      <div class="glass-panel" style="padding: 22px 24px; margin-bottom: 24px; border-left: 4px solid var(--cyan);">
+        <p id="problemSummary" style="font-size: 1.05rem; color: #ffffff; line-height: 1.65;">
           Analysis description...
         </p>
       </div>
@@ -197,32 +188,32 @@
         <div class="cost-card diy-card">
           <div class="cost-label">Estimated DIY Cost</div>
           <div class="cost-value" id="diyCostVal">$8 - $16</div>
-          <div class="cost-detail" id="diyCostDetail">Replacement parts from Home Depot / Amazon</div>
+          <div class="cost-detail" id="diyCostDetail">Parts from Amazon / Home Depot / Lowe's</div>
         </div>
         <div class="cost-card pro-card">
           <div class="cost-label">Estimated Contractor Cost</div>
           <div class="cost-value" id="proCostVal">$150 - $220</div>
-          <div class="cost-detail">Standard US Plumber/Handyman Trip Fee + Labor</div>
+          <div class="cost-detail">Standard US Trip Fee + Hourly Labor</div>
         </div>
         <div class="cost-card savings-card">
           <div class="cost-label">Estimated Money Saved</div>
           <div class="cost-value" id="savingsCostVal">$175 (92%)</div>
-          <div class="cost-detail">Directly saved in your wallet</div>
+          <div class="cost-detail">Directly saved in your pocket</div>
         </div>
       </div>
 
       <!-- Quick Specs Strip -->
       <div class="specs-strip">
         <div class="spec-item">
-          <div class="label">Difficulty Level</div>
+          <div class="label">Difficulty</div>
           <div class="value" id="specDifficulty">Beginner</div>
         </div>
         <div class="spec-item">
-          <div class="label">Est. Repair Time</div>
+          <div class="label">Est. Time</div>
           <div class="value" id="specTime">15 - 20 mins</div>
         </div>
         <div class="spec-item">
-          <div class="label">Trade Category</div>
+          <div class="label">Category</div>
           <div class="value" id="specCategory">Plumbing</div>
         </div>
         <div class="spec-item">
@@ -231,54 +222,75 @@
         </div>
       </div>
 
-      <!-- Tabs Navigation -->
-      <div class="tabs-nav">
-        <button type="button" class="tab-btn active" data-tab="tabSteps">📋 Step-by-Step Fix Guide</button>
-        <button type="button" class="tab-btn" data-tab="tabParts">🛠️ 1-Click Parts & Tools</button>
-        <button type="button" class="tab-btn" data-tab="tabSafety">⚠️ Safety Warnings & Pro Triggers</button>
-      </div>
-
-      <!-- Tab 1: Interactive Checkable Step-by-Step Guide -->
-      <div class="tab-content active" id="tabSteps">
-        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
-          💡 <em>Click any step as you complete it to check off your progress!</em>
-        </p>
-        <div id="stepsListContainer">
-          <!-- Step cards injected dynamically -->
+      <!-- =================================================================
+           SECTION 1: 1-CLICK PARTS & TOOLS (TOP PRIORITY & DIRECTLY VISIBLE)
+           ================================================================= -->
+      <div class="report-section-card" id="sectionParts">
+        <div class="report-section-header">
+          <span style="font-size: 24px;">🛒</span>
+          <div>
+            <h3 class="section-badge-parts">1-Click Parts & Tools (Instant Buy)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Compare prices across top US retailers and order with 1 tap</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Tab 2: Materials & Tools with Direct Buy Links -->
-      <div class="tab-content" id="tabParts">
-        <h4 style="margin-bottom: 16px; font-size: 1.15rem; color: #38bdf8;">📦 Replacement Parts Needed (1-Click Buy)</h4>
+        <h4 style="margin-bottom: 12px; font-size: 1.05rem; color: #ffffff;">📦 Required Replacement Parts</h4>
         <div id="materialsContainer">
           <!-- Material items injected dynamically -->
         </div>
 
-        <h4 style="margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; color: #818cf8;">🛠️ Recommended Tools</h4>
+        <h4 style="margin-top: 24px; margin-bottom: 12px; font-size: 1.05rem; color: #ffffff;">🛠️ Recommended Tools</h4>
         <div id="toolsContainer">
           <!-- Tool items injected dynamically -->
         </div>
       </div>
 
-      <!-- Tab 3: Safety & Pro Triggers -->
-      <div class="tab-content" id="tabSafety">
+      <!-- =================================================================
+           SECTION 2: INTERACTIVE STEP-BY-STEP FIX GUIDE (DIRECTLY VISIBLE)
+           ================================================================= -->
+      <div class="report-section-card" id="sectionSteps">
+        <div class="report-section-header">
+          <span style="font-size: 24px;">📋</span>
+          <div>
+            <h3 class="section-badge-steps">Step-by-Step DIY Repair Guide</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Tap any step as you work to check it off your progress</p>
+          </div>
+        </div>
+        <div id="stepsListContainer">
+          <!-- Step cards injected dynamically -->
+        </div>
+      </div>
+
+      <!-- =================================================================
+           SECTION 3: SAFETY WARNINGS & WHEN TO CALL A PRO (DIRECTLY VISIBLE)
+           ================================================================= -->
+      <div class="report-section-card" id="sectionSafety">
+        <div class="report-section-header">
+          <span style="font-size: 24px;">⚠️</span>
+          <div>
+            <h3 class="section-badge-safety">Critical Safety Warnings & Pro Triggers</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Essential safety checks before starting work</p>
+          </div>
+        </div>
+
         <div class="warning-box">
-          <h4><span>⚠️</span> Critical Safety Precautions</h4>
+          <h4><span>⚠️</span> Mandatory Safety Precautions</h4>
           <div id="warningsContainer">
             <!-- Warnings injected dynamically -->
           </div>
         </div>
 
-        <div class="glass-panel" style="padding: 24px; border-left: 4px solid #f43f5e;">
-          <h4 style="color: #fb7185; margin-bottom: 10px; font-size: 1.1rem;">🚨 When to STOP and Call a Licensed Contractor:</h4>
-          <p id="proTriggerBox" style="color: #e2e8f0; font-size: 1rem; line-height: 1.6;">
+        <div class="danger-box">
+          <h4>🚨 When to STOP and Call a Licensed Contractor:</h4>
+          <p id="proTriggerBox">
             If water is leaking onto the floor from the base of the toilet, or if the shut-off valve is stuck or dripping, stop and call a licensed plumber.
           </p>
         </div>
       </div>
 
-      <!-- Local Pro Referral Box -->
+      <!-- =================================================================
+           SECTION 4: LOCAL LICENSED PRO MATCHING
+           ================================================================= -->
       <div class="pro-referral-box">
         <div class="pro-referral-info">
           <h4>Prefer to have a vetted Pro handle it?</h4>
@@ -286,7 +298,7 @@
         </div>
         <div class="pro-buttons">
           <a id="thumbtackBtn" href="https://www.thumbtack.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            <span>📍 Find on Thumbtack</span>
+            <span>📍 Thumbtack Pros</span>
           </a>
           <a id="angiBtn" href="https://www.angi.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
             <span>Angi Leads</span>
@@ -298,8 +310,8 @@
       </div>
 
       <!-- Bottom Action Bar -->
-      <div class="report-actions" style="margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-        <div style="display: flex; gap: 12px;">
+      <div style="margin-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+        <div style="display: flex; gap: 10px;">
           <button type="button" class="btn btn-ghost" id="printReportBtn">🖨️ Print / Save PDF</button>
           <button type="button" class="btn btn-ghost" id="shareReportBtn">🔗 Share Report</button>
         </div>
@@ -320,7 +332,7 @@
     <div class="container">
       <div class="footer-links">
         <a href="#workspaceSection">AI Diagnostic Tool</a>
-        <a href="#samplesSection">Sample Repair Scenarios</a>
+        <a href="#samplesSection">Sample Scenarios</a>
         <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer">Amazon Partner</a>
       </div>
       <p>© 2026 FixOrPro AI. All rights reserved. For informational and educational purposes. Always prioritize safety and comply with local municipal building & electrical codes.</p>
