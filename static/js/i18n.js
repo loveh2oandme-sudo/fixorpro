@@ -1,287 +1,395 @@
 /**
  * FixOrPro Multi-Language Translation Dictionary & Engine (i18n)
- * Supports: English (en), Español (es), 한국어 (ko), 中文 (zh), Tiếng Việt (vi), Tagalog (tl)
+ * Fully localizes all UI, static texts, and dynamic diagnostic reports (Steps, Materials, Safety, Warnings).
  */
 
 const TRANSLATIONS = {
     en: {
-        nav_try_samples: "💡 Try Samples",
+        nav_try_samples: "💡 Samples",
         nav_diagnose: "⚡ Diagnose",
-        nav_find_pros: "👨‍🔧 Find Local Pros",
-        nav_settings: "⚙️ Settings",
-        hero_badge: "🤖 AI-POWERED HOME REPAIR ESTIMATOR",
-        hero_title: "Don't spend $200 on a contractor for a $15 fix.",
-        hero_desc: "Snap a photo of anything broken in your home. Our neural vision engine diagnoses the defect in 5 seconds, calculates real DIY vs. Contractor costs, and finds exact replacement parts from top US retailers.",
-        stat_saved: "Avg. DIY Savings",
-        stat_time: "Analysis Speed",
-        stat_accuracy: "Diagnostic Accuracy",
-        stat_stores: "US Retailers Integrated",
-        dropzone_title: "Upload or Snap a Photo of Any Home Defect",
-        dropzone_desc: "Supports JPEG, PNG, WEBP, HEIC (Max 15MB). Instant AI visual analysis.",
-        dropzone_btn: "📸 Choose Photo or Take Picture",
-        dropzone_note: "🔒 100% Private: Photos are processed instantly and never shared or sold.",
-        sample_banner_title: "No photo ready right now? Try these 5 instant real-world samples:",
-        sample_banner_desc: "Click any scenario below to see the full AI diagnostic report, DIY video, cost comparison, and parts list in 1 second.",
-        report_verdict_diy: "DIY RECOMMENDED",
-        report_verdict_pro: "LICENSED PRO REQUIRED",
+        nav_find_pros: "👨‍🔧 Find Pros",
+        hero_badge: "🇺🇸 Instant Home Repair Diagnostic Engine • DIY vs Pro Cost Estimator",
+        hero_title: "Don’t spend $200 on a contractor for a $15 fix.",
+        hero_desc: "Snap a photo of anything broken. Our AI diagnoses the problem, tells you if it's safe to DIY, and finds the exact replacement parts in 5 seconds.",
+        dropzone_title: "Take or upload a photo of anything broken",
+        dropzone_desc: "Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors & appliances",
+        dropzone_btn_cam: "📸 Snap with Camera",
+        dropzone_btn_file: "📁 Choose from Photos",
+        sample_banner_title: "💡 Instant 1-Click Test Scenarios:",
+        report_verdict_diy: "DIY Recommended (Beginner Friendly)",
+        report_verdict_pro: "Call a Licensed Contractor (Hazard / High-Risk)",
         btn_print: "🖨️ Print / Save PDF",
         btn_share: "🔗 Share Report",
         btn_new_diag: "🔄 Diagnose Another Issue",
-        sec_materials_title: "Section 1: Required Materials & Tools (Compare US Retailers)",
-        sec_materials_desc: "Direct 1-click links to exact matching replacement parts at America's top hardware retailers.",
-        sec_steps_title: "Section 2: Step-by-Step Interactive Repair Guide",
-        sec_steps_desc: "Check off each step as you complete it. Clear, beginner-friendly instructions.",
+        sec_materials_title: "1-Click Replacement Parts & Tools",
+        sec_materials_desc: "Compare prices or pick up today at your local hardware store",
+        sec_materials_parts: "📦 Required Replacement Parts",
+        sec_materials_tools: "🛠️ Recommended Tools",
+        sec_steps_title: "Step-by-Step DIY Repair Manual",
+        sec_steps_desc: "Master-contractor instructions with pro-tips, cautions & video guides",
+        video_guide_title: "Watch Step-by-Step Video Tutorial",
+        video_guide_desc: "Watch vetted YouTube DIY guides (This Old House, Home RenoVision, etc.)",
+        video_guide_btn: "▶️ Open Video Guide",
         pro_fallback_title: "🛠️ Prefer to have an expert handle it?",
         pro_fallback_desc: "Compare free upfront quotes from licensed, insured local contractors with guaranteed workmanship.",
         pro_fallback_btn: "👨‍🔧 Get Local Pro Quotes",
-        sec_safety_title: "Section 3: Safety Warnings & Contractor Trigger Conditions",
-        sec_safety_desc: "Mandatory safety checks before starting any work.",
+        sec_safety_title: "Safety Warnings & When to Call a Pro",
+        sec_safety_desc: "Essential safety checks before starting any work",
         safety_precautions_title: "⚠️ Mandatory Safety Precautions",
         safety_danger_title: "🚨 When to STOP and Call a Licensed Contractor:",
-        pro_contractor_title: "Connect with Verified Local Pros in Your Area",
-        pro_contractor_desc: "Need an emergency plumber, electrician, or handyman? Get 3 free competitive quotes with warranty protection.",
-        btn_thumbtack: "🔨 Find Pros on Thumbtack",
-        btn_angi: "🏠 Compare on Angi",
-        disclaimer_legal_title: "Comprehensive Safety & Regulatory Disclaimer",
-        disclaimer_legal_text: "FixOrPro is an AI-powered diagnostic and educational estimation tool designed to assist homeowners and renters in evaluating minor home maintenance tasks. All cost estimates, part recommendations, difficulty ratings, and step-by-step procedures are approximations based on generalized North American residential standards. FixOrPro does NOT provide licensed engineering, structural, architectural, electrical, or plumbing services. Home repairs involve inherent risks including electrical shock, structural damage, water flooding, gas leaks, and personal injury. Always shut off main utilities (water, gas, breaker panel) before commencing any work. Consult local municipal building codes and hire licensed, bonded, and insured professionals when required.",
-        disclaimer_affiliate_title: "Amazon Associates & Retail Affiliate Disclosure (FTC Compliance)",
-        disclaimer_affiliate_text: "In compliance with the Federal Trade Commission (FTC) guidelines and the Amazon Associates Operating Agreement Section 5, please be advised that FixOrPro is a participant in the Amazon Services LLC Associates Program and other retail affiliate advertising programs (including The Home Depot and Lowe's affiliate networks). These programs are designed to provide a means for websites to earn advertising fees by linking to authorized retail products. When you click on product links on this website and make a purchase, FixOrPro may earn a small commission at zero additional cost to you.",
-        footer_copyright: "© 2026 FixOrPro AI Diagnostic Engine. All rights reserved."
-    },
-    es: {
-        nav_try_samples: "💡 Probar Ejemplos",
-        nav_diagnose: "⚡ Diagnosticar",
-        nav_find_pros: "👨‍🔧 Buscar Profesionales",
-        nav_settings: "⚙️ Configuración",
-        hero_badge: "🤖 ESTIMADOR DE REPARACIONES CON IA",
-        hero_title: "No gaste $200 en un contratista por un arreglo de $15.",
-        hero_desc: "Tome una foto de cualquier daño en su hogar. Nuestra IA diagnostica el problema en 5 segundos, calcula los costos reales de 'Hágalo Usted Mismo' vs. Contratista y encuentra las piezas exactas en tiendas de EE. UU.",
-        stat_saved: "Ahorro Promedio DIY",
-        stat_time: "Velocidad de Análisis",
-        stat_accuracy: "Precisión de Diagnóstico",
-        stat_stores: "Tiendas de EE. UU. Integradas",
-        dropzone_title: "Suba o Tome una Foto de Cualquier Daño en Casa",
-        dropzone_desc: "Compatible con JPEG, PNG, WEBP, HEIC (Máx. 15MB). Análisis visual instantáneo.",
-        dropzone_btn: "📸 Elegir Foto o Tomar Fotografía",
-        dropzone_note: "🔒 100% Privado: Las fotos se procesan al instante y nunca se comparten ni venden.",
-        sample_banner_title: "¿No tiene una foto ahora? Pruebe estos 5 ejemplos reales:",
-        sample_banner_desc: "Haga clic en cualquier escenario para ver el informe de diagnóstico, video tutorial, costos y piezas en 1 segundo.",
-        report_verdict_diy: "RECOMENDADO HÁGALO USTED MISMO (DIY)",
-        report_verdict_pro: "SE REQUIERE PROFESIONAL CON LICENCIA",
-        btn_print: "🖨️ Imprimir / Guardar PDF",
-        btn_share: "🔗 Compartir Informe",
-        btn_new_diag: "🔄 Diagnosticar Otro Problema",
-        sec_materials_title: "Sección 1: Materiales y Herramientas (Comparar Tiendas de EE. UU.)",
-        sec_materials_desc: "Enlaces directos a piezas de repuesto exactas en Amazon, Home Depot y Lowe's.",
-        sec_steps_title: "Sección 2: Guía Paso a Paso Interactiva",
-        sec_steps_desc: "Marque cada paso a medida que lo complete. Instrucciones claras para principiantes.",
-        pro_fallback_title: "🛠️ ¿Prefiere que un experto lo resuelva?",
-        pro_fallback_desc: "Compare cotizaciones gratuitas de contratistas locales asegurados y con licencia garantizada.",
-        pro_fallback_btn: "👨‍🔧 Cotizar con Profesionales",
-        sec_safety_title: "Sección 3: Advertencias de Seguridad y Cuándo Llamar a un Profesional",
-        sec_safety_desc: "Verificaciones de seguridad obligatorias antes de comenzar cualquier trabajo.",
-        safety_precautions_title: "⚠️ Precauciones de Seguridad Obligatorias",
-        safety_danger_title: "🚨 Cuándo DETENERSE y Llamar a un Contratista:",
-        pro_contractor_title: "Conecte con Profesionales Verificados en su Área",
-        pro_contractor_desc: "¿Necesita un plomero de emergencia, electricista o reparador? Obtenga 3 cotizaciones gratuitas con garantía.",
-        btn_thumbtack: "🔨 Buscar en Thumbtack",
-        btn_angi: "🏠 Comparar en Angi",
-        disclaimer_legal_title: "Aviso Legal y de Seguridad Integral",
-        disclaimer_legal_text: "FixOrPro es una herramienta educativa y de diagnóstico basada en IA diseñada para ayudar a propietarios e inquilinos a evaluar tareas menores de mantenimiento del hogar. Todas las estimaciones de costos, piezas y pasos son aproximaciones basadas en estándares residenciales de América del Norte. FixOrPro NO proporciona servicios profesionales de ingeniería, electricidad o plomería con licencia. Siempre corte los suministros principales (agua, gas, electricidad) antes de trabajar.",
-        disclaimer_affiliate_title: "Divulgación de Afiliados de Amazon y Tiendas (Cumplimiento FTC)",
-        disclaimer_affiliate_text: "FixOrPro participa en el Programa de Asociados de Amazon Services LLC y otros programas de afiliados (incluidos The Home Depot y Lowe's). Cuando hace clic en enlaces y realiza una compra, FixOrPro puede recibir una pequeña comisión sin ningún costo adicional para usted.",
-        footer_copyright: "© 2026 FixOrPro AI Diagnostic Engine. Todos los derechos reservados."
+        pro_contractor_title: "Prefer to have a licensed Pro handle it?",
+        pro_contractor_desc: "Find top-rated, licensed, and insured contractors in your ZIP code with upfront pricing.",
+        btn_thumbtack: "📍 Find Local Pros Nearby",
+        btn_angi: "Angi Leads",
+        btn_yelp: "Yelp Pros"
     },
     ko: {
         nav_try_samples: "💡 샘플 체험",
         nav_diagnose: "⚡ 바로 진단",
         nav_find_pros: "👨‍🔧 기술자 찾기",
-        nav_settings: "⚙️ 설정",
         hero_badge: "🤖 AI 기반 미국 주택 수리 & 비용 진단 엔진",
         hero_title: "15달러면 고칠 수리에 기술자 비용 200달러를 쓰지 마세요.",
-        hero_desc: "집안의 고장 난 부위를 사진으로 찍기만 하세요. AI 시각 엔진이 5초 만에 결함을 진단하고, 직접 수리(DIY) vs 전문가 비용을 정밀 비교하며, 미국 주요 매장(아마존, 홈디포, 로우스)의 정확한 부품을 찾아드립니다.",
-        stat_saved: "평균 DIY 절약 금액",
-        stat_time: "AI 분석 속도",
-        stat_accuracy: "진단 정확도",
-        stat_stores: "미국 공식 스토어 연동",
+        hero_desc: "집안의 고장 난 부위를 사진으로 찍기만 하세요. AI 시각 엔진이 5초 만에 결함을 진단하고, 직접 수리(DIY) vs 기술자 비용을 정밀 비교하며, 미국 주요 매장(아마존, 홈디포, 로우스)의 정확한 부품을 찾아드립니다.",
         dropzone_title: "집안의 고장 난 곳을 사진으로 업로드하거나 촬영하세요",
-        dropzone_desc: "JPEG, PNG, WEBP, HEIC 지원 (최대 15MB). 실시간 AI 시각 분석.",
-        dropzone_btn: "📸 사진 선택 또는 카메라 촬영",
-        dropzone_note: "🔒 100% 개인정보 보호: 사진은 분석 즉시 처리되며 외부로 유출되거나 판매되지 않습니다.",
-        sample_banner_title: "지금 당장 사진이 없으신가요? 1초 만에 확인하는 5대 대표 예제:",
-        sample_banner_desc: "아래 항목을 클릭하시면 AI 진단 리포트, 수리 동영상, 비용 비교, 부품 구매 목록이 1초 만에 나타납니다.",
-        report_verdict_diy: "직접 수리 권장 (DIY RECOMMENDED)",
-        report_verdict_pro: "면허 기술자 필수 의뢰 (PRO REQUIRED)",
+        dropzone_desc: "변기, 음식물 분쇄기, 벽 구멍, 배관 누수, 온수기, 전등 스위치, 문, 가전제품",
+        dropzone_btn_cam: "📸 카메라로 직접 촬영",
+        dropzone_btn_file: "📁 사진 앨범에서 선택",
+        sample_banner_title: "💡 1초 만에 확인하는 5대 대표 예제:",
+        report_verdict_diy: "직접 수리 권장 (DIY 추천 • 초보자 가능)",
+        report_verdict_pro: "면허 기술자 필수 의뢰 (위험 / 전문 면허 필요)",
         btn_print: "🖨️ 인쇄 / PDF 견적서 저장",
         btn_share: "🔗 진단 결과 공유",
         btn_new_diag: "🔄 다른 고장 진단하기",
-        sec_materials_title: "섹션 1: 필요한 부품 및 공구 (미국 3대 스토어 실시간 가격 비교)",
-        sec_materials_desc: "아마존, 홈디포, 로우스의 100% 호환 정품 부품 1클릭 최저가 구매 링크",
-        sec_steps_title: "섹션 2: 초보자를 위한 단계별 인터랙티브 수리 가이드",
-        sec_steps_desc: "수리 과정을 하나씩 완료할 때마다 체크하세요. 실시간 팁과 주의사항이 함께 제공됩니다.",
+        sec_materials_title: "1클릭 부품 및 공구 구매 (미국 3대 스토어 실시간 가격 비교)",
+        sec_materials_desc: "아마존, 홈디포, 로우스의 100% 호환 정품 부품 최저가 링크",
+        sec_materials_parts: "📦 필요한 교체 부품",
+        sec_materials_tools: "🛠️ 필요한 수리 공구",
+        sec_steps_title: "단계별 인터랙티브 수리 가이드",
+        sec_steps_desc: "전문 기술자가 감수한 안전하고 확실한 단계별 설명 및 수리 팁",
+        video_guide_title: "단계별 고화질 수리 동영상 가이드",
+        video_guide_desc: "미국 1위 주택 개보수 공식 채널(This Old House 등)의 검증된 튜토리얼",
+        video_guide_btn: "▶️ 수리 영상 시청하기",
         pro_fallback_title: "🛠️ 직접 고치기 부담스럽거나 시간이 부족하신가요?",
-        pro_fallback_desc: "미국 현지 면허 및 보험을 보유한 검증된 전문 기술자의 무료 사전 견적을 비교하고 보증 혜택을 받으세요.",
+        pro_fallback_desc: "면허와 보험을 갖춘 검증된 현지 기술자의 무료 사전 견적을 비교하고 시공 보증을 받으세요.",
         pro_fallback_btn: "👨‍🔧 로컬 기술자 무료 견적 받기",
-        sec_safety_title: "섹션 3: 안전 수칙 및 전문가 필수 호출 조건",
+        sec_safety_title: "안전 주의사항 및 기술자 호출 기준",
         sec_safety_desc: "작업을 시작하기 전 반드시 숙지해야 할 핵심 안전 확인 사항",
         safety_precautions_title: "⚠️ 필수 작업 안전 수칙",
         safety_danger_title: "🚨 작업을 즉시 중단하고 면허 기술자를 불러야 하는 상황:",
         pro_contractor_title: "우리 동네 검증된 라이선스 기술자 연결",
-        pro_contractor_desc: "긴급 배관공, 전기 기술자, 핸디맨이 필요하신가요? 완벽한 보증이 포함된 3곳의 무료 비교 견적을 확인하세요.",
-        btn_thumbtack: "🔨 Thumbtack에서 전문가 찾기",
-        btn_angi: "🏠 Angi에서 견적 비교하기",
-        disclaimer_legal_title: "종합 안전 및 규제 면책 조항 (Comprehensive Safety Disclaimer)",
-        disclaimer_legal_text: "FixOrPro는 주택 소유자와 세입자가 일상적인 경미한 주택 유지보수 문제를 파악하고 해결할 수 있도록 돕는 AI 기반 진단 및 교육용 비용 추정 도구입니다. 모든 비용 견적, 부품 추천, 난이도 등급 및 절차는 북미 주거 표준을 기반으로 한 추정치입니다. FixOrPro는 면허를 갖춘 엔지니어링, 전기 또는 배관 시공 서비스를 직접 제공하지 않습니다. 주택 수리는 감전, 누수, 가스 누출 및 부상 등의 위험을 수반하므로 작업 전 반드시 주 유틸리티 밸브/차단기를 차단하시고, 관련 법규상 면허가 필요한 작업은 반드시 자격 있는 기술자에게 의뢰하십시오.",
-        disclaimer_affiliate_title: "아마존 어소시에이트 및 리테일 제휴 공시 (FTC Compliance)",
-        disclaimer_affiliate_text: "미국 연방거래위원회(FTC) 가이드라인 및 Amazon Associates 운영 계약 제5조에 따라, FixOrPro는 Amazon Services LLC Associates Program 및 주요 리테일 제휴 프로그램(The Home Depot, Lowe's 제휴 네트워크)의 공식 파트너입니다. 본 사이트의 제품 링크를 통해 구매가 이루어질 경우 사이트 운영을 위한 소정의 수수료가 발생할 수 있으며, 이는 구매자에게 어떠한 추가 비용도 발생시키지 않습니다.",
-        footer_copyright: "© 2026 FixOrPro AI Diagnostic Engine. All rights reserved."
+        pro_contractor_desc: "긴급 배관공, 전기 기술자, 핸디맨이 필요하신가요? 완벽한 보증이 포함된 무료 비교 견적을 확인하세요.",
+        btn_thumbtack: "📍 Thumbtack에서 전문가 찾기",
+        btn_angi: "Angi 견적 비교",
+        btn_yelp: "Yelp 전문가"
     },
-    zh: {
-        nav_try_samples: "💡 体验示例",
-        nav_diagnose: "⚡ 立即诊断",
-        nav_find_pros: "👨‍🔧 寻找专业师傅",
-        nav_settings: "⚙️ 设置",
-        hero_badge: "🤖 AI 智能房屋维修与成本诊断引擎",
-        hero_title: "别为15美元的小修小补向承包商支付200美元。",
-        hero_desc: "只需拍一张房屋故障照片。我们的视觉AI将在5秒内诊断问题，计算自己修与请师傅的真实成本，并在美国主流零售商处找到完全匹配的替换配件。",
-        stat_saved: "平均DIY节省",
-        stat_time: "分析速度",
-        stat_accuracy: "诊断准确率",
-        stat_stores: "整合美国零售商",
-        dropzone_title: "上传或拍摄房屋故障部位照片",
-        dropzone_desc: "支持 JPEG, PNG, WEBP, HEIC（最大15MB）。即时AI视觉分析。",
-        dropzone_btn: "📸 选择照片或拍摄",
-        dropzone_note: "🔒 100% 隐私保护：照片仅用于即时分析，绝不泄露或出售。",
-        sample_banner_title: "现在没有照片？点击体验5大经典真实场景：",
-        sample_banner_desc: "点击下方任意场景，1秒内即可查看完整的AI诊断报告、维修视频、费用对比及配件清单。",
-        report_verdict_diy: "推荐自己维修 (DIY RECOMMENDED)",
-        report_verdict_pro: "必须聘请专业师傅 (PRO REQUIRED)",
-        btn_print: "🖨️ 打印 / 保存 PDF 报价单",
-        btn_share: "🔗 分享诊断报告",
-        btn_new_diag: "🔄 诊断其他故障",
-        sec_materials_title: "第1部分：所需配件与工具（对比美国三大商城）",
-        sec_materials_desc: "亚马逊、家得宝（Home Depot）和劳氏（Lowe's）一键精准配件直达购买链接。",
-        sec_steps_title: "第2部分：互动式手把手维修指南",
-        sec_steps_desc: "完成每一步骤后进行勾选。专为新手设计的清晰图文与视频指引。",
-        pro_fallback_title: "🛠️ 觉得繁琐或时间不够？",
-        pro_fallback_desc: "获取当地持证、有保险的专业师傅免费报价，并享有施工保修。",
-        pro_fallback_btn: "👨‍🔧 获取师傅免费报价",
-        sec_safety_title: "第3部分：安全警示与请师傅介入标准",
-        sec_safety_desc: "开始任何操作前必须阅读的核心安全注意事项。",
-        safety_precautions_title: "⚠️ 强制安全预防措施",
-        safety_danger_title: "🚨 必须立即停止操作并联系专业师傅的情况：",
-        pro_contractor_title: "对接您所在区域的认证专业师傅",
-        pro_contractor_desc: "需要紧急水管工、电工或维修工？免费获取3家带保修的竞争报价。",
-        btn_thumbtack: "🔨 在 Thumbtack 寻找师傅",
-        btn_angi: "🏠 在 Angi 对比报价",
-        disclaimer_legal_title: "综合安全与法律免责声明",
-        disclaimer_legal_text: "FixOrPro 是基于 AI 的诊断与教育估算工具，旨在协助房主与租客评估轻微的日常维护。所有费用估算、配件推荐和维修步骤均为北美标准近似值。维修工作存在触电、漏水、燃气泄漏等固有风险，操作前务必关闭总水阀、总电闸。",
-        disclaimer_affiliate_title: "亚马逊联盟及零售商推广声明 (FTC 合规)",
-        disclaimer_affiliate_text: "FixOrPro 参与了亚马逊（Amazon Associates）、家得宝和劳氏等联盟营销计划。当您通过本站链接购买商品时，我们可能会获得少许佣金，而您无需承担任何额外费用。",
-        footer_copyright: "© 2026 FixOrPro AI Diagnostic Engine. 版权所有。"
-    },
-    vi: {
-        nav_try_samples: "💡 Thử Ví Dụ",
-        nav_diagnose: "⚡ Chẩn Đoán",
-        nav_find_pros: "👨‍🔧 Tìm Thợ Sửa Chữa",
-        nav_settings: "⚙️ Cài Đặt",
-        hero_badge: "🤖 CÔNG CỤ DỰ ĐOÁN SỬA NHÀ BẰNG AI",
-        hero_title: "Đừng chi 200$ cho thợ với lỗi chỉ tốn 15$ tự sửa.",
-        hero_desc: "Chụp ảnh bất kỳ chỗ hỏng hóc nào trong nhà bạn. AI sẽ chẩn đoán lỗi trong 5 giây, so sánh chi phí tự làm (DIY) với thuê thợ, và tìm đúng phụ tùng từ các đại lý tại Mỹ.",
-        stat_saved: "Tiết Kiệm Trung Bình",
-        stat_time: "Tốc Độ Phân Tích",
-        stat_accuracy: "Độ Chính Xác",
-        stat_stores: "Đại Lý Mỹ Tích Hợp",
-        dropzone_title: "Tải Lên Hoặc Chụp Ảnh Chỗ Hư Hỏng",
-        dropzone_desc: "Hỗ trợ JPEG, PNG, WEBP, HEIC (Tối đa 15MB). Phân tích hình ảnh bằng AI tức thì.",
-        dropzone_btn: "📸 Chọn Ảnh Hoặc Chụp Ngay",
-        dropzone_note: "🔒 Bảo mật 100%: Ảnh được xử lý tức thì và không bao giờ bị chia sẻ.",
-        sample_banner_title: "Chưa có sẵn ảnh? Hãy thử 5 ví dụ thực tế sau:",
-        sample_banner_desc: "Nhấp vào bất kỳ ví dụ nào để xem báo cáo AI, video hướng dẫn, so sánh chi phí và phụ tùng trong 1 giây.",
-        report_verdict_diy: "KHUYÊN DÙNG TỰ SỬA (DIY)",
-        report_verdict_pro: "CẦN THỢ CÓ GIẤY PHÉP",
-        btn_print: "🖨️ In / Lưu Bản PDF",
-        btn_share: "🔗 Chia Sẻ Báo Cáo",
-        btn_new_diag: "🔄 Chẩn Đoán Lỗi Khác",
-        sec_materials_title: "Phần 1: Vật Liệu & Dụng Cụ Cần Thiết (So Sánh Giá Tại Mỹ)",
-        sec_materials_desc: "Liên kết 1 chạm mua phụ tùng thay thế chính hãng tại Amazon, Home Depot, Lowe's.",
-        sec_steps_title: "Phần 2: Hướng Dẫn Sửa Chữa Từng Bước Tương Tác",
-        sec_steps_desc: "Đánh dấu từng bước khi bạn hoàn thành. Hướng dẫn chi tiết, dễ hiểu cho người mới.",
-        pro_fallback_title: "🛠️ Bạn muốn để thợ chuyên nghiệp xử lý?",
-        pro_fallback_desc: "Nhận báo giá miễn phí từ các nhà thầu địa phương có giấy phép và bảo hiểm uy tín.",
-        pro_fallback_btn: "👨‍🔧 Nhận Báo Giá Miễn Phí",
-        sec_safety_title: "Phần 3: Cảnh Báo An Toàn & Khi Nào Cần Gọi Thợ",
-        sec_safety_desc: "Kiểm tra an toàn bắt buộc trước khi bắt đầu công việc.",
-        safety_precautions_title: "⚠️ Biện Pháp An Toàn Bắt Buộc",
-        safety_danger_title: "🚨 Khi nào cần DỪNG LẠI và gọi thợ chuyên nghiệp:",
-        pro_contractor_title: "Kết Nối Với Thợ Địa Phương Uy Tín",
-        pro_contractor_desc: "Cần thợ sửa ống nước, thợ điện khẩn cấp? Nhận 3 báo giá cạnh tranh miễn phí có bảo hành.",
-        btn_thumbtack: "🔨 Tìm thợ trên Thumbtack",
-        btn_angi: "🏠 So sánh trên Angi",
-        disclaimer_legal_title: "Tuyên Bố Miễn Trừ Trách Nhiệm An Toàn",
-        disclaimer_legal_text: "FixOrPro là công cụ chẩn đoán và hướng dẫn giáo dục dựa trên AI giúp chủ nhà đánh giá các lỗi sửa chữa nhỏ. Luôn ngắt nguồn điện, nước, gas trước khi làm việc.",
-        disclaimer_affiliate_title: "Tiết Lộ Tiếp Thị Liên Kết Amazon & Đối Tác",
-        disclaimer_affiliate_text: "FixOrPro tham gia chương trình tiếp thị liên kết Amazon Associates, Home Depot và Lowe's. Chúng tôi có thể nhận hoa hồng nhỏ khi bạn mua hàng mà không làm phát sinh chi phí của bạn.",
-        footer_copyright: "© 2026 FixOrPro AI Diagnostic Engine. Bảo lưu mọi quyền."
-    },
-    tl: {
-        nav_try_samples: "💡 Subukan ang Halimbawa",
-        nav_diagnose: "⚡ Magsuri Ngayon",
-        nav_find_pros: "👨‍🔧 Maghanap ng Pro",
-        nav_settings: "⚙️ Settings",
-        hero_badge: "🤖 AI HOME REPAIR ESTIMATOR",
-        hero_title: "Huwag gumastos ng $200 sa kontratista para sa $15 na sira.",
-        hero_desc: "Kunan ng litrato ang anumang sirang gamit sa bahay. Susuriin ito ng aming AI sa loob ng 5 segundo, ikukumpara ang gastos ng DIY laban sa Pro, at hahanapin ang eksaktong piyesa sa mga tindahan sa US.",
-        stat_saved: "Karaniwang Matitipid sa DIY",
-        stat_time: "Bilis ng Pagsusuri",
-        stat_accuracy: "Katumpakan ng AI",
-        stat_stores: "Mga Tindahan sa US",
-        dropzone_title: "Mag-upload o Kumuha ng Litrato ng Sira sa Bahay",
-        dropzone_desc: "Tumatanggap ng JPEG, PNG, WEBP, HEIC (Max 15MB). Mabilis na AI visual analysis.",
-        dropzone_btn: "📸 Pumili ng Litrato o Kumuha Ngayon",
-        dropzone_note: "🔒 100% Pribado: Agad na pinoproseso ang litrato at hindi ibinabahagi.",
-        sample_banner_title: "Walang litrato ngayon? Subukan ang 5 totoong halimbawa:",
-        sample_banner_desc: "I-click ang alinman sa ibaba upang makita ang buong ulat ng AI, video, gastos, at piyesa sa 1 segundo.",
-        report_verdict_diy: "INIREREKOMENDANG IKAW ANG GUMAWA (DIY)",
-        report_verdict_pro: "KAILANGAN NG LISENSYADONG PRO",
-        btn_print: "🖨️ I-print / I-save ang PDF",
-        btn_share: "🔗 Ibahagi ang Ulat",
-        btn_new_diag: "🔄 Magsuri ng Ibang Sira",
-        sec_materials_title: "Seksyon 1: Mga Materyales at Tool (Ikumpara sa Tindahan sa US)",
-        sec_materials_desc: "Direktang link para sa eksaktong piyesa sa Amazon, Home Depot, at Lowe's.",
-        sec_steps_title: "Seksyon 2: Hakbang-hakbang na Gabay sa Pag-aayos",
-        sec_steps_desc: "I-tsek ang bawat hakbang habang natatapos mo ito. Madaling sundin para sa beginners.",
-        pro_fallback_title: "🛠️ Mas gusto mo bang eksperto ang gumawa?",
-        pro_fallback_desc: "Kumuha ng libreng estimate mula sa lisensyado at seguradong lokal na kontratista.",
-        pro_fallback_btn: "👨‍🔧 Kumuha ng Libreng Estimate",
-        sec_safety_title: "Seksyon 3: Mga Babala sa Kaligtasan at Kailan Tatawag ng Pro",
-        sec_safety_desc: "Mahahalagang safety check bago simulan ang anumang trabaho.",
-        safety_precautions_title: "⚠️ Mahahalagang Pag-iingat sa Kaligtasan",
-        safety_danger_title: "🚨 Kailan dapat HUMINTO at Tumawag ng Lisensyadong Pro:",
-        pro_contractor_title: "Kumonekta sa mga Beripikadong Pro sa Inyong Lugar",
-        pro_contractor_desc: "Kailangan ng tubero, elektrisyan, o handyman? Kumuha ng 3 libreng estimate na may warranty.",
-        btn_thumbtack: "🔨 Maghanap sa Thumbtack",
-        btn_angi: "🏠 Ikumpara sa Angi",
-        disclaimer_legal_title: "Pangkalahatang Disclaimer sa Kaligtasan",
-        disclaimer_legal_text: "Ang FixOrPro ay isang AI educational estimation tool para sa may-ari ng bahay. Palaging patayin ang kuryente, tubig, o gas bago gumawa.",
-        disclaimer_affiliate_title: "Pagbubunyag ng Affiliate sa Amazon at Tindahan",
-        disclaimer_affiliate_text: "Kalahok ang FixOrPro sa Amazon Associates at iba pang affiliate programs. Maaari kaming kumita ng komisyon nang walang dagdag na gastos sa iyo.",
-        footer_copyright: "© 2026 FixOrPro AI Diagnostic Engine. Lahat ng karapatan ay nakalaan."
+    es: {
+        nav_try_samples: "💡 Ejemplos",
+        nav_diagnose: "⚡ Diagnosticar",
+        nav_find_pros: "👨‍🔧 Buscar Pros",
+        hero_badge: "🤖 ESTIMADOR DE REPARACIONES CON IA",
+        hero_title: "No gaste $200 en un contratista por un arreglo de $15.",
+        hero_desc: "Tome una foto de cualquier daño en su hogar. Nuestra IA diagnostica el problema en 5 segundos, calcula los costos reales de DIY vs. Contratista y encuentra las piezas exactas.",
+        dropzone_title: "Suba o tome una foto de cualquier daño en casa",
+        dropzone_desc: "Inodoros, trituradores, agujeros en paneles de yeso, tuberías con fugas, calentadores de agua",
+        dropzone_btn_cam: "📸 Tomar con Cámara",
+        dropzone_btn_file: "📁 Elegir de Fotos",
+        sample_banner_title: "💡 Escenarios de prueba instantáneos:",
+        report_verdict_diy: "Recomendado Hágalo Usted Mismo (DIY)",
+        report_verdict_pro: "Se Requiere Profesional con Licencia",
+        btn_print: "🖨️ Imprimir / Guardar PDF",
+        btn_share: "🔗 Compartir Informe",
+        btn_new_diag: "🔄 Diagnosticar Otro Problema",
+        sec_materials_title: "Piezas de Repuesto y Herramientas (Tiendas de EE. UU.)",
+        sec_materials_desc: "Enlaces directos a repuestos en Amazon, Home Depot y Lowe's",
+        sec_materials_parts: "📦 Piezas de Repuesto Requeridas",
+        sec_materials_tools: "🛠️ Herramientas Recomendadas",
+        sec_steps_title: "Guía de Reparación Paso a Paso",
+        sec_steps_desc: "Instrucciones de contratistas profesionales con consejos, precauciones y videos",
+        video_guide_title: "Ver Video Tutorial Paso a Paso",
+        video_guide_desc: "Guías en video verificadas (This Old House, etc.)",
+        video_guide_btn: "▶️ Abrir Guía de Video",
+        pro_fallback_title: "🛠️ ¿Prefiere que un experto lo resuelva?",
+        pro_fallback_desc: "Compare cotizaciones gratuitas de contratistas locales asegurados y con licencia.",
+        pro_fallback_btn: "👨‍🔧 Cotizar con Profesionales",
+        sec_safety_title: "Advertencias de Seguridad y Cuándo Llamar a un Pro",
+        sec_safety_desc: "Verificaciones de seguridad obligatorias antes de comenzar cualquier trabajo",
+        safety_precautions_title: "⚠️ Precauciones de Seguridad Obligatorias",
+        safety_danger_title: "🚨 Cuándo DETENERSE y Llamar a un Contratista:",
+        pro_contractor_title: "¿Prefiere que lo haga un profesional con licencia?",
+        pro_contractor_desc: "Encuentre contratistas con licencia y seguro en su código postal.",
+        btn_thumbtack: "📍 Buscar en Thumbtack",
+        btn_angi: "Angi",
+        btn_yelp: "Yelp"
     }
 };
 
-let currentLanguage = localStorage.getItem("fixorpro_lang") || "en";
+/**
+ * Full Deep Localized Scenario Data for 100% Complete Translation
+ */
+const SCENARIO_TRANSLATIONS = {
+    ko: {
+        running_toilet: {
+            problem_title: "마모된 변기 수조 고무 플래퍼 및 체인 장력 불량",
+            difficulty: "초보자 가능 (특수 공구 불필요)",
+            summary: "변기 수조 바닥의 고무 플래퍼가 노후화되어 변기통으로 물이 지속적으로 새고 있습니다. 플래퍼를 교체하고 체인 길이를 조절하는 작업은 가장 쉬운 초보자용 배관 수리이며, 주 급수 차단이나 파이프 절단이 전혀 필요하지 않습니다.",
+            safety_warnings: [
+                "변기 뒤편 벽에 있는 타원형 급수 밸브를 시계 방향으로 완전히 돌려 잠그고 작업하세요.",
+                "수조 뚜껑(세라믹)은 타일 바닥에 세게 내려놓으면 깨지기 쉬우므로 수건 위에 안전하게 올려두세요.",
+                "도기나 플라스틱 너트에 무거운 쇠렌치를 무리하게 사용하지 마세요."
+            ],
+            materials_needed: [
+                { name: "범용 2인치 (또는 3인치) 변기 고무 플래퍼", est_price: "$7.99", amazon_search: "universal toilet flapper 2 inch", homedepot_search: "toilet flapper" },
+                { name: "스테인리스 변기 플래퍼 교체용 체인", est_price: "$3.99", amazon_search: "toilet flapper chain stainless steel", homedepot_search: "toilet chain" }
+            ],
+            tools_needed: [
+                { name: "10인치 조절식 배관 플라이어", amazon_search: "adjustable pliers plumbing", homedepot_search: "pliers" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "급수 밸브 차단 및 수조 물 빼기",
+                    instruction: "변기 왼쪽 뒤편 벽에 위치한 타원형 급수 밸브를 시계 방향(오른쪽)으로 끝까지 돌려 잠급니다. 레버를 누른 상태를 유지하여 수조 내부의 물을 약 90% 이상 변기통으로 빼냅니다.",
+                    pro_tip: "밸브 손잡이가 뻑뻑할 경우 마른 수건으로 감싸서 돌리면 손이 미끄러지지 않습니다.",
+                    caution: "밸브를 잠근 후에도 물이 계속 뚝뚝 떨어진다면 앵글 스톱 밸브 노후를 의심해야 합니다."
+                },
+                {
+                    step_num 2,
+                    title: "기존 노후 플래퍼 및 체인 분리",
+                    instruction: "세라믹 수조 뚜껑을 조심스럽게 들어 수건 위에 올려놓습니다. 플러시 레버 암에서 체인 클립을 풀고, 오버플로우 관 양쪽 돌기에 걸려 있는 노후 고무 플래퍼를 벗겨내어 버립니다.",
+                    pro_tip: "새 플래퍼를 끼우기 전 배수구 림 부분을 손가락으로 닦아 물때와 이물질을 제거하면 밀폐력이 극대화됩니다.",
+                    caution: "도기 뚜껑은 타일 바닥에 떨어뜨리면 쉽게 깨지므로 각별히 주의하세요."
+                },
+                {
+                    step_num: 3,
+                    title: "새 플래퍼 장착 및 체인 길이 조절",
+                    instruction: "새 고무 플래퍼의 양쪽 귀를 오버플로우 관 돌기에 끼웁니다. 체인 클립을 플러시 암 구멍에 연결하고, 플래퍼가 완전히 닫혔을 때 체인이 약 1/2인치 정도 살짝 느슨하도록 링크 위치를 조절합니다.",
+                    pro_tip: "체인이 너무 팽팽하면 뚜껑이 완전히 닫히지 않아 물이 계속 새고, 너무 헐렁하면 레버를 눌러도 물이 시원하게 안 내려갑니다.",
+                    caution: "남는 체인이 플래퍼 밀폐 고무 아래에 끼이지 않도록 여분을 정리하세요."
+                },
+                {
+                    step_num: 4,
+                    title: "급수 밸브 개방 및 누수 최종 테스트",
+                    instruction: "벽면 급수 밸브를 시계 반대 방향(왼쪽)으로 돌려 물을 채웁니다. 수조 오버플로우 관 상단에서 약 1인치 아래까지 물이 차고 자동으로 멈추는지 확인한 후, 2~3회 물을 내려 쉬익 하는 누수 소리가 사라졌는지 점검합니다.",
+                    pro_tip: "수조에 식용 색소나 물감을 3방울 떨어뜨리고 15분간 물을 내리지 마세요. 변기통으로 색깔이 번지지 않으면 100% 완벽 밀폐된 것입니다!",
+                    caution: "물이 오버플로우 관 꼭대기로 계속 넘쳐흐른다면 필밸브 부표(Float) 높이를 낮춰 조절해야 합니다."
+                }
+            ],
+            pro_trigger_conditions: "변기 바닥과 욕실 타일 틈새로 물이 배어나오거나(왁스링 파손), 벽면 급수 밸브가 완전히 부식되어 헛돌 경우 즉시 면허 배관공을 부르세요."
+        },
+        disposal_jam: {
+            problem_title: "임펠러 회전판 이물질 걸림 및 모터 과부하 차단",
+            difficulty: "초보자 가능 (5분 완료)",
+            summary: "단단한 이물질(과일 씨앗, 닭 뼈, 동전, 포크 등)이 회전판과 분쇄 링 사이에 끼어 모터가 멈춘 상태입니다. '웅-' 하는 모터 소리는 전기가 통하고 있음을 증명하며, 모터 소손 방지를 위해 하단 안전 브레이커가 작동한 상태입니다.",
+            safety_warnings: [
+                "어떠한 경우에도 맨손이나 손가락을 분쇄기 투입구 안으로 절대 넣지 마세요.",
+                "작업 전 싱크대 하부 전원 코드를 콘센트에서 완전히 뽑고 벽 스위치를 끄세요.",
+                "이물질을 꺼낼 때는 반드시 롱노우즈 플라이어나 집게 공구를 사용하세요."
+            ],
+            materials_needed: [
+                { name: "음식물 분쇄기 전용 잼 해결 렌치 (Jam-Buster)", est_price: "$6.99", amazon_search: "disposal jam wrench", homedepot_search: "garbage disposal wrench" }
+            ],
+            tools_needed: [
+                { name: "1/4인치 육각 렌치 (Allen Wrench)", amazon_search: "garbage disposal hex key wrench", homedepot_search: "garbage disposal wrench" },
+                { name: "롱노우즈 플라이어 (이물질 추출용)", amazon_search: "long reach needle nose pliers", homedepot_search: "needle nose pliers" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "전원 완벽 차단",
+                    instruction: "벽 스위치를 끄고, 싱크대 밑을 열어 분쇄기 전원 코드를 콘센트에서 물리적으로 뽑습니다.",
+                    pro_tip: "스위치를 한번 켜서 진동이나 소리가 전혀 안 나는지 더블 체크하세요.",
+                    caution: "전원이 연결된 상태에서 절대로 기계적 작업을 하지 마세요."
+                },
+                {
+                    step_num: 2,
+                    title: "분쇄기 바닥 중앙 육각 소켓에 렌치 삽입",
+                    instruction: "싱크대 밑 분쇄기 본체 바닥 정중앙을 보면 1/4인치 육각 구멍(소켓)이 있습니다. 여기에 1/4인치 육각 렌치를 똑바로 꽂습니다.",
+                    pro_tip: "대부분의 분쇄기는 구입 당시 본체 옆면에 전용 렌치가 테이프로 붙어 있습니다.",
+                    caution: "소켓이 마모되지 않도록 렌치가 끝까지 들어갔는지 확인 후 돌리세요."
+                },
+                {
+                    step_num: 3,
+                    title: "렌치를 좌우로 왕복 회전하여 걸림 해제",
+                    instruction: "렌치를 시계 방향과 반시계 방향으로 힘주어 번갈아 돌립니다. 처음에는 뻑뻑하지만 점차 360도 부드럽게 돌아갈 때까지 왕복시킵니다.",
+                    pro_tip: "눈길에 빠진 자동차를 앞뒤로 흔들어 빼내듯 좌우로 흔들어주면 쉽게 풀립니다.",
+                    caution: "렌치가 전혀 안 돌아갈 경우 싱크대 위에서 나무 막대(빗자루 자루)를 날에 대고 지렛대 원리로 살짝 밀어주세요."
+                },
+                {
+                    step_num: 4,
+                    title: "이물질 집게로 수거 및 빨간색 리셋 버튼 누르기",
+                    instruction: "싱크대 배수구 안쪽을 들여다보고 롱노우즈 플라이어로 끼어 있던 뼈나 유리, 동전을 꺼냅니다. 그 다음 싱크대 밑 분쇄기 하단부의 작은 빨간색 RESET 버튼을 꾹 누릅니다.",
+                    pro_tip: "전원을 켜기 전 찬물을 15초간 틀어 잘게 부서진 잔여물을 먼저 씻어내세요.",
+                    caution: "빨간 버튼이 다시 튀어나오면 모터가 식을 때까지 5분 정도 기다린 후 다시 누르세요."
+                }
+            ],
+            pro_trigger_conditions: "분쇄기 본체 하단 이음새나 전기 모터 하우징에서 물이 뚝뚝 새어 나온다면 내부 씰이 부식된 것이므로 본체 전체를 교체해야 합니다."
+        },
+        drywall_hole: {
+            problem_title: "문 손잡이 충격으로 인한 석고보드(Drywall) 구멍 파손",
+            difficulty: "중급 (벽 절단 불필요)",
+            summary: "방문 손잡이가 벽을 강하게 때려 석고보드 중앙이 뚫린 파손입니다. 알루미늄 메쉬 자가점착 패치 키트를 사용하면 벽을 네모나게 잘라낼 필요 없이 30분 만에 감쪽같이 복구할 수 있습니다.",
+            safety_warnings: [
+                "퍼티(스패클) 샌딩 작업 시 보안경과 방진 마스크를 착용하세요.",
+                "구멍 바로 뒤에 전선이나 배관이 지나가지 않는지 먼저 확인하세요."
+            ],
+            materials_needed: [
+                { name: "알루미늄 메쉬 석고보드 수리 패치 (4x4인치)", est_price: "$6.50", amazon_search: "drywall repair patch 4x4", homedepot_search: "drywall patch" },
+                { name: "색상 변화 스패클 퍼티 (마르면 흰색 변환)", est_price: "$8.99", amazon_search: "drywall spackle color changing", homedepot_search: "spackle" },
+                { name: "스프링 도어 스토퍼 (재발 방지용)", est_price: "$3.99", amazon_search: "spring baseboard door stop", homedepot_search: "door stop" }
+            ],
+            tools_needed: [
+                { name: "6인치 스테인리스 퍼티 나이프", amazon_search: "putty knife 6 inch", homedepot_search: "putty knife" },
+                { name: "미세 샌딩 스펀지 (120-220 grit)", amazon_search: "drywall sanding sponge fine", homedepot_search: "sanding sponge" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "구멍 주변 가시 및 부스러기 정리",
+                    instruction: "퍼티 나이프나 칼날로 구멍 주변의 뜯겨진 벽지 섬유와 부스러기 석고 가루를 긁어내어 표면을 평평하게 만듭니다.",
+                    pro_tip: "퍼티 나이프 손잡이 끝으로 구멍 테두리를 안쪽으로 살짝 꾹꾹 눌러주면 패치가 겉으로 튀어나오지 않습니다.",
+                    caution: "벽지를 무리하게 잡아당겨 뜯지 마시고 칼로 깔끔하게 잘라내세요."
+                },
+                {
+                    step_num: 2,
+                    title: "알루미늄 메쉬 패치 부착",
+                    instruction: "4x4 메쉬 패치 뒷면의 보호지를 떼어내고, 금속판 중심이 구멍 중앙에 오도록 벽에 단단히 밀착시킵니다.",
+                    pro_tip: "패치 크기가 손상 부위보다 사방으로 최소 1인치 이상 넓게 덮어야 튼튼합니다.",
+                    caution: "부착할 때 금속판이 구겨지지 않도록 주의하세요."
+                },
+                {
+                    step_num: 3,
+                    title: "1차 퍼티 도포 (경계면 그라데이션 기법)",
+                    instruction: "6인치 퍼티 나이프로 퍼티를 골프공 크기만큼 떠서 메쉬 구멍 사이로 꾹 눌러 채운 뒤, 패치 바깥쪽 2~3인치까지 얇게 펴 바릅니다.",
+                    pro_tip: "바를 때는 분홍색, 마르면 흰색으로 변하는 변색 퍼티를 쓰면 샌딩 타이밍을 정확히 알 수 있습니다.",
+                    caution: "한 번에 너무 두껍게 바르면 마르면서 갈라지므로 얇게 2번에 나눠 바르세요."
+                },
+                {
+                    step_num: 4,
+                    title: "샌딩, 2차 얇은 도포 및 페인트 마감",
+                    instruction: "퍼티가 완전히 흰색으로 마르면 샌딩 스펀지로 원을 그리며 벽면과 완벽히 평평해질 때까지 부드럽게 갈아냅니다. 그 후 같은 색 페인트를 롤러로 칠해 마감합니다.",
+                    pro_tip: "도어 스토퍼를 걸레받이에 설치하면 다시는 문 손잡이가 벽을 치지 않습니다!",
+                    caution: "중앙을 너무 세게 갈면 내부 금속망이 드러나므로 주의하세요."
+                }
+            ],
+            pro_trigger_conditions: "구멍 지름이 8인치를 초과하거나, 벽 뒤편 배관 누수로 인해 석고보드가 젖고 검은 곰팡이가 피었다면 전문 복구 업체를 불러야 합니다."
+        },
+        leaking_p_trap: {
+            problem_title: "P-트랩 슬립 조인트 고무 와셔 경화 및 누수",
+            difficulty: "초보자 가능 (손으로 조임)",
+            summary: "싱크대 아래 U자형 P-트랩 배관 연결부의 원뿔형 와셔가 삭거나 어긋나서 물이 떨어지고 있습니다. 1달러짜리 새 와셔로 교체하면 접착제나 용접 없이 100% 완벽하게 방수됩니다.",
+            safety_warnings: [
+                "너트를 풀기 전 배관 밑에 반드시 물받이 바가지나 양동이를 받치세요. 고여 있던 물이 쏟아집니다.",
+                "배관 내부 오염수에 찌꺼기가 있으므로 고무장갑을 착용하세요."
+            ],
+            materials_needed: [
+                { name: "1-1/2인치 (또는 1-1/4인치) 슬립 조인트 고무/폴리 와셔 키트", est_price: "$3.49", amazon_search: "p-trap washer kit", homedepot_search: "slip joint washer" },
+                { name: "테플론 배관 나사선 밀봉 테이프 (PTFE Tape)", est_price: "$2.99", amazon_search: "teflon tape plumbing", homedepot_search: "thread seal tape" }
+            ],
+            tools_needed: [
+                { name: "10인치 첼라 배관 플라이어 (Channel Lock Pliers)", amazon_search: "channel lock pliers 10 inch", homedepot_search: "tongue and groove pliers" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "물받이 받치기 및 슬립 너트 풀기",
+                    instruction: "싱크대 밑 U자형 배관 바로 밑에 물받이 대야를 놓습니다. 배관 양쪽 끝에 있는 큰 플라스틱/금속 슬립 너트를 시계 반대 방향으로 돌려 풉니다.",
+                    pro_tip: "플라스틱 너트는 공구 없이 손으로만 돌려도 쉽게 풀립니다.",
+                    caution: "너트를 풀면 배관에 고여 있던 더러운 물 1~2컵이 즉시 쏟아지므로 얼굴을 멀리하세요."
+                },
+                {
+                    step_num: 2,
+                    title: "배관 분리 및 나사산 청소",
+                    instruction: "U자 배관을 분리하고 낡은 와셔를 제거합니다. 헌 헝겊으로 배관 나사산에 묻은 찌꺼기와 비누 때를 깨끗이 닦아냅니다.",
+                    pro_tip: "금속 배관이 부식되어 삭았다면 8달러짜리 흰색 PVC P-트랩 세트로 통째로 교체하는 것이 가장 좋습니다.",
+                    caution: "작업 직전 화학 뚫어뻥 세제를 부었다면 피부 화상 위험이 있으니 주의하세요."
+                },
+                {
+                    step_num: 3,
+                    title: "새 원뿔형 와셔를 올바른 방향으로 장착",
+                    instruction: "위쪽 파이프에 슬립 너트를 먼저 끼운 뒤, 새 원뿔형 와셔를 끼웁니다. [중요]: 와셔의 뾰족하게 깎인 경사면이 반드시 결합 부위 아래쪽을 향해야 합니다.",
+                    pro_tip: "원뿔 와셔를 거꾸로 끼우는 것이 수리 후에도 물이 계속 새는 가장 흔한 실수입니다.",
+                    caution: "고무 슬립 조인트에는 배관용 본드나 실리콘을 바르지 마세요. 압착 패킹으로만 방수됩니다."
+                },
+                {
+                    step_num: 4,
+                    title: "배관 재조립 및 온수 누수 테스트",
+                    instruction: "P-트랩을 똑바로 정렬하고 양쪽 너트를 손으로 꽉 잠근 후 플라이어로 1/4바퀴만 살짝 더 조여줍니다. 싱크대 수전을 틀어 60초간 물을 흘려보내며 마른 휴지로 닦아 물방울이 맺히는지 확인합니다.",
+                    pro_tip: "마른 휴지로 너트 밑을 훑어보면 단 한 방울의 미세 누수도 즉시 확인할 수 있습니다.",
+                    caution: "플라스틱 너트를 너무 무리하게 조이면 와셔가 씹혀서 오히려 물이 샙니다."
+                }
+            ],
+            pro_trigger_conditions: "물이 벽 안쪽 석고보드 속 배관에서 새어나오거나, 벽 배수관이 주철로 되어 삭아 구멍이 났다면 면허 배관공을 부르세요."
+        },
+        water_heater_tank: {
+            problem_title: "온수기 내부 탱크 라이닝 파손 및 하부 부식 (누수 위험)",
+            difficulty: "면허 기술자 필수 (위험)",
+            summary: "온수기 내부 유리 코팅이 깨져 고압 온수가 외벽 강철을 부식시키며 녹물이 배어나오는 상태입니다. 탱크 자체 부식은 땜질이나 수리가 불가능하며, 언제든 탱크가 터져 40~50갤런의 물이 집안으로 쏟아질 위험이 있어 즉시 전문 교체가 필요합니다.",
+            safety_warnings: [
+                "침수 위험: 부식되어 압력을 받는 온수기 탱크를 용접하거나 에폭시로 때우려 하지 마세요.",
+                "가스 냄새가 나거나 누수가 보이면 즉시 가스 공급 밸브(또는 240V 전원 차단기)를 차단하세요.",
+                "급작스러운 파열에 대비해 집 전체 메인 수도 밸브 위치를 확인해 두세요."
+            ],
+            materials_needed: [
+                { name: "새 40/50갤런 에너지스타 인증 온수기 (전문가 설치용)", est_price: "$900 - $1,600", amazon_search: "water heater 50 gallon", homedepot_search: "water heater" }
+            ],
+            tools_needed: [
+                { name: "온수기 비상 배수용 고압 정원 호스", amazon_search: "heavy duty garden hose", homedepot_search: "garden hose" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "온수기 가스 또는 전기 전원 즉시 차단",
+                    instruction: "전기 온수기라면 배전반에서 30A 2극 차단기를 내립니다. 가스 온수기라면 하부 가스 밸브 다이얼을 OFF로 돌리고 노란색 가스 밸브를 파이프와 직각이 되게 돌립니다.",
+                    pro_tip: "물이 새는 탱크를 계속 가열하면 내부 압력이 증가해 탱크 파열이 가속화됩니다.",
+                    caution: "달걀 썩는 가스 냄새가 난다면 즉시 집 밖으로 대피하고 가스 회사에 신고하세요."
+                },
+                {
+                    step_num: 2,
+                    title: "온수기 상단 냉수 급수 밸브 잠그기",
+                    instruction: "온수기 탱크 상단 오른쪽으로 들어가는 냉수 파이프의 밸브를 90도 돌려(게이트 밸브는 시계 방향으로 꽉 돌림) 탱크로 들어가는 수압을 차단합니다.",
+                    pro_tip: "상단 밸브로도 물이 안 멈추면 집 메인 계량기 수도 밸브를 잠그세요.",
+                    caution: "탱크 상단 파이프는 매우 뜨거울 수 있으니 화상에 주의하세요."
+                },
+                {
+                    step_num: 3,
+                    title: "하부 배수구에 호스를 연결해 물 빼기",
+                    instruction: "온수기 하단 황동/플라스틱 드레인 밸브에 일반 정원 호스를 연결하고, 반대쪽을 바닥 배수구나 집 바깥으로 빼내어 물을 배출시킵니다.",
+                    pro_tip: "위층 세면대의 온수 수도꼭지를 열어두면 공기가 들어가 배수가 훨씬 빠르게 진행됩니다.",
+                    caution: "배출되는 물은 50도 이상의 뜨거운 물이므로 화상에 주의하세요."
+                },
+                {
+                    step_num: 4,
+                    title: "면허와 보험을 갖춘 배관 전문 기술자 예약",
+                    instruction: "아래 버튼을 눌러 Thumbtack이나 Angi에서 검증된 현지 기술자 3곳의 무료 비교 견적을 받으세요. 표준 교체 작업은 2~4시간 소요되며 시 조례 규정에 맞게 완벽 시공됩니다.",
+                    pro_tip: "기존 온수기 라벨(모델명, 시리얼 번호, 갤런 용량)을 미리 촬영해 두면 정확한 사전 견적을 받기 수월합니다.",
+                    caution: "무면허 시공 시 향후 화재나 누수 발생 시 주택 보험 처리가 거부될 수 있습니다."
+                }
+            ],
+            pro_trigger_conditions: "온수기 하단 녹물 배출, 이음새 누수, 가스 버너 이상 불꽃 또는 탄 냄새는 100% 면허 기술자 필수 의뢰 대상입니다."
+        }
+    }
+};
+
+/**
+ * Smart Browser Language Detection
+ */
+function detectBrowserLanguage() {
+    const saved = localStorage.getItem("fixorpro_lang");
+    if (saved && TRANSLATIONS[saved]) return saved;
+
+    const browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    if (browserLang.startsWith("ko")) return "ko";
+    if (browserLang.startsWith("es")) return "es";
+    return "en";
+}
+
+let currentLanguage = detectBrowserLanguage();
 
 function setLanguage(lang) {
     if (!TRANSLATIONS[lang]) lang = "en";
     currentLanguage = lang;
     localStorage.setItem("fixorpro_lang", lang);
     applyTranslations(lang);
-
-    const langSelect = document.getElementById("langSelector");
-    if (langSelect && langSelect.value !== lang) {
-        langSelect.value = lang;
-    }
 }
 
 function applyTranslations(lang) {
@@ -292,22 +400,35 @@ function applyTranslations(lang) {
             el.textContent = dict[key];
         }
     });
-
-    // Update html lang attribute
     document.documentElement.lang = lang;
 }
 
-// Export / Attach to global window
+function getLocalizedScenarioData(scenarioId, originalData) {
+    const lang = currentLanguage;
+    if (SCENARIO_TRANSLATIONS[lang] && SCENARIO_TRANSLATIONS[lang][scenarioId]) {
+        const loc = SCENARIO_TRANSLATIONS[lang][scenarioId];
+        return {
+            ...originalData,
+            problem_title: loc.problem_title || originalData.problem_title,
+            difficulty: loc.difficulty || originalData.difficulty,
+            summary: loc.summary || originalData.summary,
+            safety_warnings: loc.safety_warnings || originalData.safety_warnings,
+            materials_needed: loc.materials_needed || originalData.materials_needed,
+            tools_needed: loc.tools_needed || originalData.tools_needed,
+            steps: loc.steps || originalData.steps,
+            pro_trigger_conditions: loc.pro_trigger_conditions || originalData.pro_trigger_conditions
+        };
+    }
+    return originalData;
+}
+
+// Initial auto-apply
+applyTranslations(currentLanguage);
+
+// Export
 window.i18n = {
     t: (key) => (TRANSLATIONS[currentLanguage] && TRANSLATIONS[currentLanguage][key]) || TRANSLATIONS.en[key] || key,
     setLanguage,
     getLanguage: () => currentLanguage,
-    languages: [
-        { code: "en", label: "🇺🇸 English" },
-        { code: "es", label: "🇲🇽 Español" },
-        { code: "ko", label: "🇰🇷 한국어" },
-        { code: "zh", label: "🇨🇳 中文" },
-        { code: "vi", label: "🇻🇳 Tiếng Việt" },
-        { code: "tl", label: "🇵🇭 Tagalog" }
-    ]
+    getLocalizedScenarioData
 };

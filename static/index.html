@@ -26,16 +26,6 @@
         </div>
       </a>
       <div class="nav-actions">
-        <div class="lang-select-wrap">
-          <select id="langSelector" class="lang-select" aria-label="Select Language">
-            <option value="en">🇺🇸 EN</option>
-            <option value="es">🇲🇽 ES</option>
-            <option value="ko">🇰🇷 KO</option>
-            <option value="zh">🇨🇳 ZH</option>
-            <option value="vi">🇻🇳 VI</option>
-            <option value="tl">🇵🇭 TL</option>
-          </select>
-        </div>
         <a href="#samplesSection" class="btn btn-ghost nav-btn" data-i18n="nav_try_samples">💡 Samples</a>
         <a href="#workspaceSection" class="btn btn-primary nav-btn" data-i18n="nav_diagnose">⚡ Diagnose</a>
       </div>
@@ -83,14 +73,14 @@
       <!-- Drop Zone -->
       <div class="drop-zone" id="dropZone">
         <div class="drop-icon">📸</div>
-        <h3 class="drop-title">Take or upload a photo of anything broken</h3>
-        <p class="drop-desc">Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors & appliances</p>
+        <h3 class="drop-title" data-i18n="dropzone_title">Take or upload a photo of anything broken</h3>
+        <p class="drop-desc" data-i18n="dropzone_desc">Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors & appliances</p>
         <div class="upload-btn-group">
           <button type="button" class="btn btn-primary" id="btnCamera" style="font-size: 1rem; padding: 13px 24px;">
-            <span>📸 Snap with Camera</span>
+            <span data-i18n="dropzone_btn_cam">📸 Snap with Camera</span>
           </button>
           <button type="button" class="btn btn-ghost" id="btnSelectFile" style="font-size: 1rem; padding: 13px 24px;">
-            <span>📁 Choose from Photos</span>
+            <span data-i18n="dropzone_btn_file">📁 Choose from Photos</span>
           </button>
         </div>
       </div>
@@ -132,7 +122,7 @@
     <!-- Instant Sample Scenarios Bar -->
     <section class="samples-section" id="samplesSection">
       <div class="section-label">
-        <h3><span>💡</span> Instant 1-Click Test Scenarios:</h3>
+        <h3 data-i18n="sample_banner_title"><span>💡</span> Instant 1-Click Test Scenarios:</h3>
       </div>
       <div class="sample-grid" id="sampleCardsContainer">
         <!-- Injected dynamically via JS -->
@@ -222,17 +212,17 @@
         <div class="report-section-header">
           <span style="font-size: 24px;">🛒</span>
           <div>
-            <h3 class="section-badge-parts">1-Click Replacement Parts & Tools</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Compare prices or pick up today at your local hardware store</p>
+            <h3 class="section-badge-parts" data-i18n="sec_materials_title">1-Click Replacement Parts & Tools</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="sec_materials_desc">Compare prices or pick up today at your local hardware store</p>
           </div>
         </div>
 
-        <h4 style="margin-bottom: 12px; font-size: 1.05rem; color: #ffffff;">📦 Required Replacement Parts</h4>
+        <h4 style="margin-bottom: 12px; font-size: 1.05rem; color: #ffffff;" data-i18n="sec_materials_parts">📦 Required Replacement Parts</h4>
         <div id="materialsContainer">
           <!-- Material items injected dynamically -->
         </div>
 
-        <h4 style="margin-top: 24px; margin-bottom: 12px; font-size: 1.05rem; color: #ffffff;">🛠️ Recommended Tools</h4>
+        <h4 style="margin-top: 24px; margin-bottom: 12px; font-size: 1.05rem; color: #ffffff;" data-i18n="sec_materials_tools">🛠️ Recommended Tools</h4>
         <div id="toolsContainer">
           <!-- Tool items injected dynamically -->
         </div>
@@ -245,8 +235,8 @@
         <div class="report-section-header">
           <span style="font-size: 24px;">📋</span>
           <div>
-            <h3 class="section-badge-steps">Step-by-Step DIY Repair Manual</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Master-contractor instructions with pro-tips, cautions & video guides</p>
+            <h3 class="section-badge-steps" data-i18n="sec_steps_title">Step-by-Step DIY Repair Manual</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="sec_steps_desc">Master-contractor instructions with pro-tips, cautions & video guides</p>
           </div>
         </div>
 
@@ -255,13 +245,13 @@
           <div class="youtube-guide-info">
             <div class="youtube-icon-badge">▶</div>
             <div>
-              <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff;">Watch Step-by-Step Video Tutorial</div>
-              <div style="font-size: 0.84rem; color: #fca5a5;">Watch vetted YouTube DIY guides (This Old House, Home RenoVision, etc.)</div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff;" data-i18n="video_guide_title">Watch Step-by-Step Video Tutorial</div>
+              <div style="font-size: 0.84rem; color: #fca5a5;" data-i18n="video_guide_desc">Watch vetted YouTube DIY guides (This Old House, Home RenoVision, etc.)</div>
             </div>
           </div>
-          <a id="youtubeMainBtn" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
-            <span>▶️ Open Video on YouTube</span>
-          </a>
+          <button type="button" id="youtubeMainBtn" class="btn btn-youtube">
+            <span data-i18n="video_guide_btn">▶️ Open Video Guide</span>
+          </button>
         </div>
 
         <div id="stepsListContainer">
@@ -271,11 +261,11 @@
         <!-- Fallback Pro Prompt inside Steps -->
         <div class="step-pro-fallback">
           <div>
-            <div style="font-weight: 800; font-size: 1rem; color: #ffffff;">🛠️ Feeling stuck, overwhelmed, or don't have the time?</div>
-            <div style="font-size: 0.85rem; color: var(--text-muted);">Compare free upfront quotes from licensed, insured local contractors with guaranteed workmanship.</div>
+            <div style="font-weight: 800; font-size: 1rem; color: #ffffff;" data-i18n="pro_fallback_title">🛠️ Feeling stuck, overwhelmed, or don't have the time?</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="pro_fallback_desc">Compare free upfront quotes from licensed, insured local contractors with guaranteed workmanship.</div>
           </div>
           <a href="#sectionSafety" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">
-            <span>👨‍🔧 Get Local Pro Quotes</span>
+            <span data-i18n="pro_fallback_btn">👨‍🔧 Get Local Pro Quotes</span>
           </a>
         </div>
       </div>
@@ -287,20 +277,20 @@
         <div class="report-section-header">
           <span style="font-size: 24px;">⚠️</span>
           <div>
-            <h3 class="section-badge-safety">Safety Warnings & When to Call a Pro</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Essential safety checks before starting any work</p>
+            <h3 class="section-badge-safety" data-i18n="sec_safety_title">Safety Warnings & When to Call a Pro</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="sec_safety_desc">Essential safety checks before starting any work</p>
           </div>
         </div>
 
         <div class="warning-box">
-          <h4><span>⚠️</span> Mandatory Safety Precautions</h4>
+          <h4 data-i18n="safety_precautions_title"><span>⚠️</span> Mandatory Safety Precautions</h4>
           <div id="warningsContainer">
             <!-- Warnings injected dynamically -->
           </div>
         </div>
 
         <div class="danger-box">
-          <h4>🚨 When to STOP and Call a Licensed Contractor:</h4>
+          <h4 data-i18n="safety_danger_title">🚨 When to STOP and Call a Licensed Contractor:</h4>
           <p id="proTriggerBox">
             If water is leaking onto the floor from the base of the toilet, or if the shut-off valve is stuck or dripping, stop and call a licensed plumber.
           </p>
@@ -312,18 +302,18 @@
            ================================================================= -->
       <div class="pro-referral-box">
         <div class="pro-referral-info">
-          <h4>Prefer to have a licensed Pro handle it?</h4>
-          <p>Find top-rated, licensed, and insured contractors in your ZIP code with upfront pricing.</p>
+          <h4 data-i18n="pro_contractor_title">Prefer to have a licensed Pro handle it?</h4>
+          <p data-i18n="pro_contractor_desc">Find top-rated, licensed, and insured contractors in your ZIP code with upfront pricing.</p>
         </div>
         <div class="pro-buttons">
           <a id="thumbtackBtn" href="https://www.thumbtack.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            <span>📍 Find Local Pros Nearby</span>
+            <span data-i18n="btn_thumbtack">📍 Find Local Pros Nearby</span>
           </a>
           <a id="angiBtn" href="https://www.angi.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
-            <span>Angi Leads</span>
+            <span data-i18n="btn_angi">Angi Leads</span>
           </a>
           <a id="yelpBtn" href="https://www.yelp.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
-            <span>Yelp Pros</span>
+            <span data-i18n="btn_yelp">Yelp Pros</span>
           </a>
         </div>
       </div>
@@ -331,11 +321,11 @@
       <!-- Bottom Action Bar -->
       <div style="margin-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
         <div style="display: flex; gap: 10px;">
-          <button type="button" class="btn btn-ghost" id="printReportBtn">🖨️ Print / Save PDF</button>
-          <button type="button" class="btn btn-ghost" id="shareReportBtn">🔗 Share Report</button>
+          <button type="button" class="btn btn-ghost" id="printReportBtn" data-i18n="btn_print">🖨️ Print / Save PDF</button>
+          <button type="button" class="btn btn-ghost" id="shareReportBtn" data-i18n="btn_share">🔗 Share Report</button>
         </div>
         <button type="button" class="btn btn-primary" id="newDiagnosticBtn">
-          <span>🔄 Diagnose Another Issue</span>
+          <span data-i18n="btn_new_diag">🔄 Diagnose Another Issue</span>
         </button>
       </div>
 
@@ -364,7 +354,7 @@
   <!-- Floating Toast Notifications -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Site Footer (with Full Legal & Affiliate Notices) -->
+  <!-- Site Footer (with Subtle Language Toggle & Full Legal Notices) -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-links">
@@ -374,6 +364,15 @@
         <a href="https://www.homedepot.com" target="_blank" rel="noopener noreferrer">Home Depot</a>
         <a href="https://www.lowes.com" target="_blank" rel="noopener noreferrer">Lowe's</a>
       </div>
+
+      <!-- Subtle Footer Language Selector (Auto-detect is primary) -->
+      <div style="margin: 16px 0; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+        <span style="font-size: 0.82rem; color: var(--text-muted);">🌐 Language:</span>
+        <button type="button" class="btn-lang-toggle" data-lang="en" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-card); color: #ffffff; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; cursor: pointer;">🇺🇸 English</button>
+        <button type="button" class="btn-lang-toggle" data-lang="ko" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-card); color: #ffffff; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; cursor: pointer;">🇰🇷 한국어</button>
+        <button type="button" class="btn-lang-toggle" data-lang="es" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-card); color: #ffffff; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; cursor: pointer;">🇲🇽 Español</button>
+      </div>
+
       <p style="margin-bottom: 8px;">© 2026 FixOrPro AI. All rights reserved. For informational and educational purposes.</p>
       <p style="font-size: 0.8rem; color: var(--text-muted); max-width: 900px; margin: 0 auto; line-height: 1.5;">
         FixOrPro is a participant in the Amazon Services LLC Associates Program, The Home Depot Affiliate Program, and Lowe's Affiliate Program. Always prioritize personal safety and hire licensed contractors for any hazardous electrical, gas, plumbing, or structural repairs.
@@ -413,7 +412,7 @@
     </div>
   </div>
 
-  <script src="/js/i18n.js?v=3.2.0"></script>
-  <script src="/js/app.js?v=3.2.0"></script>
+  <script src="/js/i18n.js?v=3.3.0"></script>
+  <script src="/js/app.js?v=3.3.0"></script>
 </body>
 </html>

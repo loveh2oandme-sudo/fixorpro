@@ -62,23 +62,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const AMAZON_TAG = localStorage.getItem("fixorpro_amazon_tag") || "fixorpro-20";
 
     // ----------------------------------------------------------------------
-    // Language Switcher Initialization (i18n)
+    // Smart Multi-Language Setup (i18n)
     // ----------------------------------------------------------------------
-    const langSelector = document.getElementById("langSelector");
-    if (langSelector && window.i18n) {
-        const savedLang = localStorage.getItem("fixorpro_lang") || "en";
-        langSelector.value = savedLang;
-        window.i18n.setLanguage(savedLang);
-
-        langSelector.addEventListener("change", (e) => {
-            const chosenLang = e.target.value;
-            window.i18n.setLanguage(chosenLang);
-            showToast(`🌐 Language: ${e.target.options[e.target.selectedIndex].text}`);
-            if (activeReportData) {
-                renderDiagnosticReport(activeReportData);
+    function updateActiveLangButtons() {
+        const currentLang = window.i18n ? window.i18n.getLanguage() : "en";
+        document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
+            if (btn.getAttribute("data-lang") === currentLang) {
+                btn.style.background = "linear-gradient(135deg, #0ea5e9, #2563eb)";
+                btn.style.borderColor = "#38bdf8";
+                btn.style.fontWeight = "800";
+            } else {
+                btn.style.background = "rgba(255,255,255,0.06)";
+                btn.style.borderColor = "var(--border-card)";
+                btn.style.fontWeight = "400";
             }
         });
     }
+
+    document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const lang = btn.getAttribute("data-lang");
+            if (window.i18n) {
+                window.i18n.setLanguage(lang);
+                updateActiveLangButtons();
+                showToast(`🌐 Language: ${btn.textContent.trim()}`);
+                loadSampleScenarios();
+                if (activeReportData) {
+                    renderDiagnosticReport(activeReportData);
+                }
+            }
+        });
+    });
+
+    updateActiveLangButtons();
 
     // ----------------------------------------------------------------------
     // Smooth Anchor Navigation with Sticky Navbar Clearance
@@ -221,20 +237,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    const SAMPLE_TITLES = {
+        ko: {
+            running_toilet: { title: "변기 물이 계속 샐 때", category: "배관" },
+            disposal_jam: { title: "음식물 분쇄기 모터 걸림", category: "가전" },
+            drywall_hole: { title: "문 손잡이 벽 구멍", category: "벽체" },
+            leaking_p_trap: { title: "싱크대 밑 P-트랩 누수", category: "배관" },
+            water_heater_tank: { title: "온수기 내부 부식 & 누수", category: "위험" }
+        },
+        es: {
+            running_toilet: { title: "Inodoro con fuga continua", category: "Plomería" },
+            disposal_jam: { title: "Triturador de basura atascado", category: "Aparatos" },
+            drywall_hole: { title: "Agujero en panel de yeso", category: "Paredes" },
+            leaking_p_trap: { title: "Fuga en trampa P de fregadero", category: "Plomería" },
+            water_heater_tank: { title: "Falla y fuga en calentador", category: "Peligro" }
+        }
+    };
+
     function renderSampleCards(samples) {
         if (!sampleCardsContainer) return;
         sampleCardsContainer.innerHTML = "";
+        const lang = window.i18n ? window.i18n.getLanguage() : "en";
 
         samples.forEach(sample => {
+            const localized = (SAMPLE_TITLES[lang] && SAMPLE_TITLES[lang][sample.id]) || {};
+            const displayTitle = localized.title || sample.title;
+            const displayCategory = localized.category || sample.category;
+
             const card = document.createElement("div");
             card.className = "sample-card glass-panel";
             card.dataset.id = sample.id;
             card.innerHTML = `
                 <div>
                     <div class="sample-thumb-icon">${sample.thumbnail}</div>
-                    <div class="sample-name">${sample.title}</div>
+                    <div class="sample-name">${displayTitle}</div>
                 </div>
-                <div class="sample-badge">${sample.category}</div>
+                <div class="sample-badge">${displayCategory}</div>
             `;
 
             // 3D Tilt Effect on mouse move
@@ -349,11 +387,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function detectScenarioKey(data, sampleId) {
+        if (sampleId) return sampleId;
+        const title = (data.problem_title || "").toLowerCase();
+        if (title.includes("toilet") || title.includes("flapper") || title.includes("변기")) return "running_toilet";
+        if (title.includes("disposal") || title.includes("jam") || title.includes("분쇄기")) return "disposal_jam";
+        if (title.includes("drywall") || title.includes("hole") || title.includes("석고") || title.includes("벽")) return "drywall_hole";
+        if (title.includes("p-trap") || title.includes("trap") || title.includes("slip") || title.includes("트랩")) return "leaking_p_trap";
+        if (title.includes("water heater") || title.includes("heater") || title.includes("온수기")) return "water_heater_tank";
+        return null;
+    }
+
     // ----------------------------------------------------------------------
     // Render Result Report (Amazon + Home Depot + Lowe's)
     // ----------------------------------------------------------------------
     function renderDiagnosticReport(data, source) {
         activeReportData = data;
+
+        // Apply Deep Scenario Localization if available
+        const sKey = detectScenarioKey(data, selectedSampleId);
+        if (sKey && window.i18n && window.i18n.getLocalizedScenarioData) {
+            data = window.i18n.getLocalizedScenarioData(sKey, data);
+        }
+
         const isDIY = data.verdict === "DIY_RECOMMENDED";
 
         // 1. Verdict Banner
