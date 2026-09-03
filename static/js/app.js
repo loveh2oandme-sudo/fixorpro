@@ -399,14 +399,25 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // 5. Tab 2: Materials & Tools with 3 Top US Retailers
+        // Sanitizer helper for retail store queries (removes slashes, parentheses, and invalid characters)
+        function sanitizeRetailQuery(str) {
+            if (!str) return "home repair";
+            return str
+                .replace(/\(.*?\)/g, " ")      // remove parentheses and contents (e.g. (or 3-inch))
+                .replace(/[\\/]/g, " ")        // remove slashes (prevents Home Depot 404 path errors)
+                .replace(/["'#&%$@!+]/g, " ")  // remove special chars
+                .replace(/\s+/g, " ")          // collapse spaces
+                .trim();
+        }
+
+        // 5. Section 1: Materials & Tools with 3 Top US Retailers
         materialsContainer.innerHTML = "";
         if (data.materials_needed && data.materials_needed.length > 0) {
             data.materials_needed.forEach(mat => {
-                const query = mat.amazon_search || mat.homedepot_search || mat.name;
-                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`;
-                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(query)}`;
-                const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(query)}`;
+                const cleanQuery = sanitizeRetailQuery(mat.homedepot_search || mat.amazon_search || mat.name);
+                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(mat.amazon_search || cleanQuery)}&tag=${AMAZON_TAG}`;
+                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(cleanQuery)}`;
+                const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(cleanQuery)}`;
                 
                 const matEl = document.createElement("div");
                 matEl.className = "item-card";
@@ -428,10 +439,10 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsContainer.innerHTML = "";
         if (data.tools_needed && data.tools_needed.length > 0) {
             data.tools_needed.forEach(tool => {
-                const query = tool.amazon_search || tool.homedepot_search || tool.name;
-                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`;
-                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(query)}`;
-                const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(query)}`;
+                const cleanQuery = sanitizeRetailQuery(tool.homedepot_search || tool.amazon_search || tool.name);
+                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(tool.amazon_search || cleanQuery)}&tag=${AMAZON_TAG}`;
+                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(cleanQuery)}`;
+                const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(cleanQuery)}`;
                 
                 const toolEl = document.createElement("div");
                 toolEl.className = "item-card";
