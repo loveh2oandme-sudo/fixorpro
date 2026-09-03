@@ -70,23 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    const langCycleBtn = document.getElementById("langCycleBtn");
-    if (langCycleBtn && window.i18n) {
-        langCycleBtn.addEventListener("click", () => {
-            const current = window.i18n.getLanguage();
-            const order = ["en", "ko", "es"];
-            const nextIdx = (order.indexOf(current) + 1) % order.length;
-            const nextLang = order[nextIdx];
-            window.i18n.setLanguage(nextLang, true);
-            const langLabels = { en: "🇺🇸 English", ko: "🇰🇷 한국어", es: "🇲🇽 Español" };
-            showToast(`🌐 ${langLabels[nextLang]}`);
-            loadSampleScenarios();
-            if (activeReportData) {
-                renderDiagnosticReport(activeReportData);
-            }
-        });
-    }
-
     document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
         btn.addEventListener("click", () => {
             const lang = btn.getAttribute("data-lang");

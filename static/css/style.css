@@ -90,6 +90,24 @@ html, body {
   max-width: 100vw;
 }
 
+/* Google Global Auto-Translation Styling (Seamless integration without popups) */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget-icon,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+.goog-text-highlight {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 /* Navigation Header */
 .site-header {
   position: sticky;
