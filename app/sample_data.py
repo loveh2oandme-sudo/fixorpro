@@ -1,6 +1,6 @@
 """
 Pre-configured realistic sample scenarios for FixOrPro.
-Enables instant demonstration with rich, highly-detailed step-by-step DIY guides and 1-Click YouTube tutorials.
+Enables instant demonstration with in-page embedded YouTube video tutorials and rich DIY manuals.
 """
 
 SAMPLE_SCENARIOS = {
@@ -19,6 +19,7 @@ SAMPLE_SCENARIOS = {
             "difficulty": "Beginner (No Special Tools)",
             "estimated_time": "15 - 20 minutes",
             "youtube_query": "how to fix running toilet replace flapper",
+            "youtube_video_id": "vJgXQ0B2p84",
             "cost_comparison": {
                 "diy_cost": "$8 - $16",
                 "pro_cost": "$150 - $220",
@@ -91,6 +92,7 @@ SAMPLE_SCENARIOS = {
             "difficulty": "Beginner (5-Minute Fix)",
             "estimated_time": "10 minutes",
             "youtube_query": "how to unjam a garbage disposal with allen wrench reset button",
+            "youtube_video_id": "mK5G8QzHh6k",
             "cost_comparison": {
                 "diy_cost": "$0 - $10",
                 "pro_cost": "$125 - $200",
@@ -162,6 +164,7 @@ SAMPLE_SCENARIOS = {
             "difficulty": "Intermediate (No Cutting Required)",
             "estimated_time": "35 minutes (+ drying time)",
             "youtube_query": "how to patch a drywall hole with mesh screen patch",
+            "youtube_video_id": "98Qv_4YqI5s",
             "cost_comparison": {
                 "diy_cost": "$15 - $28",
                 "pro_cost": "$175 - $300",
@@ -186,7 +189,7 @@ SAMPLE_SCENARIOS = {
                 {
                     "step_num": 1,
                     "title": "Clean and deburr the hole perimeter",
-                    "instruction": "Use a utility knife or the edge of your putty knife to scrape away loose paper fibers, crumbling gypsum gypsum chunks, and frayed edges around the hole until the perimeter is flush and clean.",
+                    "instruction": "Use a utility knife or the edge of your putty knife to scrape away loose paper fibers, crumbling gypsum chunks, and frayed edges around the hole until the perimeter is flush and clean.",
                     "pro_tip": "Push slightly inward with the handle of your putty knife to bevel the outer edges inwards; this prevents the patch from bulging outwards.",
                     "caution": "Do not tear loose wall paper aggressively; cut cleanly with a blade to avoid peeling healthy paint.",
                     "youtube_query": "how to prep drywall hole before patch"
@@ -234,6 +237,7 @@ SAMPLE_SCENARIOS = {
             "difficulty": "Beginner (Hand Tightened)",
             "estimated_time": "20 minutes",
             "youtube_query": "how to fix leaking sink p trap slip joint washer replacement",
+            "youtube_video_id": "q6g0l_B7u_I",
             "cost_comparison": {
                 "diy_cost": "$5 - $15",
                 "pro_cost": "$160 - $240",
@@ -305,6 +309,7 @@ SAMPLE_SCENARIOS = {
             "difficulty": "Licensed Pro Required (Hazard)",
             "estimated_time": "Pro Installation: 2 - 4 hours",
             "youtube_query": "signs water heater is about to burst fail replace",
+            "youtube_video_id": "D4W7_8iXm1Q",
             "cost_comparison": {
                 "diy_cost": "N/A (Dangerous)",
                 "pro_cost": "$1,200 - $2,200",

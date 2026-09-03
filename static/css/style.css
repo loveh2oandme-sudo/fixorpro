@@ -1050,6 +1050,98 @@ body {
 .footer-links a { color: var(--text-secondary); text-decoration: none; }
 .footer-links a:hover { color: var(--cyan); }
 
+/* ==========================================================================
+   IN-PAGE YOUTUBE VIDEO PLAYER MODAL STYLES
+   ========================================================================== */
+.video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+.video-modal-dialog {
+  width: 100%;
+  max-width: 820px;
+  background: #1e293b;
+  border: 1px solid var(--cyan);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: #0f172a;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.video-modal-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.video-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.video-close-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.video-frame-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  background: #000000;
+}
+
+.video-frame-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-modal-buy-bar {
+  padding: 18px 24px;
+  background: #0f172a;
+  border-top: 1px solid var(--border-card);
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .hero-title { font-size: 2.1rem; }
@@ -1060,4 +1152,7 @@ body {
   .cost-grid { grid-template-columns: 1fr; }
   .item-links { width: 100%; justify-content: flex-start; }
   .item-links .btn { flex: 1; text-align: center; font-size: 0.8rem; padding: 8px 6px; }
+  .video-modal-dialog { max-width: 100%; border-radius: var(--radius-md); }
+  .video-modal-header { padding: 14px 18px; }
+  .video-modal-buy-bar { padding: 14px 18px; }
 }

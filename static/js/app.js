@@ -341,11 +341,74 @@ document.addEventListener("DOMContentLoaded", () => {
         specCategory.textContent = data.category || "General Repair";
         specConfidence.textContent = data.confidence_score || "High (95%)";
 
-        // YouTube Main Video Guide Button
+        // YouTube In-Page Video Player Modal Setup
+        const videoModal = document.getElementById("videoModal");
+        const videoFrame = document.getElementById("videoFrame");
+        const videoTitleText = document.getElementById("videoTitleText");
+        const videoModalBuyLinks = document.getElementById("videoModalBuyLinks");
+        const closeVideoBtn = document.getElementById("closeVideoBtn");
+
+        function openVideoModal(title, videoId, query) {
+            videoTitleText.textContent = title || "DIY Repair Video Tutorial";
+            
+            // Generate embedded YouTube URL
+            let embedUrl = "";
+            if (videoId) {
+                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+            } else {
+                embedUrl = `https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(query || title)}&autoplay=1&rel=0`;
+            }
+            videoFrame.src = embedUrl;
+
+            // Populate Buy Bar inside Video Modal
+            if (videoModalBuyLinks && data.materials_needed && data.materials_needed.length > 0) {
+                videoModalBuyLinks.innerHTML = "";
+                data.materials_needed.forEach(mat => {
+                    const cleanQuery = sanitizeRetailQuery(mat.homedepot_search || mat.amazon_search || mat.name);
+                    const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(mat.amazon_search || cleanQuery)}&tag=${AMAZON_TAG}`;
+                    const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(cleanQuery)}`;
+                    const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(cleanQuery)}`;
+                    
+                    const btnWrap = document.createElement("div");
+                    btnWrap.style.marginBottom = "8px";
+                    btnWrap.innerHTML = `
+                        <span style="font-size: 0.85rem; color: #cbd5e1; margin-right: 8px;">• ${mat.name}:</span>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon" style="font-size: 0.75rem; padding: 4px 8px;">📦 Amazon</a>
+                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot" style="font-size: 0.75rem; padding: 4px 8px;">🔨 Home Depot</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes" style="font-size: 0.75rem; padding: 4px 8px;">🏠 Lowe's</a>
+                    `;
+                    videoModalBuyLinks.appendChild(btnWrap);
+                });
+            }
+
+            videoModal.style.display = "flex";
+            document.body.style.overflow = "hidden"; // prevent background scroll
+        }
+
+        function closeVideoModal() {
+            videoFrame.src = ""; // Stop video playback
+            videoModal.style.display = "none";
+            document.body.style.overflow = "";
+        }
+
+        if (closeVideoBtn) {
+            closeVideoBtn.onclick = closeVideoModal;
+        }
+
+        if (videoModal) {
+            videoModal.onclick = (e) => {
+                if (e.target === videoModal) closeVideoModal();
+            };
+        }
+
+        // YouTube Main Video Guide Button (Opens in-page player)
         const youtubeMainBtn = document.getElementById("youtubeMainBtn");
         if (youtubeMainBtn) {
             const ytQuery = data.youtube_query || `${data.problem_title} DIY repair tutorial`;
-            youtubeMainBtn.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(ytQuery)}`;
+            youtubeMainBtn.onclick = (e) => {
+                e.preventDefault();
+                openVideoModal(`DIY Guide: ${data.problem_title}`, data.youtube_video_id, ytQuery);
+            };
         }
 
         // 4. Interactive Deep Step-by-Step Manual
@@ -369,9 +432,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (step.youtube_query) {
                     stepYtHtml = `
                         <div>
-                            <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(step.youtube_query)}" target="_blank" rel="noopener noreferrer" class="step-video-link" onclick="event.stopPropagation();">
-                                <span>▶️ Watch Step Demo on YouTube</span>
-                            </a>
+                            <button type="button" class="step-video-link" style="border: none; cursor: pointer;">
+                                <span>▶️ Watch Step Demo Video</span>
+                            </button>
                         </div>
                     `;
                 }
@@ -386,6 +449,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         ${stepYtHtml}
                     </div>
                 `;
+
+                // Wire step video button
+                const stepBtn = stepEl.querySelector(".step-video-link");
+                if (stepBtn) {
+                    stepBtn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        openVideoModal(`Step ${step.step_num}: ${step.title}`, null, step.youtube_query);
+                    });
+                }
 
                 // Interactive Step Toggle
                 stepEl.addEventListener("click", () => {

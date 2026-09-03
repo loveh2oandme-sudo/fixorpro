@@ -382,6 +382,35 @@
     </div>
   </footer>
 
+  <!-- =====================================================================
+       IN-PAGE YOUTUBE VIDEO PLAYER MODAL (USERS NEVER LEAVE FIXORPRO!)
+       ===================================================================== -->
+  <div class="video-modal-backdrop" id="videoModal" style="display: none;">
+    <div class="video-modal-dialog glass-panel">
+      <div class="video-modal-header">
+        <div class="video-modal-title">
+          <span>🎬</span> <span id="videoTitleText">DIY Repair Video Tutorial</span>
+        </div>
+        <button type="button" class="video-close-btn" id="closeVideoBtn">✕</button>
+      </div>
+
+      <!-- 16:9 Responsive Video Player Container -->
+      <div class="video-frame-wrap">
+        <iframe id="videoFrame" src="" title="FixOrPro Video Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <!-- In-Modal Buy Bar (Customers can purchase parts while watching the video!) -->
+      <div class="video-modal-buy-bar">
+        <div style="font-size: 0.95rem; font-weight: 800; color: #ffffff; margin-bottom: 8px;">
+          🛒 Need the replacement parts shown in this video?
+        </div>
+        <div class="item-links" id="videoModalBuyLinks">
+          <!-- Dynamically populated with Amazon, Home Depot, Lowe's links -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/app.js"></script>
 </body>
 </html>
