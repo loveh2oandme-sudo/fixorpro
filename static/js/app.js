@@ -65,18 +65,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Smart Multi-Language Setup (i18n)
     // ----------------------------------------------------------------------
     function updateActiveLangButtons() {
-        const currentLang = window.i18n ? window.i18n.getLanguage() : "en";
-        document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
-            if (btn.getAttribute("data-lang") === currentLang) {
-                btn.classList.add("active");
-                btn.style.background = "linear-gradient(135deg, #0ea5e9, #2563eb)";
-                btn.style.color = "#ffffff";
-                btn.style.fontWeight = "800";
-            } else {
-                btn.classList.remove("active");
-                btn.style.background = "rgba(255,255,255,0.06)";
-                btn.style.color = "var(--text-muted)";
-                btn.style.fontWeight = "400";
+        if (window.i18n && window.i18n.updateLangUI) {
+            window.i18n.updateLangUI(window.i18n.getLanguage());
+        }
+    }
+
+    const langCycleBtn = document.getElementById("langCycleBtn");
+    if (langCycleBtn && window.i18n) {
+        langCycleBtn.addEventListener("click", () => {
+            const current = window.i18n.getLanguage();
+            const order = ["en", "ko", "es"];
+            const nextIdx = (order.indexOf(current) + 1) % order.length;
+            const nextLang = order[nextIdx];
+            window.i18n.setLanguage(nextLang, true);
+            const langLabels = { en: "🇺🇸 English", ko: "🇰🇷 한국어", es: "🇲🇽 Español" };
+            showToast(`🌐 ${langLabels[nextLang]}`);
+            loadSampleScenarios();
+            if (activeReportData) {
+                renderDiagnosticReport(activeReportData);
             }
         });
     }
@@ -86,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const lang = btn.getAttribute("data-lang");
             if (window.i18n) {
                 window.i18n.setLanguage(lang, true);
-                updateActiveLangButtons();
                 showToast(`🌐 ${btn.textContent.trim()}`);
                 loadSampleScenarios();
                 if (activeReportData) {

@@ -466,6 +466,16 @@ function applyTranslations(lang) {
 }
 
 function updateLangUI(lang) {
+    const langNames = {
+        en: "English",
+        ko: "한국어",
+        es: "Español"
+    };
+    const cycleText = document.getElementById("langCycleText");
+    if (cycleText) {
+        cycleText.textContent = langNames[lang] || "Language";
+    }
+
     document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
         if (btn.getAttribute("data-lang") === lang) {
             btn.classList.add("active");
