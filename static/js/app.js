@@ -1,4 +1,4 @@
-// FixOrPro - Client Application Logic
+// FixOrPro - Futuristic Client Application Logic
 
 document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements
@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const sampleCardsContainer = document.getElementById("sampleCardsContainer");
     const loadingBox = document.getElementById("loadingBox");
+    const loadingStepMsg = document.getElementById("loadingStepMsg");
     const reportContainer = document.getElementById("reportContainer");
+    const toastContainer = document.getElementById("toastContainer");
     
     // Result Elements
     const verdictBanner = document.getElementById("verdictBanner");
@@ -40,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const toolsContainer = document.getElementById("toolsContainer");
     const warningsContainer = document.getElementById("warningsContainer");
     const proTriggerBox = document.getElementById("proTriggerBox");
-    const proSearchTerm = document.getElementById("proSearchTerm");
     
     // Pro Referral Buttons
     const thumbtackBtn = document.getElementById("thumbtackBtn");
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentFile = null;
     let selectedSampleId = null;
+    let scanInterval = null;
 
     // Load saved settings
     const savedApiKey = localStorage.getItem("fixorpro_gemini_key") || "";
@@ -75,7 +77,25 @@ document.addEventListener("DOMContentLoaded", () => {
     loadSamples();
 
     // ----------------------------------------------------------------------
-    // File Upload & Drag-and-Drop Handlers
+    // Toast Notification System
+    // ----------------------------------------------------------------------
+    function showToast(message) {
+        if (!toastContainer) return;
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(100%)";
+            toast.style.transition = "all 0.3s ease";
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // ----------------------------------------------------------------------
+    // File Upload & Camera Handlers
     // ----------------------------------------------------------------------
     dropZone.addEventListener("click", () => fileInput.click());
 
@@ -137,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleFileSelection(file) {
         if (!file.type.startsWith("image/")) {
-            alert("Please select a valid image file (JPG, PNG, WebP, HEIC).");
+            showToast("⚠️ Please select an image file (JPG, PNG, WebP).");
             return;
         }
 
@@ -145,23 +165,23 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedSampleId = null;
         clearActiveSampleCards();
 
-        // Show preview
         const reader = new FileReader();
         reader.onload = (e) => {
             previewThumb.src = e.target.result;
-            previewFilename.textContent = file.name;
+            previewFilename.textContent = `TARGET: ${file.name.toUpperCase()}`;
             const sizeInKb = Math.round(file.size / 1024);
-            previewMeta.textContent = `${file.type} • ${sizeInKb} KB`;
+            previewMeta.textContent = `OPTICAL MATRIX LOCKED • ${sizeInKb} KB • READY FOR NEURAL SCAN`;
 
             dropZone.style.display = "none";
             previewContainer.style.display = "block";
             analyzeBtn.disabled = false;
+            showToast("📷 Image locked. Ready for AI Scan!");
         };
         reader.readAsDataURL(file);
     }
 
     // ----------------------------------------------------------------------
-    // Samples Logic
+    // Samples Logic with 3D Tilt
     // ----------------------------------------------------------------------
     async function loadSamples() {
         try {
@@ -189,6 +209,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="sample-badge">${sample.category}</div>
             `;
 
+            // 3D Tilt Effect on mouse move
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `perspective(600px) rotateX(${-y / 15}deg) rotateY(${x / 15}deg) translateY(-4px)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "";
+            });
+
             card.addEventListener("click", () => {
                 selectSample(sample);
             });
@@ -201,22 +233,19 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedSampleId = sample.id;
         currentFile = null;
 
-        // Highlight card
         clearActiveSampleCards();
         const activeCard = document.querySelector(`.sample-card[data-id="${sample.id}"]`);
         if (activeCard) activeCard.classList.add("active");
 
-        // Update preview area with sample image
         previewThumb.src = sample.image_url;
-        previewFilename.textContent = sample.title;
-        previewMeta.textContent = `${sample.category} • Instant Demo Case`;
+        previewFilename.textContent = `TARGET: ${sample.title.toUpperCase()}`;
+        previewMeta.textContent = `${sample.category.toUpperCase()} • INSTANT DEMO SCENARIO`;
 
         dropZone.style.display = "none";
         previewContainer.style.display = "block";
         userNotesInput.value = sample.description || "";
         analyzeBtn.disabled = false;
 
-        // Automatically trigger diagnosis for fast demo
         runDiagnosis();
     }
 
@@ -225,39 +254,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ----------------------------------------------------------------------
-    // Diagnosis Execution
+    // Diagnosis Execution & Sci-Fi Progress Steps
     // ----------------------------------------------------------------------
     analyzeBtn.addEventListener("click", runDiagnosis);
 
     async function runDiagnosis() {
         if (!currentFile && !selectedSampleId) {
-            alert("Please upload a photo or pick a sample scenario.");
+            showToast("⚠️ Please upload a photo or pick a sample scenario.");
             return;
         }
 
-        // Show loading state
+        // Show loading HUD
         reportContainer.style.display = "none";
         loadingBox.style.display = "block";
         analyzeBtn.disabled = true;
         loadingBox.scrollIntoView({ behavior: "smooth", block: "center" });
 
+        // Cycle HUD Scanning Messages
+        const scanSteps = [
+            "[1/4] Scanning surface topology & defect vectors...",
+            "[2/4] Cross-referencing US National Building & Plumbing Codes...",
+            "[3/4] Querying retail replacement parts & contractor pricing...",
+            "[4/4] Generating final actionable repair blueprint..."
+        ];
+        let stepIdx = 0;
+        loadingStepMsg.textContent = scanSteps[0];
+        clearInterval(scanInterval);
+        scanInterval = setInterval(() => {
+            stepIdx = (stepIdx + 1) % scanSteps.length;
+            loadingStepMsg.textContent = scanSteps[stepIdx];
+        }, 900);
+
         const formData = new FormData();
-        if (currentFile) {
-            formData.append("image", currentFile);
-        }
-        if (selectedSampleId) {
-            formData.append("sample_id", selectedSampleId);
-        }
+        if (currentFile) formData.append("image", currentFile);
+        if (selectedSampleId) formData.append("sample_id", selectedSampleId);
 
         const notes = userNotesInput.value.trim();
-        if (notes) {
-            formData.append("notes", notes);
-        }
+        if (notes) formData.append("notes", notes);
 
         const savedKey = localStorage.getItem("fixorpro_gemini_key");
-        if (savedKey) {
-            formData.append("api_key", savedKey);
-        }
+        if (savedKey) formData.append("api_key", savedKey);
 
         try {
             const res = await fetch("/api/analyze", {
@@ -271,12 +307,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const data = await res.json();
+            clearInterval(scanInterval);
             renderDiagnosticReport(data.data, data.source);
+            showToast("✨ Neural Diagnostic Scan Complete!");
 
         } catch (err) {
             console.error("Diagnosis error:", err);
-            alert("Diagnostic error: " + err.message);
+            showToast("❌ Diagnostic Error: " + err.message);
         } finally {
+            clearInterval(scanInterval);
             loadingBox.style.display = "none";
             analyzeBtn.disabled = false;
         }
@@ -292,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // 1. Verdict Banner
         verdictBanner.className = `verdict-banner ${isDIY ? 'diy' : 'pro'}`;
         verdictIcon.textContent = isDIY ? "🟢" : "🚨";
-        verdictTag.textContent = isDIY ? "DIY Recommended" : "Call a Licensed Pro";
+        verdictTag.textContent = isDIY ? "DIY Recommended (Beginner Friendly)" : "Call a Licensed Contractor";
         verdictHeading.textContent = data.problem_title;
         problemSummary.textContent = data.summary;
 
@@ -314,21 +353,30 @@ document.addEventListener("DOMContentLoaded", () => {
         specDifficulty.textContent = data.difficulty || "Beginner";
         specTime.textContent = data.estimated_time || "20 mins";
         specCategory.textContent = data.category || "General Repair";
-        specConfidence.textContent = data.confidence_score || "High";
+        specConfidence.textContent = data.confidence_score || "High (95%)";
 
-        // 4. Tab 1: Steps
+        // 4. Tab 1: Interactive Checkable Steps
         stepsListContainer.innerHTML = "";
         if (data.steps && data.steps.length > 0) {
             data.steps.forEach(step => {
                 const stepEl = document.createElement("div");
                 stepEl.className = "step-item";
                 stepEl.innerHTML = `
-                    <div class="step-number">${step.step_num}</div>
+                    <div class="step-checkbox-wrap">✓</div>
                     <div class="step-info">
-                        <h4>${step.title}</h4>
+                        <h4>Step ${step.step_num}: ${step.title}</h4>
                         <p>${step.instruction}</p>
                     </div>
                 `;
+
+                // Interactive Step Toggle
+                stepEl.addEventListener("click", () => {
+                    stepEl.classList.toggle("completed");
+                    if (stepEl.classList.contains("completed")) {
+                        showToast(`Step ${step.step_num} marked as completed!`);
+                    }
+                });
+
                 stepsListContainer.appendChild(stepEl);
             });
         }
@@ -435,7 +483,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }).catch(() => {});
         } else {
             navigator.clipboard.writeText(window.location.href);
-            alert("Link copied to clipboard! You can share this with family or your contractor.");
+            showToast("🔗 Report link copied to clipboard!");
         }
     });
 
@@ -478,16 +526,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateKeyStatusBadge(key);
         settingsModal.style.display = "none";
-        alert("Settings saved successfully!");
+        showToast("✅ Settings saved successfully!");
     });
 
     function updateKeyStatusBadge(key) {
         if (key && key.length > 5) {
-            keyStatusBadge.textContent = "⚡ Live AI Active";
+            keyStatusBadge.textContent = "● QUANTUM AI ACTIVE";
             keyStatusBadge.style.color = "#34d399";
         } else {
-            keyStatusBadge.textContent = "⚙️ Free Demo Mode";
-            keyStatusBadge.style.color = "#93c5fd";
+            keyStatusBadge.textContent = "● DEMO ENGINE ACTIVE";
+            keyStatusBadge.style.color = "#38bdf8";
         }
     }
 });

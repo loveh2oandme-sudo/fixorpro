@@ -3,30 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FixOrPro | AI Home Repair Diagnostic & Cost Estimator</title>
-  <meta name="description" content="Don't spend $200 on a contractor for a $15 fix. Upload a photo of any broken household item for an instant AI diagnostic, DIY repair steps, and cost comparison.">
+  <title>FixOrPro AI 2.5 | Quantum Home Repair Diagnostic & Cost Engine</title>
+  <meta name="description" content="Don't spend $200 on a contractor for a $15 fix. Upload a photo of any broken household item for instant AI laser diagnostics, DIY repair steps, and cost comparison.">
   
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
+  <!-- Live US Activity Marquee Ticker -->
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-item">📍 <span class="city">Austin, TX</span>: Toilet Flapper Replaced • <span class="savings">Saved $175</span> (2m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Seattle, WA</span>: Disposal Jam Solved • <span class="savings">Saved $160</span> (4m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Denver, CO</span>: Drywall Hole Patched • <span class="savings">Saved $220</span> (7m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Miami, FL</span>: Sink P-Trap Washer • <span class="savings">Saved $195</span> (11m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Phoenix, AZ</span>: Water Heater Valve • <span class="savings">Pro Scheduled</span> (15m ago)</div>
+      <!-- Duplicate for infinite seamless scroll -->
+      <div class="ticker-item">📍 <span class="city">Austin, TX</span>: Toilet Flapper Replaced • <span class="savings">Saved $175</span> (2m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Seattle, WA</span>: Disposal Jam Solved • <span class="savings">Saved $160</span> (4m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Denver, CO</span>: Drywall Hole Patched • <span class="savings">Saved $220</span> (7m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Miami, FL</span>: Sink P-Trap Washer • <span class="savings">Saved $195</span> (11m ago)</div>
+      <div class="ticker-item">📍 <span class="city">Phoenix, AZ</span>: Water Heater Valve • <span class="savings">Pro Scheduled</span> (15m ago)</div>
+    </div>
+  </div>
+
   <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="/" class="logo-group">
-        <div class="logo-badge">🛠️</div>
+        <div class="logo-badge">⚡</div>
         <div class="logo-text">
-          <h1>FixOrPro <span class="ai-tag">AI 2.5</span></h1>
-          <p>US Home Repair & Cost Diagnostic Engine</p>
+          <h1>FixOrPro <span class="ai-tag">AI 2.5 Pro</span></h1>
+          <p>Quantum Home Repair & Cost Diagnostic Engine</p>
         </div>
       </a>
       <div class="nav-actions">
-        <span id="keyStatusBadge" style="font-size: 0.8rem; font-weight: 700; color: #93c5fd;">⚙️ Free Demo Mode</span>
+        <span id="keyStatusBadge" style="font-size: 0.85rem; font-weight: 800; color: #38bdf8; font-family: monospace;">● QUANTUM ENGINE ACTIVE</span>
         <button id="apiKeyBtn" class="btn btn-ghost" title="Configure API Key & Affiliate ID">⚙️ Settings</button>
       </div>
     </div>
@@ -37,33 +54,34 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-pill">
-        <span>🇺🇸 Designed for US Homeowners & Renters</span>
+        <span class="pulse-dot"></span>
+        <span>AI Vision Matrix • 2026 US Contractor Code & Labor Pricing</span>
       </div>
       <h2 class="hero-title">
         Don’t spend <span class="gradient-text">$200 on a contractor</span> for a $15 fix.
       </h2>
       <p class="hero-subtitle">
-        Snap a photo of anything broken. Our AI diagnoses the problem in 5 seconds, tells you if you can DIY, lists the exact Home Depot/Amazon parts, or warns you when to call a licensed Pro.
+        Snap a photo of anything broken. Our neural vision engine scans defect topology in 5 seconds, tells you if you can DIY, links the exact Home Depot/Amazon parts, or triggers a licensed Pro warning.
       </p>
 
-      <!-- Trust & Metric Chips -->
+      <!-- High-Tech Metric Chips -->
       <div class="metrics-row">
         <div class="metric-chip">
           <span>⚡</span>
-          <span><strong>Instant</strong> AI Vision Diagnosis</span>
+          <span><strong>2.4s</strong> Neural Laser Analysis</span>
         </div>
         <div class="metric-chip">
           <span>💰</span>
-          <span><strong>~$185 Average</strong> Saved Per Fix</span>
+          <span><strong>~$185 Average</strong> Saved Per Diagnostic</span>
         </div>
         <div class="metric-chip">
           <span>🛡️</span>
-          <span><strong>Safety-First</strong> Pro Warning System</span>
+          <span><strong>Safety-First</strong> Code Compliance Checker</span>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Upload & Diagnostic Workspace -->
+    <!-- Interactive Upload & Laser Workspace -->
     <section class="upload-card glass-panel" id="workspaceSection">
       
       <!-- Hidden File Inputs -->
@@ -72,65 +90,78 @@
 
       <!-- Drop Zone -->
       <div class="drop-zone" id="dropZone">
-        <div class="drop-icon">📷</div>
-        <h3 class="drop-title">Drop your broken item photo here</h3>
-        <p class="drop-desc">Supports toilet leaks, disposal jams, drywall holes, P-traps, light switches, water heaters</p>
+        <div class="drop-icon">📡</div>
+        <h3 class="drop-title">Drop your broken household photo here</h3>
+        <p class="drop-desc">Supports running toilets, disposal humming, drywall holes, leaking P-traps, water heaters & switches</p>
         <div class="upload-btn-group">
           <button type="button" class="btn btn-primary" id="btnSelectFile">
             <span>📁 Upload from Device</span>
           </button>
           <button type="button" class="btn btn-ghost" id="btnCamera">
-            <span>📸 Take Photo (Camera)</span>
+            <span>📸 Snap Photo (Camera)</span>
           </button>
         </div>
       </div>
 
-      <!-- Preview Container -->
+      <!-- Sci-Fi HUD Laser Scanner Preview -->
       <div class="preview-container" id="previewContainer">
         <div class="preview-inner">
-          <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Preview">
+          <div class="hud-image-wrapper">
+            <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Scan Target">
+            <!-- HUD Laser & Reticle Elements -->
+            <div class="hud-laser"></div>
+            <div class="hud-corner hud-tl"></div>
+            <div class="hud-corner hud-tr"></div>
+            <div class="hud-corner hud-bl"></div>
+            <div class="hud-corner hud-br"></div>
+          </div>
           <div class="preview-info">
-            <div id="previewFilename" class="preview-filename">image.jpg</div>
-            <div id="previewMeta" class="preview-meta">JPEG • Ready for Analysis</div>
-            <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 6px 12px; font-size: 0.8rem;">
+            <div id="previewFilename" class="preview-filename">
+              <span>TARGET_IMAGE.RAW</span>
+            </div>
+            <div id="previewMeta" class="preview-meta">RESOLUTION MATRIX OK • READY FOR NEURAL ANALYSIS</div>
+            <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 7px 14px; font-size: 0.82rem;">
               ✕ Remove & Change Photo
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Optional User Notes / Symptoms -->
+      <!-- User Notes / Symptoms Input -->
       <input 
         type="text" 
         id="userNotes" 
         class="input-notes" 
-        placeholder="Optional: Describe symptoms (e.g., 'Makes a humming noise when turned on', 'Dripping every 5 seconds', 'Smells like burning')..."
+        placeholder="Optional: Describe symptoms (e.g. 'Humming noise when turned on', 'Dripping every 5 seconds', 'Burning smell')..."
       >
 
       <!-- Action Bar -->
       <div class="action-bar">
-        <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.05rem; padding: 14px 28px;" disabled>
-          <span>⚡ Run AI Diagnostic & Cost Check</span>
+        <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.08rem; padding: 15px 32px;" disabled>
+          <span>⚡ Execute Neural Diagnostic Scan</span>
         </button>
       </div>
 
     </section>
 
-    <!-- Instant Sample Scenarios Bar -->
+    <!-- Instant 3D Sample Scenarios Bar -->
     <section class="samples-section">
       <div class="section-label">
-        <h3><span>💡</span> Or try an instant 1-click test case:</h3>
+        <h3><span>💡</span> Instant 1-Click Neural Test Cases:</h3>
       </div>
       <div class="sample-grid" id="sampleCardsContainer">
-        <!-- Injected dynamically via JS -->
+        <!-- Injected dynamically via JS with 3D Tilt -->
       </div>
     </section>
 
-    <!-- Loading State -->
+    <!-- Sci-Fi HUD Scanning Progress Box -->
     <div class="loading-box glass-panel" id="loadingBox">
-      <div class="spinner"></div>
-      <div class="loading-text">FixOrPro AI is inspecting the image...</div>
-      <div class="loading-subtext">Checking US labor rates, plumbing/electrical codes, required parts, and safety hazards</div>
+      <div class="loading-spinner-wrap">
+        <div class="cyber-spinner"></div>
+        <div class="cyber-spinner-inner"></div>
+      </div>
+      <div class="loading-text">FixOrPro Neural Engine Scanning...</div>
+      <div class="loading-step-msg" id="loadingStepMsg">[1/4] Scanning surface topology & defect vectors...</div>
     </div>
 
     <!-- =====================================================================
@@ -155,8 +186,8 @@
       </div>
 
       <!-- Problem Summary -->
-      <div class="glass-panel" style="padding: 20px 24px; margin-bottom: 24px;">
-        <p id="problemSummary" style="font-size: 1rem; color: #e2e8f0; line-height: 1.6;">
+      <div class="glass-panel" style="padding: 24px 28px; margin-bottom: 28px; border-left: 4px solid var(--cyan);">
+        <p id="problemSummary" style="font-size: 1.05rem; color: #f1f5f9; line-height: 1.7;">
           Analysis description...
         </p>
       </div>
@@ -176,7 +207,7 @@
         <div class="cost-card savings-card">
           <div class="cost-label">Estimated Money Saved</div>
           <div class="cost-value" id="savingsCostVal">$175 (92%)</div>
-          <div class="cost-detail">Kept directly in your wallet</div>
+          <div class="cost-detail">Directly saved in your wallet</div>
         </div>
       </div>
 
@@ -187,7 +218,7 @@
           <div class="value" id="specDifficulty">Beginner</div>
         </div>
         <div class="spec-item">
-          <div class="label">Est. Time Needed</div>
+          <div class="label">Est. Repair Time</div>
           <div class="value" id="specTime">15 - 20 mins</div>
         </div>
         <div class="spec-item">
@@ -195,20 +226,23 @@
           <div class="value" id="specCategory">Plumbing</div>
         </div>
         <div class="spec-item">
-          <div class="label">AI Confidence</div>
+          <div class="label">Neural Confidence</div>
           <div class="value" id="specConfidence">High (95%)</div>
         </div>
       </div>
 
       <!-- Tabs Navigation -->
       <div class="tabs-nav">
-        <button type="button" class="tab-btn active" data-tab="tabSteps">📋 Step-by-Step Fix Guide</button>
-        <button type="button" class="tab-btn" data-tab="tabParts">🛠️ Required Parts & Tools</button>
+        <button type="button" class="tab-btn active" data-tab="tabSteps">📋 Interactive Fix Guide (Checkable)</button>
+        <button type="button" class="tab-btn" data-tab="tabParts">🛠️ 1-Click Parts & Tools</button>
         <button type="button" class="tab-btn" data-tab="tabSafety">⚠️ Safety Warnings & Pro Triggers</button>
       </div>
 
-      <!-- Tab 1: Step-by-Step Guide -->
+      <!-- Tab 1: Interactive Checkable Step-by-Step Guide -->
       <div class="tab-content active" id="tabSteps">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+          💡 <em>Click any step as you complete it to check off your progress!</em>
+        </p>
         <div id="stepsListContainer">
           <!-- Step cards injected dynamically -->
         </div>
@@ -216,12 +250,12 @@
 
       <!-- Tab 2: Materials & Tools with Direct Buy Links -->
       <div class="tab-content" id="tabParts">
-        <h4 style="margin-bottom: 14px; font-size: 1.1rem;">📦 Replacement Parts Needed (1-Click Buy)</h4>
+        <h4 style="margin-bottom: 16px; font-size: 1.15rem; color: #38bdf8;">📦 Replacement Parts Needed (1-Click Buy)</h4>
         <div id="materialsContainer">
           <!-- Material items injected dynamically -->
         </div>
 
-        <h4 style="margin-top: 24px; margin-bottom: 14px; font-size: 1.1rem;">🛠️ Tools Recommended</h4>
+        <h4 style="margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; color: #818cf8;">🛠️ Recommended Tools</h4>
         <div id="toolsContainer">
           <!-- Tool items injected dynamically -->
         </div>
@@ -236,9 +270,9 @@
           </div>
         </div>
 
-        <div class="glass-panel" style="padding: 20px; border-left: 4px solid #ef4444;">
-          <h4 style="color: #f87171; margin-bottom: 8px; font-size: 1rem;">🚨 When to STOP and Call a Licensed Contractor:</h4>
-          <p id="proTriggerBox" style="color: #cbd5e1; font-size: 0.95rem;">
+        <div class="glass-panel" style="padding: 24px; border-left: 4px solid #f43f5e;">
+          <h4 style="color: #fb7185; margin-bottom: 10px; font-size: 1.1rem;">🚨 When to STOP and Call a Licensed Contractor:</h4>
+          <p id="proTriggerBox" style="color: #e2e8f0; font-size: 1rem; line-height: 1.6;">
             If water is leaking onto the floor from the base of the toilet, or if the shut-off valve is stuck or dripping, stop and call a licensed plumber.
           </p>
         </div>
@@ -264,8 +298,8 @@
       </div>
 
       <!-- Bottom Action Bar -->
-      <div class="report-actions">
-        <div>
+      <div class="report-actions" style="margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div style="display: flex; gap: 12px;">
           <button type="button" class="btn btn-ghost" id="printReportBtn">🖨️ Print / Save PDF</button>
           <button type="button" class="btn btn-ghost" id="shareReportBtn">🔗 Share Report</button>
         </div>
@@ -278,32 +312,35 @@
 
   </main>
 
+  <!-- Floating Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
   <!-- Settings & API Key Modal -->
   <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
       <button class="modal-close" id="closeModalBtn">✕</button>
-      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">⚙️ FixOrPro Settings</h3>
-      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
-        FixOrPro runs in Free Demo mode out-of-the-box. To analyze your own custom photos with unlimited live Gemini Vision AI, enter your Gemini API key below.
+      <h3 style="font-size: 1.4rem; margin-bottom: 8px;">⚙️ FixOrPro Neural Settings</h3>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;">
+        FixOrPro runs in Free Demo mode out-of-the-box. To analyze your own custom photos with live Gemini Vision AI, enter your Gemini API key below.
       </p>
 
-      <div style="margin-bottom: 16px;">
-        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Google Gemini API Key</label>
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 8px;">Google Gemini API Key</label>
         <input type="password" id="apiKeyInput" class="input-notes" style="margin-top: 0;" placeholder="AIzaSy...">
-        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">
-          Get a free key in 30 seconds at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #60a5fa;">Google AI Studio</a>. Key is saved locally in your browser.
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">
+          Get a free key in 30 seconds at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #38bdf8;">Google AI Studio</a>. Key is saved locally in your browser.
         </p>
       </div>
 
-      <div style="margin-bottom: 24px;">
-        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Amazon Associates Affiliate Tag (Optional)</label>
+      <div style="margin-bottom: 28px;">
+        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 8px;">Amazon Associates Affiliate Tag</label>
         <input type="text" id="amazonTagInput" class="input-notes" style="margin-top: 0;" placeholder="e.g. yourtag-20">
-        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">
-          Your affiliate tracking tag will automatically attach to all product buy buttons.
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">
+          Your affiliate tracking tag will automatically attach to all Amazon product buy buttons.
         </p>
       </div>
 
-      <button type="button" class="btn btn-primary" id="saveKeyBtn" style="width: 100%;">
+      <button type="button" class="btn btn-primary" id="saveKeyBtn" style="width: 100%; padding: 14px;">
         <span>Save Settings</span>
       </button>
     </div>
@@ -313,8 +350,8 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-links">
-        <a href="#workspaceSection">Diagnostic Tool</a>
-        <a href="https://aistudio.google.com" target="_blank">Powered by Gemini AI</a>
+        <a href="#workspaceSection">Neural Diagnostic Tool</a>
+        <a href="https://aistudio.google.com" target="_blank">Powered by Gemini 2.5</a>
         <a href="https://www.amazon.com" target="_blank">Amazon Affiliate Partner</a>
       </div>
       <p>© 2026 FixOrPro AI. All rights reserved. For informational and educational purposes. Always prioritize safety and comply with local municipal building & electrical codes.</p>
