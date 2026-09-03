@@ -570,6 +570,7 @@ body {
    ========================================================================== */
 .report-container {
   display: none;
+  scroll-margin-top: 90px;
   animation: slideUp 0.4s ease forwards;
 }
 

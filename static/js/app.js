@@ -440,7 +440,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Reveal Report
         reportContainer.style.display = "block";
-        reportContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        
+        // Accurate smooth scroll with header clearance
+        setTimeout(() => {
+            const header = document.querySelector(".site-header");
+            const headerHeight = header ? header.offsetHeight + 20 : 90;
+            const targetPos = reportContainer.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({
+                top: Math.max(0, targetPos),
+                behavior: "smooth"
+            });
+        }, 100);
     }
 
 
