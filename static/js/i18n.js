@@ -366,6 +366,55 @@ const SCENARIO_TRANSLATIONS = {
                 }
             ],
             pro_trigger_conditions: "온수기 하단 녹물 배출, 이음새 누수, 가스 버너 이상 불꽃 또는 탄 냄새는 100% 면허 기술자 필수 의뢰 대상입니다."
+        },
+        leaking_faucet: {
+            problem_title: "주방/욕실 수도꼭지 내부 카트리지 마모 및 O-링 패킹 누수",
+            difficulty: "초보자 가능 (기본 수공구 사용)",
+            summary: "수도꼭지를 꽉 잠가도 물이 뚝뚝 떨어지거나 손잡이 아래로 물이 배어나오는 현상은 내부 세라믹 카트리지 및 고무 O-링 패킹이 마모되었기 때문입니다. 수도꼭지 전체를 교체할 필요 없이 30분 만에 내부 카트리지만 교체하면 새것처럼 완벽히 밀폐됩니다.",
+            safety_warnings: [
+                "작업 시작 전 싱크대 아래에 있는 온수/냉수 급수 밸브 2개를 반드시 시계 방향으로 꽉 잠그세요.",
+                "작은 육각 렌치 나사가 배수구로 빠지지 않도록 싱크대 구멍을 수건으로 먼저 막아두세요.",
+                "밸브를 잠근 후 수도꼭지를 한번 틀어 파이프 안의 잔여 수압을 완전히 빼내세요."
+            ],
+            materials_needed: [
+                { name: "호환 규격 수도꼭지 교체용 카트리지 (Cartridge)", est_price: "$14.99", amazon_search: "replacement kitchen faucet cartridge", homedepot_search: "faucet cartridge" },
+                { name: "배관용 무독성 실리콘 그리스 (방수 윤활제)", est_price: "$4.50", amazon_search: "silicone faucet grease plumbers", homedepot_search: "plumbers grease" }
+            ],
+            tools_needed: [
+                { name: "휴대용 육각 렌치 세트 (Allen Wrench Hex Key)", amazon_search: "hex key allen wrench set", homedepot_search: "allen wrench" },
+                { name: "10인치 조절식 몽키 스패너 (Adjustable Wrench)", amazon_search: "adjustable wrench 10 inch", homedepot_search: "adjustable wrench" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "싱크대 아래 온수/냉수 급수 밸브 차단 및 잔류 수압 배출",
+                    instruction: "싱크대 하부장을 열고 온수(왼쪽)와 냉수(오른쪽) 타원형 밸브를 시계 방향으로 끝까지 돌려 잠급니다. 수도꼭지 손잡이를 올려 물이 완전히 멈췄는지 확인합니다.",
+                    pro_tip: "하부장 밸브가 너무 뻑뻑하면 수건을 감싸 쥐고 돌리세요. 그래도 안 돌아가면 집 메인 수도 밸브를 잠그세요.",
+                    caution: "작은 부품이 배수구 속으로 굴러 떨어지지 않도록 배수구를 수건으로 꼭 막으세요."
+                },
+                {
+                    step_num: 2,
+                    title: "손잡이 덮개 캡 분리 및 고정 육각 나사 풀기",
+                    instruction: "손잡이에 붙은 빨간/파란 온냉수 표시 플라스틱 캡을 칼날이나 일자 드라이버로 살짝 떼어냅니다. 안쪽에 보이는 작은 육각 구멍에 육각 렌치를 꽂고 반시계 방향으로 2~3바퀴 풀어 손잡이를 위로 쏙 뽑아냅니다.",
+                    pro_tip: "나사를 완전히 다 뺄 필요 없이 2~3바퀴만 풀어도 손잡이가 쉽게 쑥 빠집니다.",
+                    caution: "손잡이를 지렛대처럼 억지로 비틀지 마세요. 내부 황동 밸브 축이 휠 수 있습니다."
+                },
+                {
+                    step_num: 3,
+                    title: "고정 보닛 너트 분리 및 기존 마모 카트리지 인출",
+                    instruction: "손으로 둥근 돔 캡을 돌려 빼낸 뒤, 몽키 스패너로 황동 고정 너트(Bonnet Nut)를 반시계 방향으로 풉니다. 너트를 제거한 후 플라이어로 카트리지 상단을 잡고 위로 똑바로 들어 올려 꺼냅니다.",
+                    pro_tip: "기존 카트리지의 홈 위치(앞뒤 방향)를 스마트폰으로 사진 찍어두면 새 카트리지를 똑같은 방향으로 꽂기 쉽습니다.",
+                    caution: "새 카트리지를 넣기 전 하우징 안쪽의 찌꺼기와 석회 침전물을 마른 천으로 깨끗이 닦아내세요."
+                },
+                {
+                    step_num: 4,
+                    title: "새 카트리지 장착, 너트 조임 및 누수 테스트",
+                    instruction: "새 카트리지의 고무 O-링에 배관용 실리콘 그리스를 살짝 바르고, 홈에 맞춰 꾹 눌러 끼웁니다. 고정 너트를 스패너로 알맞게 조이고 손잡이를 다시 조립한 뒤, 싱크대 밑 밸브를 천천히 열어 물이 새지 않는지 테스트합니다.",
+                    pro_tip: "싱크대 밑 밸브를 열 때는 수압 충격(Water Hammer)을 방지하기 위해 천천히 부드럽게 여세요.",
+                    caution: "황동 고정 너트를 너무 과도하게 세게 조이면 플라스틱 카트리지가 깨질 수 있으니 적당히 조이세요."
+                }
+            ],
+            pro_trigger_conditions: "싱크대 아래 벽 배관 연결 부위가 녹슬어 삭았거나, 수도꼭지 본체가 카운터탑에 완전히 고착되어 흔들리지 않는다면 면허 배관공을 부르세요."
         }
     }
 };

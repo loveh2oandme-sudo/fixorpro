@@ -362,5 +362,78 @@ SAMPLE_SCENARIOS = {
             ],
             "pro_trigger_conditions": "Tank base corrosion, bottom seam weeping, gas burner rollout, or electrical burning odors are 100% contractor required. Do not DIY."
         }
+    },
+    "leaking_faucet": {
+        "id": "leaking_faucet",
+        "title": "Dripping Kitchen Sink Faucet (Worn Cartridge & O-Ring)",
+        "category": "Plumbing",
+        "thumbnail": "🚰",
+        "image_url": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+        "description": "Kitchen or bathroom sink faucet continuously drips from the spout or leaks around the handle base when turned off.",
+        "result": {
+            "problem_title": "Worn Faucet Cartridge & Degraded Stem O-Rings",
+            "category": "Plumbing",
+            "confidence_score": "High (96%)",
+            "verdict": "DIY_RECOMMENDED",
+            "difficulty": "Beginner (Standard Hand Tools)",
+            "estimated_time": "25 - 40 minutes",
+            "youtube_query": "how to fix dripping kitchen faucet replace cartridge",
+            "youtube_video_id": "RUX3U6CIRXI",
+            "cost_comparison": {
+                "diy_cost": "$12 - $28",
+                "pro_cost": "$175 - $260",
+                "estimated_savings": "$195",
+                "savings_percentage": "89%"
+            },
+            "summary": "A constant drip from the spout or handle base is typically caused by mineral scale and worn rubber seals inside the ceramic disc or cartridge assembly. Replacing the internal cartridge restores a factory-tight seal in under 30 minutes without having to replace the entire faucet fixture.",
+            "safety_warnings": [
+                "ALWAYS shut off both Hot and Cold under-sink angle stop supply valves before disassembling the faucet handle.",
+                "Cover the sink drain with a washcloth or basket strainer to prevent tiny set-screws from falling down the pipe.",
+                "Turn the faucet on after shutting the valves to relieve trapped internal water pressure."
+            ],
+            "tools_needed": [
+                {"name": "Standard Allen Wrench Set (Hex Key)", "amazon_search": "hex key allen wrench set", "homedepot_search": "allen wrench"},
+                {"name": "Adjustable Slip-Joint Wrench", "amazon_search": "adjustable wrench 10 inch", "homedepot_search": "adjustable wrench"}
+            ],
+            "materials_needed": [
+                {"name": "Universal / Brand-Specific Replacement Faucet Cartridge", "est_price": "$14.99", "amazon_search": "replacement kitchen faucet cartridge", "homedepot_search": "faucet cartridge"},
+                {"name": "Food-Grade Silicone Plumber's Grease", "est_price": "$4.50", "amazon_search": "silicone faucet grease plumbers", "homedepot_search": "plumbers grease"}
+            ],
+            "steps": [
+                {
+                    "step_num": 1,
+                    "title": "Shut off hot and cold water supply valves under the sink",
+                    "instruction": "Open the cabinet doors beneath the sink and locate the two oval shut-off valves. Turn both the hot (left) and cold (right) valve handles clockwise until firmly closed. Open the faucet handle to bleed out remaining water and confirm flow has stopped.",
+                    "pro_tip": "If the under-sink valves are corroded or won't turn, shut off the main water valve to the home.",
+                    "caution": "Cover the sink drain with a towel immediately so small screws cannot fall into the P-trap.",
+                    "youtube_query": "how to turn off water under kitchen sink"
+                },
+                {
+                    "step_num": 2,
+                    "title": "Remove the decorative index cap and loosen the handle set-screw",
+                    "instruction": "Use a small flathead screwdriver or utility knife blade to gently pry off the red/blue temperature badge or decorative cap. Insert the matching Allen hex key (usually 3/32\" or 1/8\") and turn counter-clockwise 2-3 full turns to loosen the set screw, then pull the faucet handle straight up off the stem.",
+                    "pro_tip": "You do not need to unscrew the hex screw completely out; just loosen it enough for the handle to slide off.",
+                    "caution": "Do not force the handle sideways or pry against the countertop to avoid bending the brass valve stem.",
+                    "youtube_query": "how to remove kitchen faucet handle set screw"
+                },
+                {
+                    "step_num": 3,
+                    "title": "Unscrew the bonnet retaining nut and extract the old cartridge",
+                    "instruction": "Unscrew the decorative dome cap by hand. Use an adjustable wrench to turn the brass bonnet retaining nut counter-clockwise. Once the nut is removed, grip the top of the cartridge with pliers and pull it straight upward out of the faucet body.",
+                    "pro_tip": "Take a quick smartphone photo of the old cartridge alignment notch before pulling it out so the new one goes in with hot/cold properly oriented.",
+                    "caution": "Wipe out the inside of the faucet housing with a clean rag to remove any grit or calcium deposits.",
+                    "youtube_query": "how to remove faucet cartridge retaining nut"
+                },
+                {
+                    "step_num": 4,
+                    "title": "Lubricate O-rings, install new cartridge, and test for leaks",
+                    "instruction": "Apply a thin layer of food-grade silicone plumber's grease to the new cartridge rubber O-rings. Align the cartridge side tabs with the matching grooves inside the faucet body and press down firmly. Re-tighten the bonnet nut snugly, reattach the handle, slowly open under-sink valves, and check for a clean, leak-free shut-off.",
+                    "pro_tip": "Turn the under-sink valves back on SLOWLY to prevent water hammer vibration in your supply lines.",
+                    "caution": "Do NOT over-tighten the brass bonnet nut; over-tightening can crack plastic cartridge bodies.",
+                    "youtube_query": "how to install new faucet cartridge and test"
+                }
+            ],
+            "pro_trigger_conditions": "If water is spraying under the sink from cracked supply risers, or if the faucet base is seized solid to the countertop with rust, call a licensed plumber."
+        }
     }
 }

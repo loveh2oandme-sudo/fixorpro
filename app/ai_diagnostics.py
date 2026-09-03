@@ -71,15 +71,18 @@ CRITICAL RULES FOR US MARKET ACCURACY:
    - ONLY recommend genuine hardware store tools (e.g., Allen Wrench, Needle-Nose Pliers, Tongue-and-Groove Pliers, Putty Knife, Voltage Tester, Screwdriver) and authentic replacement parts sold at Home Depot, Lowe's, and Amazon.
 """
 
-async def analyze_repair_image(
-    image_bytes: bytes,
-    mime_type: str,
+async def analyze_repair_issue(
+    image_bytes: Optional[bytes] = None,
+    mime_type: Optional[str] = None,
     user_notes: Optional[str] = None,
     api_key: Optional[str] = None
 ) -> Dict[str, Any]:
     """
-    Analyzes an image using Gemini Vision API.
-    Uses provided API key, or fallback to environment variable GEMINI_API_KEY.
+    Analyzes a home repair issue using Gemini 2.5 Flash.
+    Supports:
+    - Photo only
+    - Text description only
+    - Photo + Text description
     """
     effective_api_key = api_key or os.environ.get("GEMINI_API_KEY")
 
@@ -90,19 +93,20 @@ async def analyze_repair_image(
 
     prompt = DIAGNOSTIC_PROMPT
     if user_notes and user_notes.strip():
-        prompt += f"\n\nUser added notes regarding symptoms: \"{user_notes.strip()}\""
+        prompt += f"\n\nUser Description of Problem & Symptoms: \"{user_notes.strip()}\""
+
+    contents = []
+    if image_bytes and mime_type:
+        contents.append(types.Part.from_bytes(
+            data=image_bytes,
+            mime_type=mime_type
+        ))
+    contents.append(prompt)
 
     try:
-        # Request multimodal generation using Gemini 2.5 Flash
         response = client.models.generate_content(
             model='gemini-2.5-flash',
-            contents=[
-                types.Part.from_bytes(
-                    data=image_bytes,
-                    mime_type=mime_type
-                ),
-                prompt
-            ],
+            contents=contents,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 temperature=0.2,
@@ -110,7 +114,6 @@ async def analyze_repair_image(
         )
 
         response_text = response.text.strip()
-        # Handle code fences if present
         if response_text.startswith("```json"):
             response_text = response_text[7:]
         if response_text.startswith("```"):
@@ -123,5 +126,9 @@ async def analyze_repair_image(
         return data
 
     except Exception as e:
-        print(f"Error during Gemini Vision API call: {e}")
+        print(f"Error during Gemini API call: {e}")
         raise e
+
+
+# Maintain backwards compatibility
+analyze_repair_image = analyze_repair_issue

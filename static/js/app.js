@@ -178,6 +178,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    userNotesInput.addEventListener("input", () => {
+        const text = userNotesInput.value.trim();
+        if (text.length > 0 || currentFile || selectedSampleId) {
+            analyzeBtn.disabled = false;
+        } else {
+            analyzeBtn.disabled = true;
+        }
+    });
+
     removeImageBtn.addEventListener("click", () => {
         currentFile = null;
         selectedSampleId = null;
@@ -185,7 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
         cameraInput.value = "";
         previewContainer.style.display = "none";
         dropZone.style.display = "block";
-        analyzeBtn.disabled = true;
+        if (!userNotesInput.value.trim()) {
+            analyzeBtn.disabled = true;
+        }
         clearActiveSampleCards();
     });
 
@@ -315,8 +326,9 @@ document.addEventListener("DOMContentLoaded", () => {
     analyzeBtn.addEventListener("click", runDiagnosis);
 
     async function runDiagnosis() {
-        if (!currentFile && !selectedSampleId) {
-            showToast("⚠️ Please upload a photo or pick a sample scenario.");
+        const notes = userNotesInput.value.trim();
+        if (!currentFile && !selectedSampleId && !notes) {
+            showToast("⚠️ Please upload a photo, write a description, or pick a sample scenario.");
             return;
         }
 
@@ -328,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Cycle Scanning Messages
         const scanSteps = [
-            "[1/4] Scanning surface defect vectors...",
+            "[1/4] Scanning problem symptoms & defect vectors...",
             "[2/4] Cross-referencing US National Building & Plumbing Codes...",
             "[3/4] Querying Amazon, Home Depot & Lowe's parts pricing...",
             "[4/4] Generating final actionable repair blueprint..."
@@ -344,8 +356,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         if (currentFile) formData.append("image", currentFile);
         if (selectedSampleId) formData.append("sample_id", selectedSampleId);
-
-        const notes = userNotesInput.value.trim();
         if (notes) formData.append("notes", notes);
 
         const savedKey = localStorage.getItem("fixorpro_gemini_key");
@@ -359,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!res.ok) {
                 const errorData = await res.json();
-                throw new Error(errorData.detail || "Failed to analyze image.");
+                throw new Error(errorData.detail || "Failed to analyze issue.");
             }
 
             const data = await res.json();
@@ -380,11 +390,16 @@ document.addEventListener("DOMContentLoaded", () => {
     function detectScenarioKey(data, sampleId) {
         if (sampleId) return sampleId;
         const title = (data.problem_title || "").toLowerCase();
-        if (title.includes("toilet") || title.includes("flapper") || title.includes("변기")) return "running_toilet";
-        if (title.includes("disposal") || title.includes("jam") || title.includes("분쇄기")) return "disposal_jam";
-        if (title.includes("drywall") || title.includes("hole") || title.includes("석고") || title.includes("벽")) return "drywall_hole";
-        if (title.includes("p-trap") || title.includes("trap") || title.includes("slip") || title.includes("트랩")) return "leaking_p_trap";
-        if (title.includes("water heater") || title.includes("heater") || title.includes("온수기")) return "water_heater_tank";
+        const cat = (data.category || "").toLowerCase();
+        const notes = (userNotesInput.value || "").toLowerCase();
+        const full = `${title} ${cat} ${notes}`;
+
+        if (full.includes("faucet") || full.includes("수도") || full.includes("꼭지") || full.includes("싱크") || full.includes("sink") || full.includes("cartridge") || full.includes("drip")) return "leaking_faucet";
+        if (full.includes("toilet") || full.includes("flapper") || full.includes("변기")) return "running_toilet";
+        if (full.includes("disposal") || full.includes("jam") || full.includes("분쇄기")) return "disposal_jam";
+        if (full.includes("drywall") || full.includes("hole") || full.includes("석고") || full.includes("벽")) return "drywall_hole";
+        if (full.includes("p-trap") || full.includes("trap") || full.includes("slip") || full.includes("트랩")) return "leaking_p_trap";
+        if (full.includes("water heater") || full.includes("heater") || full.includes("온수기")) return "water_heater_tank";
         return null;
     }
 
