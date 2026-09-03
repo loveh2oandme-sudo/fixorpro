@@ -56,9 +56,50 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentFile = null;
     let selectedSampleId = null;
     let scanInterval = null;
+    let activeReportData = null;
 
     // Use saved Amazon tag from localStorage if entered, or fallback
     const AMAZON_TAG = localStorage.getItem("fixorpro_amazon_tag") || "fixorpro-20";
+
+    // ----------------------------------------------------------------------
+    // Language Switcher Initialization (i18n)
+    // ----------------------------------------------------------------------
+    const langSelector = document.getElementById("langSelector");
+    if (langSelector && window.i18n) {
+        const savedLang = localStorage.getItem("fixorpro_lang") || "en";
+        langSelector.value = savedLang;
+        window.i18n.setLanguage(savedLang);
+
+        langSelector.addEventListener("change", (e) => {
+            const chosenLang = e.target.value;
+            window.i18n.setLanguage(chosenLang);
+            showToast(`🌐 Language: ${e.target.options[e.target.selectedIndex].text}`);
+            if (activeReportData) {
+                renderDiagnosticReport(activeReportData);
+            }
+        });
+    }
+
+    // ----------------------------------------------------------------------
+    // Smooth Anchor Navigation with Sticky Navbar Clearance
+    // ----------------------------------------------------------------------
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+            const href = this.getAttribute("href");
+            if (!href || href === "#") return;
+            const targetEl = document.querySelector(href);
+            if (targetEl) {
+                e.preventDefault();
+                const header = document.querySelector(".site-header");
+                const headerHeight = header ? header.offsetHeight + 15 : 85;
+                const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                window.scrollTo({
+                    top: Math.max(0, targetPos),
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
 
     // Initial load: Fetch samples
     loadSamples();
@@ -312,12 +353,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render Result Report (Amazon + Home Depot + Lowe's)
     // ----------------------------------------------------------------------
     function renderDiagnosticReport(data, source) {
+        activeReportData = data;
         const isDIY = data.verdict === "DIY_RECOMMENDED";
 
         // 1. Verdict Banner
         verdictBanner.className = `verdict-banner ${isDIY ? 'diy' : 'pro'}`;
         verdictIcon.textContent = isDIY ? "🟢" : "🚨";
-        verdictTag.textContent = isDIY ? "DIY Recommended (Beginner Friendly)" : "Call a Licensed Contractor";
+        const diyLabel = window.i18n ? window.i18n.t("report_verdict_diy") : "DIY Recommended (Beginner Friendly)";
+        const proLabel = window.i18n ? window.i18n.t("report_verdict_pro") : "Call a Licensed Contractor";
+        verdictTag.textContent = isDIY ? diyLabel : proLabel;
         verdictHeading.textContent = data.problem_title;
         problemSummary.textContent = data.summary;
 

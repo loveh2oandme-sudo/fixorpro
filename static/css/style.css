@@ -1192,4 +1192,151 @@ body {
   .video-modal-dialog { max-width: 100%; border-radius: var(--radius-md); }
   .video-modal-header { padding: 14px 18px; }
   .video-modal-buy-bar { padding: 14px 18px; }
+  .lang-select-wrap { margin-right: 4px; }
 }
+
+/* ==========================================================================
+   LANGUAGE SELECTOR (i18n UI)
+   ========================================================================== */
+.lang-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.lang-select {
+  background: #1e293b;
+  color: #ffffff;
+  border: 1px solid var(--border-card);
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 26px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 14px;
+}
+
+.lang-select:hover, .lang-select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+/* ==========================================================================
+   PRECISION SCROLL ANCHORS
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+#workspaceSection,
+#samplesSection,
+#reportContainer,
+#sectionSafety,
+#disclaimerSection,
+.report-section-card {
+  scroll-margin-top: 95px;
+}
+
+/* ==========================================================================
+   PRINT / PDF ESTIMATE STYLESHEET
+   ========================================================================== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+  }
+
+  .ticker-bar,
+  .nav-actions,
+  .hero-section,
+  .workspace-card,
+  .samples-grid,
+  .sample-card,
+  .report-action-bar,
+  .video-modal,
+  .footer,
+  .step-video-link,
+  .btn-amazon,
+  .btn-homedepot,
+  .btn-lowes,
+  #youtubeMainBtn {
+    display: none !important;
+  }
+
+  .site-header {
+    position: static !important;
+    background: transparent !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding: 10px 0 !important;
+  }
+
+  .report-container {
+    display: block !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .verdict-banner {
+    background: #f1f5f9 !important;
+    border: 2px solid #0f172a !important;
+    color: #0f172a !important;
+    break-inside: avoid;
+  }
+
+  .verdict-title {
+    color: #0f172a !important;
+  }
+
+  .cost-grid {
+    border: 1px solid #cbd5e1 !important;
+    background: #ffffff !important;
+  }
+
+  .cost-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #0f172a !important;
+  }
+
+  .cost-value {
+    color: #0f172a !important;
+  }
+
+  .report-section-card {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    margin-bottom: 20px !important;
+    break-inside: avoid;
+  }
+
+  .step-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #0f172a !important;
+  }
+
+  .step-item h4,
+  .step-instruction-text,
+  .item-name {
+    color: #0f172a !important;
+  }
+
+  .legal-disclaimer-box {
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #334155 !important;
+  }
+}
+
