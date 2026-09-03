@@ -90,22 +90,24 @@ html, body {
   max-width: 100vw;
 }
 
-/* Google Global Auto-Translation Styling (Seamless integration without popups) */
-.goog-te-banner-frame.skiptranslate,
-.goog-te-gadget-icon,
+/* Eradicate Any Translation Iframe Displacements */
+iframe.skiptranslate,
+.goog-te-banner-frame,
 #goog-gt-tt,
 .goog-te-balloon-frame {
   display: none !important;
+  visibility: hidden !important;
+  height: 0px !important;
+  width: 0px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
-body {
+html, body {
   top: 0px !important;
   position: static !important;
-}
-
-.goog-text-highlight {
-  background: transparent !important;
-  box-shadow: none !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
 }
 
 /* Navigation Header */
