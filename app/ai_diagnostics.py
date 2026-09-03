@@ -17,8 +17,9 @@ You MUST respond strictly with valid JSON conforming to this exact schema (do no
   "category": "Plumbing | Electrical | Walls & Drywall | Appliances | HVAC | Doors & Windows | Roofing & Gutters | Flooring",
   "confidence_score": "High (90-99%) | Medium (70-89%) | Low (<70%)",
   "verdict": "DIY_RECOMMENDED" or "CALL_A_PRO",
-  "difficulty": "Beginner" | "Intermediate" | "Advanced" | "Licensed Pro Required",
+  "difficulty": "Beginner (No Special Tools) | Intermediate | Advanced | Licensed Pro Required",
   "estimated_time": "e.g. 15 - 30 minutes",
+  "youtube_query": "e.g. how to fix running toilet replace flapper",
   "cost_comparison": {
     "diy_cost": "e.g. $10 - $25 (Parts only)",
     "pro_cost": "e.g. $150 - $250 (Standard US Contractor Trip Fee + Labor)",
@@ -48,18 +49,11 @@ You MUST respond strictly with valid JSON conforming to this exact schema (do no
   "steps": [
     {
       "step_num": 1,
-      "title": "Actionable Step 1 Title",
-      "instruction": "Detailed, practical step instructions."
-    },
-    {
-      "step_num": 2,
-      "title": "Actionable Step 2 Title",
-      "instruction": "Detailed, practical step instructions."
-    },
-    {
-      "step_num": 3,
-      "title": "Actionable Step 3 Title",
-      "instruction": "Detailed, practical step instructions."
+      "title": "Clear, Action-Oriented Step Title",
+      "instruction": "Detailed, highly-practical 2-4 sentence instruction explaining EXACTLY what physical motions, direction of turn, and adjustments to make.",
+      "pro_tip": "Expert insider tip or secret contractors use to do this faster/better.",
+      "caution": "Specific common mistake or danger to avoid during this step.",
+      "youtube_query": "specific youtube search query for this step"
     }
   ],
   "pro_trigger_conditions": "Clear warning of when the user should immediately stop DIY and call a licensed pro (e.g., major water gushing, gas odor, live sparks, structural damage)."
@@ -69,7 +63,9 @@ CRITICAL RULES FOR US MARKET ACCURACY:
 1. Verdict Criteria:
    - Mark 'CALL_A_PRO' if it involves 240V high-voltage, natural gas/propane lines, structural load-bearing walls, major sewer line collapse, pressurized refrigerant (freon), or active ceiling collapse.
    - Mark 'DIY_RECOMMENDED' for common household fixes (toilet flappers, sink P-traps, disposal jams, drywall holes, weatherstripping, light switches, faucet aerators, caulk recaulking).
-2. Cost Estimations: Reflect realistic 2026 US market labor and trip fee pricing ($100-$150 minimum trip charge + $75-$120/hr labor).
+2. Step Quality:
+   - Provide in-depth, foolproof, contractor-grade guidance for each step with practical pro-tips.
+3. Cost Estimations: Reflect realistic 2026 US market labor and trip fee pricing ($100-$150 minimum trip charge + $75-$120/hr labor).
 """
 
 async def analyze_repair_image(
@@ -94,13 +90,13 @@ async def analyze_repair_image(
         prompt += f"\n\nUser added notes regarding symptoms: \"{user_notes.strip()}\""
 
     try:
-        # Request multimodal generation using Gemini 2.5 Flash / 2.0 Flash
+        # Request multimodal generation using Gemini 2.5 Flash
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=[
                 types.Part.from_bytes(
                     data=image_bytes,
-                    mime_type=mime_type,
+                    mime_type=mime_type
                 ),
                 prompt
             ],
@@ -110,39 +106,19 @@ async def analyze_repair_image(
             )
         )
 
-        text_content = response.text.strip()
-        # Clean potential markdown wrapping
-        if text_content.startswith("```json"):
-            text_content = text_content[7:]
-        if text_content.endswith("```"):
-            text_content = text_content[:-3]
-        text_content = text_content.strip()
+        response_text = response.text.strip()
+        # Handle code fences if present
+        if response_text.startswith("```json"):
+            response_text = response_text[7:]
+        if response_text.startswith("```"):
+            response_text = response_text[3:]
+        if response_text.endswith("```"):
+            response_text = response_text[:-3]
+        response_text = response_text.strip()
 
-        data = json.loads(text_content)
+        data = json.loads(response_text)
         return data
 
     except Exception as e:
-        # Retry with gemini-2.0-flash if model name differs
-        try:
-            response = client.models.generate_content(
-                model='gemini-2.0-flash',
-                contents=[
-                    types.Part.from_bytes(
-                        data=image_bytes,
-                        mime_type=mime_type,
-                    ),
-                    prompt
-                ],
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    temperature=0.2,
-                )
-            )
-            text_content = response.text.strip()
-            if text_content.startswith("```json"):
-                text_content = text_content[7:]
-            if text_content.endswith("```"):
-                text_content = text_content[:-3]
-            return json.loads(text_content.strip())
-        except Exception as retry_err:
-            raise RuntimeError(f"Gemini API Error: {str(retry_err) or str(e)}")
+        print(f"Error during Gemini Vision API call: {e}")
+        raise e

@@ -252,12 +252,38 @@
         <div class="report-section-header">
           <span style="font-size: 24px;">📋</span>
           <div>
-            <h3 class="section-badge-steps">Step-by-Step DIY Repair Guide</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Tap any step as you work to check it off your progress</p>
+            <h3 class="section-badge-steps">Step-by-Step DIY Repair Manual</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Expert instructions with pro-tips, cautions, and YouTube video tutorials</p>
           </div>
         </div>
+
+        <!-- 1-Click YouTube Video Guide Banner -->
+        <div class="youtube-guide-banner" id="youtubeGuideBox">
+          <div class="youtube-guide-info">
+            <div class="youtube-icon-badge">▶</div>
+            <div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff;">Watch Step-by-Step Video Tutorial</div>
+              <div style="font-size: 0.84rem; color: #fca5a5;">Watch vetted YouTube DIY guides (This Old House, Home RenoVision, etc.)</div>
+            </div>
+          </div>
+          <a id="youtubeMainBtn" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+            <span>▶️ Open Video on YouTube</span>
+          </a>
+        </div>
+
         <div id="stepsListContainer">
           <!-- Step cards injected dynamically -->
+        </div>
+
+        <!-- Fallback Pro Prompt inside Steps -->
+        <div class="step-pro-fallback">
+          <div>
+            <div style="font-weight: 800; font-size: 1rem; color: #ffffff;">🛠️ Feeling stuck, overwhelmed, or don't have the time?</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">A licensed local pro can handle this in under 30 minutes with guaranteed warranty.</div>
+          </div>
+          <a href="#sectionSafety" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">
+            <span>🚨 Call a Local Pro</span>
+          </a>
         </div>
       </div>
 

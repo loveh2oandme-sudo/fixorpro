@@ -341,17 +341,49 @@ document.addEventListener("DOMContentLoaded", () => {
         specCategory.textContent = data.category || "General Repair";
         specConfidence.textContent = data.confidence_score || "High (95%)";
 
-        // 4. Tab 1: Interactive Checkable Steps
+        // YouTube Main Video Guide Button
+        const youtubeMainBtn = document.getElementById("youtubeMainBtn");
+        if (youtubeMainBtn) {
+            const ytQuery = data.youtube_query || `${data.problem_title} DIY repair tutorial`;
+            youtubeMainBtn.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(ytQuery)}`;
+        }
+
+        // 4. Interactive Deep Step-by-Step Manual
         stepsListContainer.innerHTML = "";
         if (data.steps && data.steps.length > 0) {
             data.steps.forEach(step => {
                 const stepEl = document.createElement("div");
                 stepEl.className = "step-item";
+
+                let proTipHtml = "";
+                if (step.pro_tip) {
+                    proTipHtml = `<div class="step-protip-box">💡 <strong>Pro Tip:</strong> ${step.pro_tip}</div>`;
+                }
+
+                let cautionHtml = "";
+                if (step.caution) {
+                    cautionHtml = `<div class="step-caution-box">⚠️ <strong>Watch Out:</strong> ${step.caution}</div>`;
+                }
+
+                let stepYtHtml = "";
+                if (step.youtube_query) {
+                    stepYtHtml = `
+                        <div>
+                            <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(step.youtube_query)}" target="_blank" rel="noopener noreferrer" class="step-video-link" onclick="event.stopPropagation();">
+                                <span>▶️ Watch Step Demo on YouTube</span>
+                            </a>
+                        </div>
+                    `;
+                }
+
                 stepEl.innerHTML = `
                     <div class="step-checkbox-wrap">✓</div>
                     <div class="step-info">
                         <h4>Step ${step.step_num}: ${step.title}</h4>
-                        <p>${step.instruction}</p>
+                        <p class="step-instruction-text">${step.instruction}</p>
+                        ${proTipHtml}
+                        ${cautionHtml}
+                        ${stepYtHtml}
                     </div>
                 `;
 
