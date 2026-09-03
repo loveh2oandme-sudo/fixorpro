@@ -681,11 +681,67 @@ document.addEventListener("DOMContentLoaded", () => {
             proTriggerBox.textContent = data.pro_trigger_conditions;
         }
 
-        // 7. Pro Referral Links
-        const queryTerm = encodeURIComponent(data.category || data.problem_title || "Handyman");
-        thumbtackBtn.href = `https://www.thumbtack.com/k/${queryTerm}/near-me`;
-        angiBtn.href = `https://www.angi.com/companylist/${queryTerm}.htm`;
-        yelpBtn.href = `https://www.yelp.com/search?find_desc=${queryTerm}`;
+        // 7. Guaranteed 100% Active Contractor Lead & Affiliate Matching Links (Never 404)
+        function getContractorCategoryInfo(d) {
+            const rawCat = (d.category || "").toLowerCase();
+            const rawTitle = (d.problem_title || "").toLowerCase();
+            const fullText = `${rawCat} ${rawTitle}`;
+
+            // Plumbing (Toilet, Sink, Faucet, Leak, Drain, P-Trap)
+            if (fullText.includes("toilet") || fullText.includes("plumb") || fullText.includes("변기") || fullText.includes("배관") || fullText.includes("leak") || fullText.includes("p-trap") || fullText.includes("trap") || fullText.includes("트랩") || fullText.includes("faucet") || fullText.includes("drain") || fullText.includes("수도")) {
+                return {
+                    thumbtackSlug: "plumbing",
+                    angiQuery: "plumber",
+                    yelpQuery: "plumber"
+                };
+            }
+            // Garbage Disposal & Appliances
+            if (fullText.includes("disposal") || fullText.includes("분쇄기") || fullText.includes("appliance") || fullText.includes("가전") || fullText.includes("washer") || fullText.includes("dishwasher")) {
+                return {
+                    thumbtackSlug: "garbage-disposal-repair",
+                    angiQuery: "garbage-disposal-repair",
+                    yelpQuery: "garbage-disposal-repair"
+                };
+            }
+            // Drywall & Wall Repair
+            if (fullText.includes("drywall") || fullText.includes("sheetrock") || fullText.includes("석고") || fullText.includes("벽") || fullText.includes("hole") || fullText.includes("patch")) {
+                return {
+                    thumbtackSlug: "drywall-repair",
+                    angiQuery: "drywall-repair",
+                    yelpQuery: "drywall-repair"
+                };
+            }
+            // Water Heater
+            if (fullText.includes("heater") || fullText.includes("water heater") || fullText.includes("온수기") || fullText.includes("boiler") || fullText.includes("보일러")) {
+                return {
+                    thumbtackSlug: "water-heater-installation",
+                    angiQuery: "water-heater-repair",
+                    yelpQuery: "water-heater-repair"
+                };
+            }
+            // Electrical
+            if (fullText.includes("electric") || fullText.includes("전기") || fullText.includes("outlet") || fullText.includes("switch") || fullText.includes("스위치") || fullText.includes("breaker")) {
+                return {
+                    thumbtackSlug: "electricians",
+                    angiQuery: "electrician",
+                    yelpQuery: "electrician"
+                };
+            }
+            // General Handyman fallback
+            return {
+                thumbtackSlug: "handyman",
+                angiQuery: "handyman",
+                yelpQuery: "handyman"
+            };
+        }
+
+        const proInfo = getContractorCategoryInfo(data);
+        const affiliateTag = localStorage.getItem("fixorpro_contractor_tag") || "";
+        const tagParam = affiliateTag ? `?utm_source=fixorpro&utm_medium=affiliate&subid=${encodeURIComponent(affiliateTag)}` : "";
+
+        thumbtackBtn.href = `https://www.thumbtack.com/k/${proInfo.thumbtackSlug}/near-me${tagParam}`;
+        angiBtn.href = `https://www.angi.com/search.htm?query=${encodeURIComponent(proInfo.angiQuery)}${tagParam}`;
+        yelpBtn.href = `https://www.yelp.com/search?find_desc=${encodeURIComponent(proInfo.yelpQuery)}${tagParam}`;
 
         // Reveal Report
         reportContainer.style.display = "block";

@@ -39,9 +39,9 @@ const TRANSLATIONS = {
         safety_danger_title: "🚨 When to STOP and Call a Licensed Contractor:",
         pro_contractor_title: "Prefer to have a licensed Pro handle it?",
         pro_contractor_desc: "Find top-rated, licensed, and insured contractors in your ZIP code with upfront pricing.",
-        btn_thumbtack: "📍 Find Local Pros Nearby",
-        btn_angi: "Angi Leads",
-        btn_yelp: "Yelp Pros"
+        btn_thumbtack: "🔨 Thumbtack (Compare Local Pros)",
+        btn_angi: "🏠 Angi (Verified Contractors)",
+        btn_yelp: "⭐ Yelp (Verified Reviews)"
     },
     ko: {
         nav_try_samples: "💡 샘플 체험",
@@ -78,9 +78,9 @@ const TRANSLATIONS = {
         safety_danger_title: "🚨 작업을 즉시 중단하고 면허 기술자를 불러야 하는 상황:",
         pro_contractor_title: "우리 동네 검증된 라이선스 기술자 연결",
         pro_contractor_desc: "긴급 배관공, 전기 기술자, 핸디맨이 필요하신가요? 완벽한 보증이 포함된 무료 비교 견적을 확인하세요.",
-        btn_thumbtack: "📍 Thumbtack에서 전문가 찾기",
-        btn_angi: "Angi 견적 비교",
-        btn_yelp: "Yelp 전문가"
+        btn_thumbtack: "🔨 Thumbtack (현지 전문가 무료 견적)",
+        btn_angi: "🏠 Angi (공식 인증 시공업체)",
+        btn_yelp: "⭐ Yelp (실제 고객 평점 리뷰)"
     },
     es: {
         nav_try_samples: "💡 Ejemplos",
@@ -117,9 +117,9 @@ const TRANSLATIONS = {
         safety_danger_title: "🚨 Cuándo DETENERSE y Llamar a un Contratista:",
         pro_contractor_title: "¿Prefiere que lo haga un profesional con licencia?",
         pro_contractor_desc: "Encuentre contratistas con licencia y seguro en su código postal.",
-        btn_thumbtack: "📍 Buscar en Thumbtack",
-        btn_angi: "Angi",
-        btn_yelp: "Yelp"
+        btn_thumbtack: "🔨 Thumbtack (Cotizaciones Gratis)",
+        btn_angi: "🏠 Angi (Contratistas Verificados)",
+        btn_yelp: "⭐ Yelp (Reseñas Verificadas)"
     }
 };
 
