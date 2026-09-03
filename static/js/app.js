@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ----------------------------------------------------------------------
     function updateActiveLangButtons() {
         const currentLang = window.i18n ? window.i18n.getLanguage() : "en";
-        document.querySelectorAll(".btn-lang-toggle, .lang-pill-btn").forEach(btn => {
+        document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
             if (btn.getAttribute("data-lang") === currentLang) {
                 btn.classList.add("active");
                 btn.style.background = "linear-gradient(135deg, #0ea5e9, #2563eb)";
@@ -74,14 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.style.fontWeight = "800";
             } else {
                 btn.classList.remove("active");
-                btn.style.background = "transparent";
+                btn.style.background = "rgba(255,255,255,0.06)";
                 btn.style.color = "var(--text-muted)";
-                btn.style.fontWeight = "600";
+                btn.style.fontWeight = "400";
             }
         });
     }
 
-    document.querySelectorAll(".btn-lang-toggle, .lang-pill-btn").forEach(btn => {
+    document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
         btn.addEventListener("click", () => {
             const lang = btn.getAttribute("data-lang");
             if (window.i18n) {

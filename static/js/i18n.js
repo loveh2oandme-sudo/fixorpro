@@ -372,16 +372,31 @@ const SCENARIO_TRANSLATIONS = {
 
 /**
  * Multi-Source Smart Language Detection
- * Checks user manual choice, navigator.languages, navigator.language, system locales & timezones.
+ * Checks URL parameters, navigator.languages, navigator.language, system locales & user-agents.
  */
 function detectBrowserLanguage() {
-    // 1. Check if user previously made a manual choice
-    const manualChoice = localStorage.getItem("fixorpro_lang");
-    if (manualChoice && TRANSLATIONS[manualChoice]) {
-        return manualChoice;
+    // 1. URL search parameter override (e.g., ?lang=ko)
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get("lang");
+        if (urlLang && TRANSLATIONS[urlLang]) {
+            localStorage.setItem("fixorpro_user_explicit_lang", urlLang);
+            return urlLang;
+        }
+    } catch(e) {}
+
+    // 2. Explicit manual user choice from footer button
+    const explicitChoice = localStorage.getItem("fixorpro_user_explicit_lang");
+    if (explicitChoice && TRANSLATIONS[explicitChoice]) {
+        return explicitChoice;
     }
 
-    // 2. Aggregate all available browser/system language tokens
+    // 3. Purge legacy auto-saved 'en' pollution from previous versions
+    if (localStorage.getItem("fixorpro_lang") === "en" && !explicitChoice) {
+        localStorage.removeItem("fixorpro_lang");
+    }
+
+    // 4. Aggregate all browser and device language signals
     const candidates = [];
     if (navigator.languages && Array.isArray(navigator.languages)) {
         candidates.push(...navigator.languages);
@@ -390,17 +405,20 @@ function detectBrowserLanguage() {
     if (navigator.userLanguage) candidates.push(navigator.userLanguage);
     if (navigator.browserLanguage) candidates.push(navigator.browserLanguage);
     if (navigator.systemLanguage) candidates.push(navigator.systemLanguage);
+    if (navigator.userAgent) candidates.push(navigator.userAgent);
 
     try {
         const intlLocale = Intl.DateTimeFormat().resolvedOptions().locale || "";
         if (intlLocale) candidates.push(intlLocale);
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+        if (timeZone) candidates.push(timeZone);
     } catch (e) {}
 
     const lowerCandidates = candidates.map(c => (c || "").toLowerCase());
 
-    // Priority 1: Korean match in ANY candidate language
+    // Priority 1: Korean match in ANY candidate language / userAgent / KakaoTalk
     for (const c of lowerCandidates) {
-        if (c.startsWith("ko") || c.includes("kr") || c.includes("korean")) {
+        if (c.startsWith("ko") || c.includes("kr") || c.includes("korean") || c.includes("kakaotalk") || c.includes("naver") || c.includes("seoul")) {
             return "ko";
         }
     }
@@ -421,7 +439,7 @@ function setLanguage(lang, isManual = true) {
     if (!TRANSLATIONS[lang]) lang = "en";
     currentLanguage = lang;
     if (isManual) {
-        localStorage.setItem("fixorpro_lang", lang);
+        localStorage.setItem("fixorpro_user_explicit_lang", lang);
     }
     applyTranslations(lang);
     updateLangUI(lang);
@@ -435,11 +453,20 @@ function applyTranslations(lang) {
             el.textContent = dict[key];
         }
     });
+
+    if (lang === "ko") {
+        document.title = "FixOrPro | AI 기반 미국 집수리 진단 & 부품 가격 비교";
+    } else if (lang === "es") {
+        document.title = "FixOrPro | Diagnóstico de Reparaciones del Hogar con IA";
+    } else {
+        document.title = "FixOrPro | AI Home Repair Diagnostic & Cost Estimator";
+    }
+
     document.documentElement.lang = lang;
 }
 
 function updateLangUI(lang) {
-    document.querySelectorAll(".lang-pill-btn, .btn-lang-toggle").forEach(btn => {
+    document.querySelectorAll(".btn-lang-toggle").forEach(btn => {
         if (btn.getAttribute("data-lang") === lang) {
             btn.classList.add("active");
             btn.style.background = "linear-gradient(135deg, #0ea5e9, #2563eb)";
@@ -447,9 +474,9 @@ function updateLangUI(lang) {
             btn.style.fontWeight = "800";
         } else {
             btn.classList.remove("active");
-            btn.style.background = "transparent";
+            btn.style.background = "rgba(255,255,255,0.06)";
             btn.style.color = "var(--text-muted)";
-            btn.style.fontWeight = "600";
+            btn.style.fontWeight = "400";
         }
     });
 }
@@ -474,12 +501,15 @@ function getLocalizedScenarioData(scenarioId, originalData) {
 }
 
 // Auto-run on load and DOM readiness
-document.addEventListener("DOMContentLoaded", () => {
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+        applyTranslations(currentLanguage);
+        updateLangUI(currentLanguage);
+    });
+} else {
     applyTranslations(currentLanguage);
     updateLangUI(currentLanguage);
-});
-
-applyTranslations(currentLanguage);
+}
 
 // Export
 window.i18n = {
@@ -488,5 +518,6 @@ window.i18n = {
     getLanguage: () => currentLanguage,
     getLocalizedScenarioData,
     detectBrowserLanguage,
-    updateLangUI
+    updateLangUI,
+    applyTranslations
 };
