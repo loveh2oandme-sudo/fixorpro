@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixOrPro | AI Home Repair Diagnostic & Cost Estimator</title>
+  <meta name="description" content="Don't spend $200 on a contractor for a $15 fix. Upload a photo of any broken household item for an instant AI diagnostic, DIY repair steps, and cost comparison.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="/" class="logo-group">
+        <div class="logo-badge">🛠️</div>
+        <div class="logo-text">
+          <h1>FixOrPro <span class="ai-tag">AI 2.5</span></h1>
+          <p>US Home Repair & Cost Diagnostic Engine</p>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <span id="keyStatusBadge" style="font-size: 0.8rem; font-weight: 700; color: #93c5fd;">⚙️ Free Demo Mode</span>
+        <button id="apiKeyBtn" class="btn btn-ghost" title="Configure API Key & Affiliate ID">⚙️ Settings</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-pill">
+        <span>🇺🇸 Designed for US Homeowners & Renters</span>
+      </div>
+      <h2 class="hero-title">
+        Don’t spend <span class="gradient-text">$200 on a contractor</span> for a $15 fix.
+      </h2>
+      <p class="hero-subtitle">
+        Snap a photo of anything broken. Our AI diagnoses the problem in 5 seconds, tells you if you can DIY, lists the exact Home Depot/Amazon parts, or warns you when to call a licensed Pro.
+      </p>
+
+      <!-- Trust & Metric Chips -->
+      <div class="metrics-row">
+        <div class="metric-chip">
+          <span>⚡</span>
+          <span><strong>Instant</strong> AI Vision Diagnosis</span>
+        </div>
+        <div class="metric-chip">
+          <span>💰</span>
+          <span><strong>~$185 Average</strong> Saved Per Fix</span>
+        </div>
+        <div class="metric-chip">
+          <span>🛡️</span>
+          <span><strong>Safety-First</strong> Pro Warning System</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Upload & Diagnostic Workspace -->
+    <section class="upload-card glass-panel" id="workspaceSection">
+      
+      <!-- Hidden File Inputs -->
+      <input type="file" id="fileInput" accept="image/*" style="display: none;">
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-icon">📷</div>
+        <h3 class="drop-title">Drop your broken item photo here</h3>
+        <p class="drop-desc">Supports toilet leaks, disposal jams, drywall holes, P-traps, light switches, water heaters</p>
+        <div class="upload-btn-group">
+          <button type="button" class="btn btn-primary" id="btnSelectFile">
+            <span>📁 Upload from Device</span>
+          </button>
+          <button type="button" class="btn btn-ghost" id="btnCamera">
+            <span>📸 Take Photo (Camera)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Preview Container -->
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-inner">
+          <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Preview">
+          <div class="preview-info">
+            <div id="previewFilename" class="preview-filename">image.jpg</div>
+            <div id="previewMeta" class="preview-meta">JPEG • Ready for Analysis</div>
+            <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 6px 12px; font-size: 0.8rem;">
+              ✕ Remove & Change Photo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional User Notes / Symptoms -->
+      <input 
+        type="text" 
+        id="userNotes" 
+        class="input-notes" 
+        placeholder="Optional: Describe symptoms (e.g., 'Makes a humming noise when turned on', 'Dripping every 5 seconds', 'Smells like burning')..."
+      >
+
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.05rem; padding: 14px 28px;" disabled>
+          <span>⚡ Run AI Diagnostic & Cost Check</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Instant Sample Scenarios Bar -->
+    <section class="samples-section">
+      <div class="section-label">
+        <h3><span>💡</span> Or try an instant 1-click test case:</h3>
+      </div>
+      <div class="sample-grid" id="sampleCardsContainer">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- Loading State -->
+    <div class="loading-box glass-panel" id="loadingBox">
+      <div class="spinner"></div>
+      <div class="loading-text">FixOrPro AI is inspecting the image...</div>
+      <div class="loading-subtext">Checking US labor rates, plumbing/electrical codes, required parts, and safety hazards</div>
+    </div>
+
+    <!-- =====================================================================
+         DIAGNOSTIC REPORT DASHBOARD (Result Area)
+         ===================================================================== -->
+    <section class="report-container" id="reportContainer">
+
+      <!-- Verdict Banner -->
+      <div class="verdict-banner diy" id="verdictBanner">
+        <div class="verdict-left">
+          <div class="verdict-icon" id="verdictIcon">🟢</div>
+          <div>
+            <div class="verdict-tag" id="verdictTag">DIY Recommended</div>
+            <h3 class="verdict-heading" id="verdictHeading">Worn Toilet Tank Flapper & Chain Misalignment</h3>
+          </div>
+        </div>
+        <div class="verdict-right">
+          <div class="savings-pill" id="savingsPill">
+            <span>💰 Save ~$175</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Problem Summary -->
+      <div class="glass-panel" style="padding: 20px 24px; margin-bottom: 24px;">
+        <p id="problemSummary" style="font-size: 1rem; color: #e2e8f0; line-height: 1.6;">
+          Analysis description...
+        </p>
+      </div>
+
+      <!-- Cost Comparison Grid -->
+      <div class="cost-grid">
+        <div class="cost-card diy-card">
+          <div class="cost-label">Estimated DIY Cost</div>
+          <div class="cost-value" id="diyCostVal">$8 - $16</div>
+          <div class="cost-detail" id="diyCostDetail">Replacement parts from Home Depot / Amazon</div>
+        </div>
+        <div class="cost-card pro-card">
+          <div class="cost-label">Estimated Contractor Cost</div>
+          <div class="cost-value" id="proCostVal">$150 - $220</div>
+          <div class="cost-detail">Standard US Plumber/Handyman Trip Fee + Labor</div>
+        </div>
+        <div class="cost-card savings-card">
+          <div class="cost-label">Estimated Money Saved</div>
+          <div class="cost-value" id="savingsCostVal">$175 (92%)</div>
+          <div class="cost-detail">Kept directly in your wallet</div>
+        </div>
+      </div>
+
+      <!-- Quick Specs Strip -->
+      <div class="specs-strip">
+        <div class="spec-item">
+          <div class="label">Difficulty Level</div>
+          <div class="value" id="specDifficulty">Beginner</div>
+        </div>
+        <div class="spec-item">
+          <div class="label">Est. Time Needed</div>
+          <div class="value" id="specTime">15 - 20 mins</div>
+        </div>
+        <div class="spec-item">
+          <div class="label">Trade Category</div>
+          <div class="value" id="specCategory">Plumbing</div>
+        </div>
+        <div class="spec-item">
+          <div class="label">AI Confidence</div>
+          <div class="value" id="specConfidence">High (95%)</div>
+        </div>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="tabs-nav">
+        <button type="button" class="tab-btn active" data-tab="tabSteps">📋 Step-by-Step Fix Guide</button>
+        <button type="button" class="tab-btn" data-tab="tabParts">🛠️ Required Parts & Tools</button>
+        <button type="button" class="tab-btn" data-tab="tabSafety">⚠️ Safety Warnings & Pro Triggers</button>
+      </div>
+
+      <!-- Tab 1: Step-by-Step Guide -->
+      <div class="tab-content active" id="tabSteps">
+        <div id="stepsListContainer">
+          <!-- Step cards injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Tab 2: Materials & Tools with Direct Buy Links -->
+      <div class="tab-content" id="tabParts">
+        <h4 style="margin-bottom: 14px; font-size: 1.1rem;">📦 Replacement Parts Needed (1-Click Buy)</h4>
+        <div id="materialsContainer">
+          <!-- Material items injected dynamically -->
+        </div>
+
+        <h4 style="margin-top: 24px; margin-bottom: 14px; font-size: 1.1rem;">🛠️ Tools Recommended</h4>
+        <div id="toolsContainer">
+          <!-- Tool items injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Tab 3: Safety & Pro Triggers -->
+      <div class="tab-content" id="tabSafety">
+        <div class="warning-box">
+          <h4><span>⚠️</span> Critical Safety Precautions</h4>
+          <div id="warningsContainer">
+            <!-- Warnings injected dynamically -->
+          </div>
+        </div>
+
+        <div class="glass-panel" style="padding: 20px; border-left: 4px solid #ef4444;">
+          <h4 style="color: #f87171; margin-bottom: 8px; font-size: 1rem;">🚨 When to STOP and Call a Licensed Contractor:</h4>
+          <p id="proTriggerBox" style="color: #cbd5e1; font-size: 0.95rem;">
+            If water is leaking onto the floor from the base of the toilet, or if the shut-off valve is stuck or dripping, stop and call a licensed plumber.
+          </p>
+        </div>
+      </div>
+
+      <!-- Local Pro Referral Box -->
+      <div class="pro-referral-box">
+        <div class="pro-referral-info">
+          <h4>Prefer to have a vetted Pro handle it?</h4>
+          <p>Find top-rated, licensed, and insured contractors in your ZIP code with upfront pricing.</p>
+        </div>
+        <div class="pro-buttons">
+          <a id="thumbtackBtn" href="https://www.thumbtack.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <span>📍 Find on Thumbtack</span>
+          </a>
+          <a id="angiBtn" href="https://www.angi.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <span>Angi Leads</span>
+          </a>
+          <a id="yelpBtn" href="https://www.yelp.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <span>Yelp Pros</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Action Bar -->
+      <div class="report-actions">
+        <div>
+          <button type="button" class="btn btn-ghost" id="printReportBtn">🖨️ Print / Save PDF</button>
+          <button type="button" class="btn btn-ghost" id="shareReportBtn">🔗 Share Report</button>
+        </div>
+        <button type="button" class="btn btn-primary" id="newDiagnosticBtn">
+          <span>🔄 Diagnose Another Issue</span>
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Settings & API Key Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModalBtn">✕</button>
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">⚙️ FixOrPro Settings</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+        FixOrPro runs in Free Demo mode out-of-the-box. To analyze your own custom photos with unlimited live Gemini Vision AI, enter your Gemini API key below.
+      </p>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Google Gemini API Key</label>
+        <input type="password" id="apiKeyInput" class="input-notes" style="margin-top: 0;" placeholder="AIzaSy...">
+        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">
+          Get a free key in 30 seconds at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #60a5fa;">Google AI Studio</a>. Key is saved locally in your browser.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Amazon Associates Affiliate Tag (Optional)</label>
+        <input type="text" id="amazonTagInput" class="input-notes" style="margin-top: 0;" placeholder="e.g. yourtag-20">
+        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">
+          Your affiliate tracking tag will automatically attach to all product buy buttons.
+        </p>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="saveKeyBtn" style="width: 100%;">
+        <span>Save Settings</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#workspaceSection">Diagnostic Tool</a>
+        <a href="https://aistudio.google.com" target="_blank">Powered by Gemini AI</a>
+        <a href="https://www.amazon.com" target="_blank">Amazon Affiliate Partner</a>
+      </div>
+      <p>© 2026 FixOrPro AI. All rights reserved. For informational and educational purposes. Always prioritize safety and comply with local municipal building & electrical codes.</p>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
