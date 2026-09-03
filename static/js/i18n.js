@@ -371,25 +371,60 @@ const SCENARIO_TRANSLATIONS = {
 };
 
 /**
- * Smart Browser Language Detection
+ * Multi-Source Smart Language Detection
+ * Checks user manual choice, navigator.languages, navigator.language, system locales & timezones.
  */
 function detectBrowserLanguage() {
-    const saved = localStorage.getItem("fixorpro_lang");
-    if (saved && TRANSLATIONS[saved]) return saved;
+    // 1. Check if user previously made a manual choice
+    const manualChoice = localStorage.getItem("fixorpro_lang");
+    if (manualChoice && TRANSLATIONS[manualChoice]) {
+        return manualChoice;
+    }
 
-    const browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-    if (browserLang.startsWith("ko")) return "ko";
-    if (browserLang.startsWith("es")) return "es";
+    // 2. Aggregate all available browser/system language tokens
+    const candidates = [];
+    if (navigator.languages && Array.isArray(navigator.languages)) {
+        candidates.push(...navigator.languages);
+    }
+    if (navigator.language) candidates.push(navigator.language);
+    if (navigator.userLanguage) candidates.push(navigator.userLanguage);
+    if (navigator.browserLanguage) candidates.push(navigator.browserLanguage);
+    if (navigator.systemLanguage) candidates.push(navigator.systemLanguage);
+
+    try {
+        const intlLocale = Intl.DateTimeFormat().resolvedOptions().locale || "";
+        if (intlLocale) candidates.push(intlLocale);
+    } catch (e) {}
+
+    const lowerCandidates = candidates.map(c => (c || "").toLowerCase());
+
+    // Priority 1: Korean match in ANY candidate language
+    for (const c of lowerCandidates) {
+        if (c.startsWith("ko") || c.includes("kr") || c.includes("korean")) {
+            return "ko";
+        }
+    }
+
+    // Priority 2: Spanish match
+    for (const c of lowerCandidates) {
+        if (c.startsWith("es") || c.includes("spanish")) {
+            return "es";
+        }
+    }
+
     return "en";
 }
 
 let currentLanguage = detectBrowserLanguage();
 
-function setLanguage(lang) {
+function setLanguage(lang, isManual = true) {
     if (!TRANSLATIONS[lang]) lang = "en";
     currentLanguage = lang;
-    localStorage.setItem("fixorpro_lang", lang);
+    if (isManual) {
+        localStorage.setItem("fixorpro_lang", lang);
+    }
     applyTranslations(lang);
+    updateLangUI(lang);
 }
 
 function applyTranslations(lang) {
@@ -401,6 +436,22 @@ function applyTranslations(lang) {
         }
     });
     document.documentElement.lang = lang;
+}
+
+function updateLangUI(lang) {
+    document.querySelectorAll(".lang-pill-btn, .btn-lang-toggle").forEach(btn => {
+        if (btn.getAttribute("data-lang") === lang) {
+            btn.classList.add("active");
+            btn.style.background = "linear-gradient(135deg, #0ea5e9, #2563eb)";
+            btn.style.color = "#ffffff";
+            btn.style.fontWeight = "800";
+        } else {
+            btn.classList.remove("active");
+            btn.style.background = "transparent";
+            btn.style.color = "var(--text-muted)";
+            btn.style.fontWeight = "600";
+        }
+    });
 }
 
 function getLocalizedScenarioData(scenarioId, originalData) {
@@ -422,7 +473,12 @@ function getLocalizedScenarioData(scenarioId, originalData) {
     return originalData;
 }
 
-// Initial auto-apply
+// Auto-run on load and DOM readiness
+document.addEventListener("DOMContentLoaded", () => {
+    applyTranslations(currentLanguage);
+    updateLangUI(currentLanguage);
+});
+
 applyTranslations(currentLanguage);
 
 // Export
@@ -430,5 +486,7 @@ window.i18n = {
     t: (key) => (TRANSLATIONS[currentLanguage] && TRANSLATIONS[currentLanguage][key]) || TRANSLATIONS.en[key] || key,
     setLanguage,
     getLanguage: () => currentLanguage,
-    getLocalizedScenarioData
+    getLocalizedScenarioData,
+    detectBrowserLanguage,
+    updateLangUI
 };
