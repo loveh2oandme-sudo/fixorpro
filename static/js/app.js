@@ -394,13 +394,13 @@ document.addEventListener("DOMContentLoaded", () => {
             "drywall": "PLGmTzEGSIY",     // How to Patch a Drywall Hole
             "hole": "PLGmTzEGSIY",
             "patch": "PLGmTzEGSIY",
-            "p-trap": "rq1pcsULhk4",      // Trouble with your P-Trap
-            "trap": "rq1pcsULhk4",
+            "p-trap": "HkFTnnFbh-s",      // This Old House - How to Replace PVC Sink Trap (16:9 Widescreen)
+            "trap": "HkFTnnFbh-s",
             "water heater": "GGQatX0IUbQ",// How to Replace a Water Heater
             "heater": "GGQatX0IUbQ",
             "faucet": "RUX3U6CIRXI",      // How to Fix a Leaky Faucet
             "drip": "RUX3U6CIRXI",
-            "leak": "rq1pcsULhk4",
+            "leak": "HkFTnnFbh-s",
             "outlet": "lUAaVwSjk3M",      // How to Change Electrical Outlet
             "switch": "lUAaVwSjk3M",
             "drain": "8Q__Zub2j4Q",       // How to Clear a Bathroom Sink Drain
@@ -433,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
             videoTitleText.textContent = title || "DIY Repair Video Tutorial";
             
             const resolvedId = resolveYouTubeVideoId(title, query, videoId);
-            const embedUrl = `https://www.youtube.com/embed/${resolvedId}?rel=0`;
+            const embedUrl = `https://www.youtube.com/embed/${resolvedId}?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1`;
             videoFrame.src = embedUrl;
 
             // Populate Buy Bar inside Video Modal

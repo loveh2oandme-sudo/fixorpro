@@ -236,7 +236,7 @@ SAMPLE_SCENARIOS = {
             "difficulty": "Beginner (Hand Tightened)",
             "estimated_time": "20 minutes",
             "youtube_query": "how to fix leaking sink p trap slip joint washer replacement",
-            "youtube_video_id": "rq1pcsULhk4",
+            "youtube_video_id": "HkFTnnFbh-s",
             "cost_comparison": {
                 "diy_cost": "$5 - $15",
                 "pro_cost": "$160 - $240",
