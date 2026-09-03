@@ -1,4 +1,4 @@
-// FixOrPro - Client Application Logic
+// FixOrPro - Client Application Logic with 3 Major US Hardware Stores
 
 document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const scanSteps = [
             "[1/4] Scanning surface defect vectors...",
             "[2/4] Cross-referencing US National Building & Plumbing Codes...",
-            "[3/4] Querying retail replacement parts & contractor pricing...",
+            "[3/4] Querying Amazon, Home Depot & Lowe's parts pricing...",
             "[4/4] Generating final actionable repair blueprint..."
         ];
         let stepIdx = 0;
@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ----------------------------------------------------------------------
-    // Render Result Report
+    // Render Result Report (Amazon + Home Depot + Lowe's)
     // ----------------------------------------------------------------------
     function renderDiagnosticReport(data, source) {
         const isDIY = data.verdict === "DIY_RECOMMENDED";
@@ -364,12 +364,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // 5. Tab 2: Materials & Tools
+        // 5. Tab 2: Materials & Tools with 3 Top US Retailers
         materialsContainer.innerHTML = "";
         if (data.materials_needed && data.materials_needed.length > 0) {
             data.materials_needed.forEach(mat => {
-                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(mat.amazon_search || mat.name)}&tag=${AMAZON_TAG}`;
-                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(mat.homedepot_search || mat.name)}`;
+                const query = mat.amazon_search || mat.homedepot_search || mat.name;
+                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`;
+                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(query)}`;
+                const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(query)}`;
                 
                 const matEl = document.createElement("div");
                 matEl.className = "item-card";
@@ -381,6 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="item-links">
                         <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">📦 Amazon</a>
                         <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">🔨 Home Depot</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">🏠 Lowe's</a>
                     </div>
                 `;
                 materialsContainer.appendChild(matEl);
@@ -390,16 +393,19 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsContainer.innerHTML = "";
         if (data.tools_needed && data.tools_needed.length > 0) {
             data.tools_needed.forEach(tool => {
-                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(tool.amazon_search || tool.name)}&tag=${AMAZON_TAG}`;
-                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(tool.homedepot_search || tool.name)}`;
+                const query = tool.amazon_search || tool.homedepot_search || tool.name;
+                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`;
+                const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(query)}`;
+                const lowesUrl = `https://www.lowes.com/search?searchTerm=${encodeURIComponent(query)}`;
                 
                 const toolEl = document.createElement("div");
                 toolEl.className = "item-card";
                 toolEl.innerHTML = `
                     <div class="item-name">🛠️ ${tool.name}</div>
                     <div class="item-links">
-                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">Buy on Amazon</a>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">Amazon</a>
                         <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">Home Depot</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">Lowe's</a>
                     </div>
                 `;
                 toolsContainer.appendChild(toolEl);

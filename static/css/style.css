@@ -103,11 +103,6 @@ body::after {
   border-color: rgba(255, 255, 255, 0.16);
 }
 
-.glass-glow-cyan {
-  border-color: var(--border-neon-cyan);
-  box-shadow: 0 0 35px rgba(56, 189, 248, 0.12);
-}
-
 /* Live Activity Marquee Ticker */
 .ticker-bar {
   background: rgba(3, 7, 18, 0.95);
@@ -186,25 +181,6 @@ body::after {
   justify-content: center;
   font-size: 22px;
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
-  position: relative;
-  overflow: hidden;
-}
-
-.logo-badge::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transform: rotate(45deg);
-  animation: shineLogo 4s infinite;
-}
-
-@keyframes shineLogo {
-  0%, 100% { transform: translateX(-100%) rotate(45deg); }
-  50% { transform: translateX(100%) rotate(45deg); }
 }
 
 .logo-text h1 {
@@ -235,10 +211,10 @@ body::after {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-/* Futuristic Buttons */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -252,8 +228,6 @@ body::after {
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
-  position: relative;
-  overflow: hidden;
 }
 
 .btn-primary {
@@ -293,18 +267,19 @@ body::after {
   box-shadow: 0 8px 35px rgba(16, 185, 129, 0.65);
 }
 
+/* Retail Store Affiliate Buy Buttons */
 .btn-amazon {
   background: linear-gradient(135deg, #f59e0b, #d97706);
   color: #030712;
   font-weight: 800;
   border-radius: var(--radius-sm);
-  padding: 9px 16px;
-  font-size: 0.85rem;
+  padding: 7px 13px;
+  font-size: 0.82rem;
 }
 
 .btn-amazon:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
 }
 
 .btn-homedepot {
@@ -312,13 +287,28 @@ body::after {
   color: #ffffff;
   font-weight: 800;
   border-radius: var(--radius-sm);
-  padding: 9px 16px;
-  font-size: 0.85rem;
+  padding: 7px 13px;
+  font-size: 0.82rem;
 }
 
 .btn-homedepot:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 18px rgba(234, 88, 12, 0.5);
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.5);
+}
+
+.btn-lowes {
+  background: linear-gradient(135deg, #004990, #002c5c);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-sm);
+  padding: 7px 13px;
+  font-size: 0.82rem;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.btn-lowes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 73, 144, 0.6);
 }
 
 /* Hero Section */
@@ -339,7 +329,6 @@ body::after {
   font-size: 0.88rem;
   color: #7dd3fc;
   margin-bottom: 24px;
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
 }
 
 .hero-pill .pulse-dot {
@@ -348,12 +337,6 @@ body::after {
   border-radius: 50%;
   background: #38bdf8;
   box-shadow: 0 0 10px #38bdf8;
-  animation: pulseDot 2s infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.4; }
 }
 
 .hero-title {
@@ -408,9 +391,7 @@ body::after {
   color: var(--text-primary);
 }
 
-/* ==========================================================================
-   INTERACTIVE WORKSPACE & HUD LASER SCANNER
-   ========================================================================== */
+/* Interactive Workspace */
 .upload-card {
   padding: 36px;
   margin-bottom: 48px;
@@ -452,12 +433,6 @@ body::after {
   font-size: 52px;
   margin-bottom: 16px;
   display: inline-block;
-  animation: floatScan 3s ease-in-out infinite;
-}
-
-@keyframes floatScan {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8px) scale(1.05); }
 }
 
 .drop-title {
@@ -480,7 +455,7 @@ body::after {
   flex-wrap: wrap;
 }
 
-/* Sci-Fi HUD Laser Scanner Overlay (The Star Feature) */
+/* HUD Laser Preview */
 .preview-container {
   display: none;
   margin-top: 24px;
@@ -515,7 +490,6 @@ body::after {
   object-fit: cover;
 }
 
-/* HUD Scanning Reticle & Laser */
 .hud-laser {
   position: absolute;
   top: 0;
@@ -556,9 +530,6 @@ body::after {
   font-size: 1.15rem;
   font-weight: 800;
   margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .preview-meta {
@@ -568,7 +539,6 @@ body::after {
   margin-bottom: 14px;
 }
 
-/* User Notes Input */
 .input-notes {
   width: 100%;
   margin-top: 24px;
@@ -578,13 +548,12 @@ body::after {
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: 1rem;
-  transition: all 0.25s ease;
 }
 
 .input-notes:focus {
   outline: none;
   border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25), 0 0 20px rgba(56, 189, 248, 0.1);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
 }
 
 .action-bar {
@@ -594,9 +563,7 @@ body::after {
   gap: 16px;
 }
 
-/* ==========================================================================
-   3D TILT SAMPLE CARDS
-   ========================================================================== */
+/* 3D Tilt Sample Cards */
 .samples-section {
   margin-bottom: 56px;
 }
@@ -636,24 +603,11 @@ body::after {
   border: 1px solid var(--border-glass);
 }
 
-.sample-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
 .sample-card:hover {
   background: rgba(17, 29, 58, 0.9);
   transform: translateY(-5px) scale(1.02);
   border-color: var(--border-neon-cyan);
   box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
-}
-
-.sample-card:hover::before {
-  opacity: 1;
 }
 
 .sample-card.active {
@@ -685,17 +639,13 @@ body::after {
   align-self: flex-start;
 }
 
-/* ==========================================================================
-   AI SCANNING PROGRESS HUD (During Analysis)
-   ========================================================================== */
+/* Loading HUD */
 .loading-box {
   display: none;
   text-align: center;
   padding: 70px 24px;
   border: 1px solid var(--border-neon-cyan);
   box-shadow: 0 0 50px rgba(56, 189, 248, 0.15);
-  position: relative;
-  overflow: hidden;
 }
 
 .loading-spinner-wrap {
@@ -723,19 +673,13 @@ body::after {
   animation: spinReverse 3s linear infinite;
 }
 
-@keyframes spinCyber {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes spinReverse {
-  to { transform: rotate(-360deg); }
-}
+@keyframes spinCyber { to { transform: rotate(360deg); } }
+@keyframes spinReverse { to { transform: rotate(-360deg); } }
 
 .loading-text {
   font-size: 1.4rem;
   font-weight: 800;
   margin-bottom: 8px;
-  letter-spacing: -0.5px;
 }
 
 .loading-step-msg {
@@ -743,17 +687,9 @@ body::after {
   color: var(--cyan);
   font-family: monospace;
   margin-top: 10px;
-  animation: pulseOpacity 1.5s infinite;
 }
 
-@keyframes pulseOpacity {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* ==========================================================================
-   DIAGNOSTIC REPORT DASHBOARD (Result Area)
-   ========================================================================== */
+/* Diagnostic Report Area */
 .report-container {
   display: none;
   animation: slideUpReport 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -764,7 +700,6 @@ body::after {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Verdict Hero Banner */
 .verdict-banner {
   padding: 32px;
   border-radius: var(--radius-lg);
@@ -774,8 +709,6 @@ body::after {
   justify-content: space-between;
   gap: 28px;
   flex-wrap: wrap;
-  position: relative;
-  overflow: hidden;
 }
 
 .verdict-banner.diy {
@@ -810,13 +743,11 @@ body::after {
 .diy .verdict-icon {
   background: rgba(16, 185, 129, 0.25);
   border: 1px solid rgba(52, 211, 153, 0.6);
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
 }
 
 .pro .verdict-icon {
   background: rgba(244, 63, 94, 0.25);
   border: 1px solid rgba(244, 63, 94, 0.6);
-  box-shadow: 0 0 25px rgba(244, 63, 94, 0.4);
 }
 
 .verdict-tag {
@@ -834,10 +765,8 @@ body::after {
   font-size: 1.85rem;
   font-weight: 800;
   line-height: 1.25;
-  letter-spacing: -0.5px;
 }
 
-/* Savings Glow Badge */
 .savings-pill {
   background: linear-gradient(135deg, #10b981, #047857);
   padding: 12px 24px;
@@ -852,7 +781,6 @@ body::after {
   gap: 10px;
 }
 
-/* Cost Grid */
 .cost-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -865,8 +793,6 @@ body::after {
   border-radius: var(--radius-md);
   background: var(--bg-surface);
   border: 1px solid var(--border-glass);
-  position: relative;
-  overflow: hidden;
 }
 
 .cost-label {
@@ -881,12 +807,11 @@ body::after {
 .cost-value {
   font-size: 2.1rem;
   font-weight: 800;
-  letter-spacing: -0.8px;
 }
 
-.cost-card.diy-card .cost-value { color: #34d399; text-shadow: 0 0 20px rgba(52, 211, 153, 0.3); }
+.cost-card.diy-card .cost-value { color: #34d399; }
 .cost-card.pro-card .cost-value { color: #fb7185; }
-.cost-card.savings-card .cost-value { color: #38bdf8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+.cost-card.savings-card .cost-value { color: #38bdf8; }
 
 .cost-detail {
   font-size: 0.86rem;
@@ -894,7 +819,6 @@ body::after {
   margin-top: 8px;
 }
 
-/* Quick Specs Strip */
 .specs-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -914,7 +838,6 @@ body::after {
   color: var(--text-secondary);
   text-transform: uppercase;
   font-weight: 800;
-  letter-spacing: 0.5px;
 }
 
 .spec-item .value {
@@ -924,7 +847,6 @@ body::after {
   margin-top: 4px;
 }
 
-/* Tabs Navigation */
 .tabs-nav {
   display: flex;
   gap: 12px;
@@ -946,26 +868,20 @@ body::after {
   white-space: nowrap;
 }
 
-.tab-btn:hover {
-  color: var(--text-primary);
-}
-
+.tab-btn:hover { color: var(--text-primary); }
 .tab-btn.active {
   color: #38bdf8;
   border-bottom-color: #38bdf8;
-  text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
 
-.tab-content {
-  display: none;
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.tab-content.active {
-  display: block;
-  animation: fadeIn 0.3s ease;
-}
-
-/* Interactive Checkable Steps */
 .step-item {
   display: flex;
   align-items: flex-start;
@@ -1027,7 +943,7 @@ body::after {
   line-height: 1.6;
 }
 
-/* Materials and Tools Cards */
+/* Materials and Tools Cards with 3 Stores */
 .item-card {
   display: flex;
   align-items: center;
@@ -1061,17 +977,16 @@ body::after {
 
 .item-links {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* Safety & Warnings Box */
 .warning-box {
   background: rgba(245, 158, 11, 0.08);
   border: 1px solid rgba(245, 158, 11, 0.35);
   border-radius: var(--radius-md);
   padding: 24px;
   margin-bottom: 28px;
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.08);
 }
 
 .warning-box h4 {
@@ -1084,10 +999,7 @@ body::after {
   margin-bottom: 16px;
 }
 
-.warning-list {
-  list-style: none;
-}
-
+.warning-list { list-style: none; }
 .warning-list li {
   position: relative;
   padding-left: 28px;
@@ -1096,16 +1008,13 @@ body::after {
   color: #fef08a;
   line-height: 1.5;
 }
-
 .warning-list li::before {
   content: '⚠️';
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 0.9rem;
 }
 
-/* Local Pro Referral Box */
 .pro-referral-box {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(7, 14, 30, 0.98));
   border: 1px solid var(--border-neon-cyan);
@@ -1117,7 +1026,6 @@ body::after {
   justify-content: space-between;
   gap: 28px;
   flex-wrap: wrap;
-  box-shadow: 0 0 40px rgba(56, 189, 248, 0.1);
 }
 
 .pro-referral-info h4 {
@@ -1137,7 +1045,6 @@ body::after {
   flex-wrap: wrap;
 }
 
-/* Floating Toast Notification */
 .toast-container {
   position: fixed;
   bottom: 30px;
@@ -1157,8 +1064,8 @@ body::after {
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 0.92rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.3);
-  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: toastSlideIn 0.3s forwards;
   pointer-events: auto;
 }
 
@@ -1167,44 +1074,6 @@ body::after {
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* Settings Modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.modal-card {
-  max-width: 560px;
-  width: 100%;
-  padding: 36px;
-  background: #090e1d;
-  border: 1px solid var(--border-neon-cyan);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.15);
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 26px;
-  cursor: pointer;
-}
-
-.modal-close:hover { color: var(--text-primary); }
-
-/* Footer */
 .site-footer {
   margin-top: 90px;
   padding: 48px 0 64px;
@@ -1224,30 +1093,14 @@ body::after {
 .footer-links a {
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.2s;
 }
 
-.footer-links a:hover {
-  color: var(--cyan);
-}
+.footer-links a:hover { color: var(--cyan); }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.2rem;
-  }
-  .upload-card {
-    padding: 24px 16px;
-  }
-  .verdict-banner {
-    padding: 24px 18px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .verdict-right {
-    width: 100%;
-  }
-  .cost-grid {
-    grid-template-columns: 1fr;
-  }
+  .hero-title { font-size: 2.2rem; }
+  .upload-card { padding: 24px 16px; }
+  .verdict-banner { padding: 24px 18px; flex-direction: column; align-items: flex-start; }
+  .verdict-right { width: 100%; }
+  .cost-grid { grid-template-columns: 1fr; }
 }
