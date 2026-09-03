@@ -373,9 +373,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     btnWrap.style.marginBottom = "8px";
                     btnWrap.innerHTML = `
                         <span style="font-size: 0.85rem; color: #cbd5e1; margin-right: 8px;">• ${mat.name}:</span>
-                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon" style="font-size: 0.75rem; padding: 4px 8px;">📦 Amazon</a>
-                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot" style="font-size: 0.75rem; padding: 4px 8px;">🔨 Home Depot</a>
-                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes" style="font-size: 0.75rem; padding: 4px 8px;">🏠 Lowe's</a>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon" style="font-size: 0.75rem; padding: 4px 8px;">${SVG_AMAZON} Amazon</a>
+                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot" style="font-size: 0.75rem; padding: 4px 8px;">${SVG_HOMEDEPOT} Home Depot</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes" style="font-size: 0.75rem; padding: 4px 8px;">${SVG_LOWES} Lowe's</a>
                     `;
                     videoModalBuyLinks.appendChild(btnWrap);
                 });
@@ -482,6 +482,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 .trim();
         }
 
+        // Official Vector SVG Brand Logos
+        const SVG_AMAZON = `<svg class="store-svg-logo" viewBox="0 0 24 24" fill="currentColor"><path d="M14.07 14.86c-2.4 1.76-5.83 2.72-8.83 2.72-4.16 0-7.91-1.57-10.74-4.18-.21-.19-.23-.55-.02-.76.43-.44 1.01-.26 1.3.06 2.53 2.27 5.76 3.65 9.46 3.65 2.65 0 5.6-.82 7.74-2.28.32-.22.75-.12.98.2.23.32.14.77-.18.99l.29-.4zm1.18-1.28c-.28-.36-1.85-.15-2.55-.06-.21.03-.25-.15-.06-.28 1.25-.85 3.3-.6 3.62-.2.32.4-.08 2.47-1.27 3.41-.18.15-.35.07-.27-.12.27-.66.81-2.39.53-2.75zM12.5 3.5c-3.5 0-6.1 2.4-6.1 5.9 0 3.3 2.3 5.4 5.2 5.4 1.6 0 2.9-.7 3.7-1.8v1.5h2.1V3.9h-2.1v1.3c-.8-1-2.1-1.7-3.8-1.7zm.6 2c2.1 0 3.6 1.7 3.6 3.8s-1.5 3.8-3.6 3.8-3.6-1.7-3.6-3.8 1.5-3.8 3.6-3.8z"/></svg>`;
+        const SVG_HOMEDEPOT = `<svg class="store-svg-logo" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#F96302"/><path d="M4 6h3.2v12H4V6zm4.8 0H12v4.8h2.4V6h3.2v12h-3.2v-4.8H12V18H8.8V6zm10.4 0h2.4c1.8 0 3.2 1.4 3.2 3.2v5.6c0 1.8-1.4 3.2-3.2 3.2h-2.4V6z" fill="#FFFFFF"/></svg>`;
+        const SVG_LOWES = `<svg class="store-svg-logo" viewBox="0 0 24 24"><path d="M12 2L2 9.5V21a1 1 0 001 1h18a1 1 0 001-1V9.5L12 2z" fill="#004990"/><path d="M5 11h2v7H9v2H5v-9zm4.5 0h4c1 0 1.8.8 1.8 1.8v5.4c0 1-.8 1.8-1.8 1.8h-4V11zm2 1.6v5.8h2c.2 0 .3-.1.3-.3v-5.2c0-.2-.1-.3-.3-.3h-2zm6.5-1.6h2v9h-2v-9z" fill="#FFFFFF"/></svg>`;
+
         // 5. Section 1: Materials & Tools with 3 Top US Retailers
         materialsContainer.innerHTML = "";
         if (data.materials_needed && data.materials_needed.length > 0) {
@@ -499,9 +504,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="item-price">Est. ${mat.est_price || '$5-$20'}</div>
                     </div>
                     <div class="item-links">
-                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">📦 Buy on Amazon</a>
-                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">🔨 Pick up at Home Depot Today</a>
-                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">🏠 Lowe's Store / Ship</a>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">${SVG_AMAZON} Buy on Amazon</a>
+                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">${SVG_HOMEDEPOT} Pick up at Home Depot Today</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">${SVG_LOWES} Lowe's Store / Ship</a>
                     </div>
                 `;
                 materialsContainer.appendChild(matEl);
@@ -521,9 +526,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 toolEl.innerHTML = `
                     <div class="item-name">🛠️ ${tool.name}</div>
                     <div class="item-links">
-                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">📦 Buy on Amazon</a>
-                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">🔨 Home Depot</a>
-                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">🏠 Lowe's</a>
+                        <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">${SVG_AMAZON} Buy on Amazon</a>
+                        <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-homedepot">${SVG_HOMEDEPOT} Home Depot</a>
+                        <a href="${lowesUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-lowes">${SVG_LOWES} Lowe's</a>
                     </div>
                 `;
                 toolsContainer.appendChild(toolEl);
