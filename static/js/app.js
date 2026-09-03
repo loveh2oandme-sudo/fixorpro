@@ -1,4 +1,4 @@
-// FixOrPro - Futuristic Client Application Logic
+// FixOrPro - Client Application Logic
 
 document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements
@@ -52,26 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const printReportBtn = document.getElementById("printReportBtn");
     const shareReportBtn = document.getElementById("shareReportBtn");
     const newDiagnosticBtn = document.getElementById("newDiagnosticBtn");
-    
-    // Settings Modal
-    const apiKeyBtn = document.getElementById("apiKeyBtn");
-    const settingsModal = document.getElementById("settingsModal");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const saveKeyBtn = document.getElementById("saveKeyBtn");
-    const apiKeyInput = document.getElementById("apiKeyInput");
-    const amazonTagInput = document.getElementById("amazonTagInput");
-    const keyStatusBadge = document.getElementById("keyStatusBadge");
 
     let currentFile = null;
     let selectedSampleId = null;
     let scanInterval = null;
 
-    // Load saved settings
-    const savedApiKey = localStorage.getItem("fixorpro_gemini_key") || "";
-    const savedAmazonTag = localStorage.getItem("fixorpro_amazon_tag") || "fixorpro-20";
-    if (apiKeyInput) apiKeyInput.value = savedApiKey;
-    if (amazonTagInput) amazonTagInput.value = savedAmazonTag;
-    updateKeyStatusBadge(savedApiKey);
+    // Default Amazon Associates Tracking ID
+    const AMAZON_TAG = "fixorpro-20";
 
     // Initial load: Fetch samples
     loadSamples();
@@ -170,12 +157,12 @@ document.addEventListener("DOMContentLoaded", () => {
             previewThumb.src = e.target.result;
             previewFilename.textContent = `TARGET: ${file.name.toUpperCase()}`;
             const sizeInKb = Math.round(file.size / 1024);
-            previewMeta.textContent = `OPTICAL MATRIX LOCKED • ${sizeInKb} KB • READY FOR NEURAL SCAN`;
+            previewMeta.textContent = `OPTICAL MATRIX LOCKED • ${sizeInKb} KB • READY FOR AI DIAGNOSIS`;
 
             dropZone.style.display = "none";
             previewContainer.style.display = "block";
             analyzeBtn.disabled = false;
-            showToast("📷 Image locked. Ready for AI Scan!");
+            showToast("📷 Image locked. Ready for AI Analysis!");
         };
         reader.readAsDataURL(file);
     }
@@ -254,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ----------------------------------------------------------------------
-    // Diagnosis Execution & Sci-Fi Progress Steps
+    // Diagnosis Execution & Progress Animation
     // ----------------------------------------------------------------------
     analyzeBtn.addEventListener("click", runDiagnosis);
 
@@ -270,9 +257,9 @@ document.addEventListener("DOMContentLoaded", () => {
         analyzeBtn.disabled = true;
         loadingBox.scrollIntoView({ behavior: "smooth", block: "center" });
 
-        // Cycle HUD Scanning Messages
+        // Cycle Scanning Messages
         const scanSteps = [
-            "[1/4] Scanning surface topology & defect vectors...",
+            "[1/4] Scanning surface defect vectors...",
             "[2/4] Cross-referencing US National Building & Plumbing Codes...",
             "[3/4] Querying retail replacement parts & contractor pricing...",
             "[4/4] Generating final actionable repair blueprint..."
@@ -292,9 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const notes = userNotesInput.value.trim();
         if (notes) formData.append("notes", notes);
 
-        const savedKey = localStorage.getItem("fixorpro_gemini_key");
-        if (savedKey) formData.append("api_key", savedKey);
-
         try {
             const res = await fetch("/api/analyze", {
                 method: "POST",
@@ -309,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             clearInterval(scanInterval);
             renderDiagnosticReport(data.data, data.source);
-            showToast("✨ Neural Diagnostic Scan Complete!");
+            showToast("✨ AI Diagnostic Scan Complete!");
 
         } catch (err) {
             console.error("Diagnosis error:", err);
@@ -326,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // ----------------------------------------------------------------------
     function renderDiagnosticReport(data, source) {
         const isDIY = data.verdict === "DIY_RECOMMENDED";
-        const amazonTag = localStorage.getItem("fixorpro_amazon_tag") || "fixorpro-20";
 
         // 1. Verdict Banner
         verdictBanner.className = `verdict-banner ${isDIY ? 'diy' : 'pro'}`;
@@ -385,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
         materialsContainer.innerHTML = "";
         if (data.materials_needed && data.materials_needed.length > 0) {
             data.materials_needed.forEach(mat => {
-                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(mat.amazon_search || mat.name)}&tag=${amazonTag}`;
+                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(mat.amazon_search || mat.name)}&tag=${AMAZON_TAG}`;
                 const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(mat.homedepot_search || mat.name)}`;
                 
                 const matEl = document.createElement("div");
@@ -407,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsContainer.innerHTML = "";
         if (data.tools_needed && data.tools_needed.length > 0) {
             data.tools_needed.forEach(tool => {
-                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(tool.amazon_search || tool.name)}&tag=${amazonTag}`;
+                const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(tool.amazon_search || tool.name)}&tag=${AMAZON_TAG}`;
                 const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(tool.homedepot_search || tool.name)}`;
                 
                 const toolEl = document.createElement("div");
@@ -499,43 +482,4 @@ document.addEventListener("DOMContentLoaded", () => {
         clearActiveSampleCards();
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
-
-    // ----------------------------------------------------------------------
-    // API Key & Settings Modal
-    // ----------------------------------------------------------------------
-    apiKeyBtn.addEventListener("click", () => {
-        settingsModal.style.display = "flex";
-    });
-
-    closeModalBtn.addEventListener("click", () => {
-        settingsModal.style.display = "none";
-    });
-
-    settingsModal.addEventListener("click", (e) => {
-        if (e.target === settingsModal) {
-            settingsModal.style.display = "none";
-        }
-    });
-
-    saveKeyBtn.addEventListener("click", () => {
-        const key = apiKeyInput.value.trim();
-        const tag = amazonTagInput.value.trim() || "fixorpro-20";
-
-        localStorage.setItem("fixorpro_gemini_key", key);
-        localStorage.setItem("fixorpro_amazon_tag", tag);
-
-        updateKeyStatusBadge(key);
-        settingsModal.style.display = "none";
-        showToast("✅ Settings saved successfully!");
-    });
-
-    function updateKeyStatusBadge(key) {
-        if (key && key.length > 5) {
-            keyStatusBadge.textContent = "● QUANTUM AI ACTIVE";
-            keyStatusBadge.style.color = "#34d399";
-        } else {
-            keyStatusBadge.textContent = "● DEMO ENGINE ACTIVE";
-            keyStatusBadge.style.color = "#38bdf8";
-        }
-    }
 });

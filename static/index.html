@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FixOrPro AI 2.5 | Quantum Home Repair Diagnostic & Cost Engine</title>
-  <meta name="description" content="Don't spend $200 on a contractor for a $15 fix. Upload a photo of any broken household item for instant AI laser diagnostics, DIY repair steps, and cost comparison.">
+  <title>FixOrPro | AI Home Repair Diagnostic & Cost Estimator</title>
+  <meta name="description" content="Don't spend $200 on a contractor for a $15 fix. Upload a photo of any broken household item for instant AI diagnostics, step-by-step DIY repair instructions, and US cost comparison.">
   
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -36,15 +36,15 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="/" class="logo-group">
-        <div class="logo-badge">⚡</div>
+        <div class="logo-badge">🛠️</div>
         <div class="logo-text">
-          <h1>FixOrPro <span class="ai-tag">AI 2.5 Pro</span></h1>
-          <p>Quantum Home Repair & Cost Diagnostic Engine</p>
+          <h1>FixOrPro <span class="ai-tag">AI 2.5</span></h1>
+          <p>US Home Repair & Cost Diagnostic Engine</p>
         </div>
       </a>
       <div class="nav-actions">
-        <span id="keyStatusBadge" style="font-size: 0.85rem; font-weight: 800; color: #38bdf8; font-family: monospace;">● QUANTUM ENGINE ACTIVE</span>
-        <button id="apiKeyBtn" class="btn btn-ghost" title="Configure API Key & Affiliate ID">⚙️ Settings</button>
+        <a href="#samplesSection" class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.85rem;">💡 Try Samples</a>
+        <a href="#workspaceSection" class="btn btn-primary" style="padding: 8px 18px; font-size: 0.85rem;">⚡ Diagnose Issue</a>
       </div>
     </div>
   </header>
@@ -55,13 +55,13 @@
     <section class="hero">
       <div class="hero-pill">
         <span class="pulse-dot"></span>
-        <span>AI Vision Matrix • 2026 US Contractor Code & Labor Pricing</span>
+        <span>🇺🇸 AI Defect Inspector • 2026 US Contractor Code & Labor Pricing</span>
       </div>
       <h2 class="hero-title">
         Don’t spend <span class="gradient-text">$200 on a contractor</span> for a $15 fix.
       </h2>
       <p class="hero-subtitle">
-        Snap a photo of anything broken. Our neural vision engine scans defect topology in 5 seconds, tells you if you can DIY, links the exact Home Depot/Amazon parts, or triggers a licensed Pro warning.
+        Snap a photo of anything broken. Our AI diagnoses the problem in 5 seconds, tells you if you can DIY, links the exact Home Depot/Amazon parts, or triggers a licensed Pro safety warning.
       </p>
 
       <!-- High-Tech Metric Chips -->
@@ -90,7 +90,7 @@
 
       <!-- Drop Zone -->
       <div class="drop-zone" id="dropZone">
-        <div class="drop-icon">📡</div>
+        <div class="drop-icon">📷</div>
         <h3 class="drop-title">Drop your broken household photo here</h3>
         <p class="drop-desc">Supports running toilets, disposal humming, drywall holes, leaking P-traps, water heaters & switches</p>
         <div class="upload-btn-group">
@@ -107,7 +107,7 @@
       <div class="preview-container" id="previewContainer">
         <div class="preview-inner">
           <div class="hud-image-wrapper">
-            <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Scan Target">
+            <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Target">
             <!-- HUD Laser & Reticle Elements -->
             <div class="hud-laser"></div>
             <div class="hud-corner hud-tl"></div>
@@ -117,9 +117,9 @@
           </div>
           <div class="preview-info">
             <div id="previewFilename" class="preview-filename">
-              <span>TARGET_IMAGE.RAW</span>
+              <span>TARGET_IMAGE.JPG</span>
             </div>
-            <div id="previewMeta" class="preview-meta">RESOLUTION MATRIX OK • READY FOR NEURAL ANALYSIS</div>
+            <div id="previewMeta" class="preview-meta">RESOLUTION MATRIX OK • READY FOR AI DIAGNOSIS</div>
             <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 7px 14px; font-size: 0.82rem;">
               ✕ Remove & Change Photo
             </button>
@@ -132,22 +132,22 @@
         type="text" 
         id="userNotes" 
         class="input-notes" 
-        placeholder="Optional: Describe symptoms (e.g. 'Humming noise when turned on', 'Dripping every 5 seconds', 'Burning smell')..."
+        placeholder="Optional: Describe symptoms (e.g. 'Humming noise when turned on', 'Dripping every 5 seconds', 'Smells like burning')..."
       >
 
       <!-- Action Bar -->
       <div class="action-bar">
         <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.08rem; padding: 15px 32px;" disabled>
-          <span>⚡ Execute Neural Diagnostic Scan</span>
+          <span>⚡ Run AI Diagnostic & Cost Check</span>
         </button>
       </div>
 
     </section>
 
     <!-- Instant 3D Sample Scenarios Bar -->
-    <section class="samples-section">
+    <section class="samples-section" id="samplesSection">
       <div class="section-label">
-        <h3><span>💡</span> Instant 1-Click Neural Test Cases:</h3>
+        <h3><span>💡</span> Instant 1-Click Test Scenarios:</h3>
       </div>
       <div class="sample-grid" id="sampleCardsContainer">
         <!-- Injected dynamically via JS with 3D Tilt -->
@@ -160,7 +160,7 @@
         <div class="cyber-spinner"></div>
         <div class="cyber-spinner-inner"></div>
       </div>
-      <div class="loading-text">FixOrPro Neural Engine Scanning...</div>
+      <div class="loading-text">FixOrPro AI is inspecting the image...</div>
       <div class="loading-step-msg" id="loadingStepMsg">[1/4] Scanning surface topology & defect vectors...</div>
     </div>
 
@@ -226,14 +226,14 @@
           <div class="value" id="specCategory">Plumbing</div>
         </div>
         <div class="spec-item">
-          <div class="label">Neural Confidence</div>
+          <div class="label">AI Confidence</div>
           <div class="value" id="specConfidence">High (95%)</div>
         </div>
       </div>
 
       <!-- Tabs Navigation -->
       <div class="tabs-nav">
-        <button type="button" class="tab-btn active" data-tab="tabSteps">📋 Interactive Fix Guide (Checkable)</button>
+        <button type="button" class="tab-btn active" data-tab="tabSteps">📋 Step-by-Step Fix Guide</button>
         <button type="button" class="tab-btn" data-tab="tabParts">🛠️ 1-Click Parts & Tools</button>
         <button type="button" class="tab-btn" data-tab="tabSafety">⚠️ Safety Warnings & Pro Triggers</button>
       </div>
@@ -315,44 +315,13 @@
   <!-- Floating Toast Notifications -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Settings & API Key Modal -->
-  <div class="modal-overlay" id="settingsModal">
-    <div class="modal-card">
-      <button class="modal-close" id="closeModalBtn">✕</button>
-      <h3 style="font-size: 1.4rem; margin-bottom: 8px;">⚙️ FixOrPro Neural Settings</h3>
-      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;">
-        FixOrPro runs in Free Demo mode out-of-the-box. To analyze your own custom photos with live Gemini Vision AI, enter your Gemini API key below.
-      </p>
-
-      <div style="margin-bottom: 20px;">
-        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 8px;">Google Gemini API Key</label>
-        <input type="password" id="apiKeyInput" class="input-notes" style="margin-top: 0;" placeholder="AIzaSy...">
-        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">
-          Get a free key in 30 seconds at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: #38bdf8;">Google AI Studio</a>. Key is saved locally in your browser.
-        </p>
-      </div>
-
-      <div style="margin-bottom: 28px;">
-        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 8px;">Amazon Associates Affiliate Tag</label>
-        <input type="text" id="amazonTagInput" class="input-notes" style="margin-top: 0;" placeholder="e.g. yourtag-20">
-        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">
-          Your affiliate tracking tag will automatically attach to all Amazon product buy buttons.
-        </p>
-      </div>
-
-      <button type="button" class="btn btn-primary" id="saveKeyBtn" style="width: 100%; padding: 14px;">
-        <span>Save Settings</span>
-      </button>
-    </div>
-  </div>
-
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-links">
-        <a href="#workspaceSection">Neural Diagnostic Tool</a>
-        <a href="https://aistudio.google.com" target="_blank">Powered by Gemini 2.5</a>
-        <a href="https://www.amazon.com" target="_blank">Amazon Affiliate Partner</a>
+        <a href="#workspaceSection">AI Diagnostic Tool</a>
+        <a href="#samplesSection">Sample Repair Scenarios</a>
+        <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer">Amazon Partner</a>
       </div>
       <p>© 2026 FixOrPro AI. All rights reserved. For informational and educational purposes. Always prioritize safety and comply with local municipal building & electrical codes.</p>
     </div>
