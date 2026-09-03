@@ -57,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedSampleId = null;
     let scanInterval = null;
 
-    // Default Amazon Associates Tracking ID
-    const AMAZON_TAG = "fixorpro-20";
+    // Use saved Amazon tag from localStorage if entered, or fallback
+    const AMAZON_TAG = localStorage.getItem("fixorpro_amazon_tag") || "fixorpro-20";
 
     // Initial load: Fetch samples
     loadSamples();
@@ -278,6 +278,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const notes = userNotesInput.value.trim();
         if (notes) formData.append("notes", notes);
+
+        const savedKey = localStorage.getItem("fixorpro_gemini_key");
+        if (savedKey) formData.append("api_key", savedKey);
 
         try {
             const res = await fetch("/api/analyze", {
