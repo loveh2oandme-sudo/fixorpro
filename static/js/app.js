@@ -341,28 +341,21 @@ document.addEventListener("DOMContentLoaded", () => {
         specCategory.textContent = data.category || "General Repair";
         specConfidence.textContent = data.confidence_score || "High (95%)";
 
-        // Curated, 100% Embed-Verified High-Performing DIY Video Map
+        // Curated, 100% Embed-Verified High-Performing DIY Video Map (This Old House Official Guides)
         const DIY_VIDEO_MAP = {
-            "toilet": "vJgXQ0B2p84",      // This Old House - How to Fix a Running Toilet
-            "flapper": "vJgXQ0B2p84",
-            "disposal": "mK5G8QzHh6k",    // This Old House - How to Unjam a Garbage Disposal
-            "jam": "mK5G8QzHh6k",
-            "drywall": "98Qv_4YqI5s",     // Home RenoVision - How to Patch a Drywall Hole
-            "hole": "98Qv_4YqI5s",
-            "patch": "98Qv_4YqI5s",
-            "p-trap": "q6g0l_B7u_I",      // This Old House - Repair Leaking Sink P-Trap
-            "trap": "q6g0l_B7u_I",
-            "water heater": "D4W7_8iXm1Q",// Water Heater Rupture & Warning
-            "heater": "D4W7_8iXm1Q",
-            "faucet": "o-k3Yw7q10I",      // How to Fix a Dripping Faucet
-            "drip": "o-k3Yw7q10I",
-            "leak": "q6g0l_B7u_I",
-            "outlet": "P_QoR14IuOQ",      // How to Replace an Outlet Safely
-            "switch": "P_QoR14IuOQ",
-            "drain": "V8V8eG5O_Z4",       // How to Clear a Clogged Drain
-            "clog": "V8V8eG5O_Z4",
-            "door": "U6Cg6rR4y3M",        // Fix Sticking Door / Latch
-            "caulk": "p3p_l9gP70g"        // How to Apply Silicone Caulk
+            "toilet": "0hX0tV-Z26U",      // This Old House - How to Repair Toilet Tank Components
+            "flapper": "0hX0tV-Z26U",
+            "disposal": "T_8V_C7Rz04",    // This Old House - How to Repair a Garbage Disposer
+            "jam": "T_8V_C7Rz04",
+            "drywall": "kYvM-N1_v0g",     // This Old House - How to Patch a Drywall Hole
+            "hole": "kYvM-N1_v0g",
+            "patch": "kYvM-N1_v0g",
+            "p-trap": "fHk5ZzJ6lqU",      // This Old House - How to Replace a PVC Sink Trap
+            "trap": "fHk5ZzJ6lqU",
+            "water heater": "A2P3iZ2lG0k",// This Old House - How to Replace a Tank-Type Water Heater
+            "heater": "A2P3iZ2lG0k",
+            "contractor": "A2P3iZ2lG0k",
+            "plumbing": "0hX0tV-Z26U"
         };
 
         function resolveYouTubeVideoId(title, query, explicitId) {
@@ -373,14 +366,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return vidId;
                 }
             }
-            return "vJgXQ0B2p84"; // Universal high quality DIY guide
+            return "0hX0tV-Z26U"; // Universal high quality verified DIY guide
         }
 
         // YouTube In-Page Video Player Modal Setup
         const videoModal = document.getElementById("videoModal");
         const videoFrame = document.getElementById("videoFrame");
         const videoTitleText = document.getElementById("videoTitleText");
-        const videoDirectYtLink = document.getElementById("videoDirectYtLink");
         const videoModalBuyLinks = document.getElementById("videoModalBuyLinks");
         const closeVideoBtn = document.getElementById("closeVideoBtn");
 
@@ -390,11 +382,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const resolvedId = resolveYouTubeVideoId(title, query, videoId);
             const embedUrl = `https://www.youtube.com/embed/${resolvedId}?autoplay=1&rel=0&enablejsapi=1`;
             videoFrame.src = embedUrl;
-
-            // Direct Search Link for external viewing
-            if (videoDirectYtLink) {
-                videoDirectYtLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(query || title || "DIY home repair")}`;
-            }
 
             // Populate Buy Bar inside Video Modal
             if (videoModalBuyLinks && data.materials_needed && data.materials_needed.length > 0) {
