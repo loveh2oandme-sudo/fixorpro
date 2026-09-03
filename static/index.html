@@ -397,12 +397,17 @@
         <div class="video-modal-title">
           <span>🎬</span> <span id="videoTitleText">DIY Repair Video Tutorial</span>
         </div>
-        <button type="button" class="video-close-btn" id="closeVideoBtn">✕</button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <a id="videoDirectYtLink" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="font-size: 0.8rem; padding: 6px 12px; color: #dc2626; border-color: #fecaca; background: #fef2f2;">
+            <span>↗️ Open on YouTube</span>
+          </a>
+          <button type="button" class="video-close-btn" id="closeVideoBtn">✕</button>
+        </div>
       </div>
 
       <!-- 16:9 Responsive Video Player Container -->
       <div class="video-frame-wrap">
-        <iframe id="videoFrame" src="" title="FixOrPro Video Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="videoFrame" src="" title="FixOrPro Video Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
 
       <!-- In-Modal Buy Bar (Customers can purchase parts while watching the video!) -->
