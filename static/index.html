@@ -11,10 +11,94 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/css/style.css?v=7.0.0">
-  <script src="/js/i18n.js?v=7.0.0"></script>
+  <link rel="stylesheet" href="/css/style.css?v=8.0.0">
+
+  <!-- Silent Background Auto-Translation Engine (100% Invisible Top Bar) -->
+  <script type="text/javascript">
+    (function() {
+      try {
+        const candidates = [];
+        if (navigator.languages && Array.isArray(navigator.languages)) candidates.push(...navigator.languages);
+        if (navigator.language) candidates.push(navigator.language);
+        if (navigator.userLanguage) candidates.push(navigator.userLanguage);
+        if (navigator.systemLanguage) candidates.push(navigator.systemLanguage);
+        if (navigator.userAgent) candidates.push(navigator.userAgent);
+        
+        try {
+          const loc = Intl.DateTimeFormat().resolvedOptions().locale || "";
+          if (loc) candidates.push(loc);
+        } catch(e) {}
+
+        const lower = candidates.map(c => (c || "").toLowerCase());
+        let detected = "ko"; // Default to Korean so founder & Korean users always see Korean automatically
+
+        for (const c of lower) {
+          if (c.startsWith("ko") || c.includes("kr") || c.includes("korean") || c.includes("kakaotalk") || c.includes("naver") || c.includes("seoul")) {
+            detected = "ko";
+            break;
+          }
+          if (c.startsWith("zh") || c.includes("chinese")) {
+            detected = "zh-CN";
+            break;
+          }
+          if (c.startsWith("ru") || c.includes("russian")) {
+            detected = "ru";
+            break;
+          }
+          if (c.startsWith("ja") || c.includes("japanese")) {
+            detected = "ja";
+            break;
+          }
+          if (c.startsWith("es") || c.includes("spanish")) {
+            detected = "es";
+            break;
+          }
+          if (c.startsWith("vi") || c.includes("vietnamese")) {
+            detected = "vi";
+            break;
+          }
+        }
+
+        const explicit = localStorage.getItem("fixorpro_user_explicit_lang");
+        if (explicit) detected = explicit;
+
+        const transVal = `/en/${detected}`;
+        document.cookie = `googtrans=${transVal}; path=/`;
+        document.cookie = `googtrans=${transVal}; domain=.onrender.com; path=/`;
+        document.cookie = `googtrans=${transVal}; domain=${location.hostname}; path=/`;
+      } catch(err) {
+        console.warn("Auto-detect init:", err);
+      }
+    })();
+
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,ko,zh-CN,zh-TW,ja,ru,vi,tl,fr,de,ar,hi,pt',
+        autoDisplay: false,
+        multilanguagePage: true
+      }, 'google_translate_element');
+    }
+
+    // Ensure Top Bar Is 100% Invisible and Never Displaces Page Content
+    const bannerKiller = setInterval(() => {
+      if (document.body && document.body.style.top !== "0px" && document.body.style.top !== "") {
+        document.body.style.top = "0px";
+      }
+      const banner = document.querySelector(".goog-te-banner-frame");
+      if (banner) {
+        banner.style.display = "none";
+        banner.style.height = "0px";
+        banner.style.visibility = "hidden";
+      }
+    }, 100);
+    setTimeout(() => clearInterval(bannerKiller), 10000);
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="/js/i18n.js?v=8.0.0"></script>
 </head>
 <body>
+  <div id="google_translate_element" style="display: none !important;"></div>
 
   <!-- Site Navigation Header -->
   <header class="site-header">

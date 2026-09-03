@@ -479,7 +479,8 @@ function detectBrowserLanguage() {
         }
     }
 
-    return "en";
+    // Default to Korean so Korean founder & Korean visitors always get Korean automatically
+    return "ko";
 }
 
 let currentLanguage = detectBrowserLanguage();

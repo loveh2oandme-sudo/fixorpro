@@ -93,14 +93,21 @@ html, body {
 /* Eradicate Any Translation Iframe Displacements */
 iframe.skiptranslate,
 .goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+.goog-te-top-frame,
 #goog-gt-tt,
-.goog-te-balloon-frame {
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
   display: none !important;
   visibility: hidden !important;
   height: 0px !important;
   width: 0px !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
 }
 
 html, body {
@@ -108,6 +115,11 @@ html, body {
   position: static !important;
   margin-top: 0px !important;
   padding-top: 0px !important;
+}
+
+.goog-text-highlight {
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* Navigation Header */
