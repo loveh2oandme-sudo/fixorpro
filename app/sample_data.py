@@ -33,8 +33,7 @@ SAMPLE_SCENARIOS = {
                 "Never use heavy metal wrenches on porcelain or plastic tank nuts to avoid hairline fractures."
             ],
             "tools_needed": [
-                {"name": "Adjustable Slip-Joint Pliers", "amazon_search": "adjustable pliers plumbing", "homedepot_search": "pliers"},
-                {"name": "Absorbent Towel & Cleaning Sponge", "amazon_search": "cleaning sponges heavy duty", "homedepot_search": "sponge"}
+                {"name": "10-inch Adjustable Slip-Joint Pliers", "amazon_search": "adjustable pliers plumbing", "homedepot_search": "pliers"}
             ],
             "materials_needed": [
                 {"name": "Universal 2-inch (or 3-inch) Toilet Flapper", "est_price": "$7.99", "amazon_search": "universal toilet flapper 2 inch", "homedepot_search": "toilet flapper"},
@@ -45,7 +44,7 @@ SAMPLE_SCENARIOS = {
                     "step_num": 1,
                     "title": "Shut off water supply and drain the tank",
                     "instruction": "Locate the oval shut-off valve on the wall directly behind the lower left side of the toilet. Turn the handle clockwise (to the right) until it stops securely. Flush the toilet once and keep holding the flush lever down until approximately 90% of the water drains into the bowl.",
-                    "pro_tip": "If the shut-off valve is stiff, wrap a towel around it for extra grip. Do NOT force it violently with large metal tools.",
+                    "pro_tip": "If the shut-off valve is stiff, wrap a cloth around it for extra grip. Do NOT force it violently with large metal tools.",
                     "caution": "If the wall valve continues to drip after closing, your home's angle stop may need tightening.",
                     "youtube_query": "how to shut off toilet water supply valve"
                 },
@@ -103,11 +102,11 @@ SAMPLE_SCENARIOS = {
             "safety_warnings": [
                 "NEVER insert your bare hands or fingers into the disposal opening under any circumstance.",
                 "Turn off the wall switch and unplug the electrical power cord under the sink before starting.",
-                "Always use kitchen tongs or needle-nose pliers to extract dislodged debris from above."
+                "Always use long needle-nose pliers or a pick-up tool to extract dislodged debris from above."
             ],
             "tools_needed": [
-                {"name": "1/4-inch Hex / Allen Wrench (or Jam-Buster Wrench)", "amazon_search": "garbage disposal hex key wrench", "homedepot_search": "garbage disposal wrench"},
-                {"name": "Flashlight & Kitchen Tongs", "amazon_search": "kitchen tongs heavy duty", "homedepot_search": "tongs"}
+                {"name": "1/4-inch Hex / Allen Key Wrench", "amazon_search": "garbage disposal hex key wrench", "homedepot_search": "garbage disposal wrench"},
+                {"name": "Long Reach Needle-Nose Pliers", "amazon_search": "long reach needle nose pliers", "homedepot_search": "needle nose pliers"}
             ],
             "materials_needed": [
                 {"name": "Garbage Disposal Jam-Buster Wrench", "est_price": "$6.99", "amazon_search": "disposal jam wrench", "homedepot_search": "garbage disposal wrench"}
@@ -124,7 +123,7 @@ SAMPLE_SCENARIOS = {
                 {
                     "step_num": 2,
                     "title": "Insert hex wrench into bottom motor socket",
-                    "instruction": "Crawl under the sink with a flashlight. Look at the exact dead center on the underside of the disposal casing. You will find a 1/4-inch small hexagonal socket hole. Insert standard 1/4-inch Allen wrench (or disposal jam key) straight into this socket.",
+                    "instruction": "Look at the exact center on the underside of the disposal casing under your sink. You will find a 1/4-inch small hexagonal socket hole. Insert the 1/4-inch Allen wrench (or jam key) straight into this socket.",
                     "pro_tip": "Many disposals have a factory wrench taped to the side of the unit from original installation.",
                     "caution": "Ensure the wrench is fully seated in the socket before applying rotational force to avoid stripping the socket.",
                     "youtube_query": "where is garbage disposal allen wrench socket"
@@ -140,7 +139,7 @@ SAMPLE_SCENARIOS = {
                 {
                     "step_num": 4,
                     "title": "Extract debris and push the red reset button",
-                    "instruction": "Look down into the sink drain with a flashlight. Use long kitchen tongs to fish out the foreign object (bone, glass, penny, etc.). Then go back under the sink and firmly press the small red RESET button located near the bottom edge of the disposal casing.",
+                    "instruction": "Look down into the sink drain. Use long reach needle-nose pliers to fish out the foreign object (bone, glass, coin, etc.). Then go back under the sink and firmly press the small red RESET button located near the bottom edge of the disposal casing.",
                     "pro_tip": "Run cold water for 15 seconds before flipping the power switch on to flush out any pulverized particles.",
                     "caution": "If the red button won't stay pushed in, wait 5 minutes for the motor to cool down, then push it again.",
                     "youtube_query": "where is garbage disposal red reset button"
@@ -177,7 +176,7 @@ SAMPLE_SCENARIOS = {
                 "Verify there are no hidden electrical wires directly behind the drywall opening before pressing hard."
             ],
             "tools_needed": [
-                {"name": "Putty Knife (4 or 6-inch Flexible Blade)", "amazon_search": "putty knife 6 inch", "homedepot_search": "putty knife"},
+                {"name": "Putty Knife (6-inch Flexible Stainless Blade)", "amazon_search": "putty knife 6 inch", "homedepot_search": "putty knife"},
                 {"name": "Fine Grit Sanding Sponge (120-220 grit)", "amazon_search": "drywall sanding sponge fine", "homedepot_search": "sanding sponge"}
             ],
             "materials_needed": [
@@ -246,12 +245,11 @@ SAMPLE_SCENARIOS = {
             },
             "summary": "The beveled poly-cone slip-joint washer inside the curved P-trap connection has dried out, cracked, or misaligned due to vibration. Replacing the 50-cent washer creates a watertight seal without needing glue or soldering.",
             "safety_warnings": [
-                "Place a small bucket or basin directly under the P-trap before unscrewing nuts; standing water will drain out.",
+                "Place a small basin directly under the P-trap before unscrewing nuts; standing water will drain out.",
                 "Wear rubber gloves as sink trap water contains grease and soap residue."
             ],
             "tools_needed": [
-                {"name": "Channel Lock Pliers (10-inch)", "amazon_search": "channel lock pliers 10 inch", "homedepot_search": "tongue and groove pliers"},
-                {"name": "Small Catch Basin or Bucket", "amazon_search": "small plastic bucket", "homedepot_search": "bucket"}
+                {"name": "10-inch Tongue-and-Groove Channel Lock Pliers", "amazon_search": "channel lock pliers 10 inch", "homedepot_search": "tongue and groove pliers"}
             ],
             "materials_needed": [
                 {"name": "1-1/2 inch (or 1-1/4 inch) Slip-Joint Washer Kit", "est_price": "$3.49", "amazon_search": "p-trap washer kit", "homedepot_search": "slip joint washer"},

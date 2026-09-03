@@ -66,6 +66,9 @@ CRITICAL RULES FOR US MARKET ACCURACY:
 2. Step Quality:
    - Provide in-depth, foolproof, contractor-grade guidance for each step with practical pro-tips.
 3. Cost Estimations: Reflect realistic 2026 US market labor and trip fee pricing ($100-$150 minimum trip charge + $75-$120/hr labor).
+4. Genuine Hardware Tools & Parts ONLY:
+   - NEVER recommend common household kitchen utensils (e.g. tongs, spoons, forks, towels, sponges) as items to buy.
+   - ONLY recommend genuine hardware store tools (e.g., Allen Wrench, Needle-Nose Pliers, Tongue-and-Groove Pliers, Putty Knife, Voltage Tester, Screwdriver) and authentic replacement parts sold at Home Depot, Lowe's, and Amazon.
 """
 
 async def analyze_repair_image(
