@@ -175,8 +175,11 @@ async def generate_dynamic_questions(
 
     prompt = DYNAMIC_QUESTIONS_PROMPT
     prompt += f"\n\nUser Input Text: \"{user_notes.strip()}\""
-    if level > 1 and previous_choice:
-        prompt += f"\nUser previously selected in Level 1: \"{previous_choice}\"\nGenerate 4 deeper Level 2 micro-narrowing options to reach 100% exact cause."
+    if level == 1:
+        prompt += "\n[Level 1 Instruction]: Generate 4 options (1번, 2번, 3번, 4번) identifying the specific defect area/symptom (고장 부위 및 대분류 상황)."
+    else:
+        prompt += f"\nUser previously selected in Level 1: \"{previous_choice}\""
+        prompt += "\n[Level 2 Replacement Part Pinpoint Instruction]: The user selected the above Level 1 option. Now generate 4 precise Level 2 options (1번, 2번, 3번, 4번) focusing specifically on PINPOINTING THE EXACT REPLACEMENT PART & MATERIAL (구매해야 하는 정확한 교체 부품, 규격, 소모품 패치 종류) so the user buys the 100% correct part on Amazon / Home Depot."
 
     response = client.models.generate_content(
         model='gemini-2.5-flash',
