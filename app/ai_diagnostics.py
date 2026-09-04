@@ -69,6 +69,10 @@ CRITICAL RULES FOR US MARKET ACCURACY:
 4. Genuine Hardware Tools & Parts ONLY:
    - NEVER recommend common household kitchen utensils (e.g. tongs, spoons, forks, towels, sponges) as items to buy.
    - ONLY recommend genuine hardware store tools (e.g., Allen Wrench, Needle-Nose Pliers, Tongue-and-Groove Pliers, Putty Knife, Voltage Tester, Screwdriver) and authentic replacement parts sold at Home Depot, Lowe's, and Amazon.
+5. User Description & Language Matching:
+   - If the user provides a text description ("User Description of Problem & Symptoms"), analyze that specific issue thoroughly.
+   - Ensure the output problem_title, summary, steps, safety_warnings, tools, and materials DIRECTLY reflect the user's described symptoms.
+   - If the user's description is in Korean (or another language), output all JSON text fields in Korean (or the user's language).
 """
 
 async def analyze_repair_issue(

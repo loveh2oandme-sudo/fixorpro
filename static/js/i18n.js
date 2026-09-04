@@ -415,6 +415,55 @@ const SCENARIO_TRANSLATIONS = {
                 }
             ],
             pro_trigger_conditions: "싱크대 아래 벽 배관 연결 부위가 녹슬어 삭았거나, 수도꼭지 본체가 카운터탑에 완전히 고착되어 흔들리지 않는다면 면허 배관공을 부르세요."
+        },
+        exterior_wall_hole: {
+            problem_title: "건물 외벽(스타코/사이딩/시멘트) 방수 구멍 및 틈새 메꿈 수리",
+            difficulty: "중급 (외벽 미장 퍼티 & 방수 씰링)",
+            summary: "건물 외벽에 발생한 구멍이나 균열은 빗물과 습기, 해충이 벽체 내부 목조 프레임과 단열재로 침투하여 치명적인 구조 부식을 일으킵니다. 외벽 전용 아크릴 스타코 패치(Stucco Patch)와 100% 방수 우레탄 씰런트로 틈을 메워주면 빗물 침투를 완벽히 막고 외벽 수명을 영구 보존할 수 있습니다.",
+            safety_warnings: [
+                "부서진 외벽 시멘트나 스타코 가루를 털어낼 때는 반드시 보안경과 작업용 장갑을 착용하세요.",
+                "외벽 구멍 안쪽 바로 뒤에 전기 배관이나 가스관이 지나가지 않는지 도구를 넣기 전 확인하세요.",
+                "24시간 이내에 비 예보가 있거나 기온이 7℃ 이하로 내려갈 때는 작업을 피하세요."
+            ],
+            materials_needed: [
+                { name: "외벽 전용 아크릴 스타코/콘크리트 패치 (Ready-Mix Stucco Patch)", est_price: "$11.99", amazon_search: "ready mix exterior stucco patch", homedepot_search: "stucco patch" },
+                { name: "외벽용 100% 방수 우레탄 씰런트 (Exterior Masonry Caulk)", est_price: "$6.49", amazon_search: "exterior polyurethane sealant masonry", homedepot_search: "polyurethane sealant" }
+            ],
+            tools_needed: [
+                { name: "외벽 미장용 스틸 마진 흙손 (Pointing Trowel)", amazon_search: "pointing trowel masonry", homedepot_search: "margin trowel" },
+                { name: "강철 와이어 브러시 (Wire Bristle Brush)", amazon_search: "wire brush masonry", homedepot_search: "wire brush" }
+            ],
+            steps: [
+                {
+                    step_num: 1,
+                    title: "구멍 주변의 푸석한 콘크리트 및 스타코 부스러기 제거",
+                    instruction: "와이어 브러시와 일자 드라이버로 구멍 주변의 들뜨고 푸석한 시멘트 조각을 긁어내어 단단한 면이 나올 때까지 정리합니다. 가루 먼지를 털어낸 후 물 분무기로 구멍 안쪽을 살짝 적셔줍니다.",
+                    pro_tip: "작업 직전 분무기로 물을 살짝 뿌려두면 마른 외벽이 패치의 수분을 급격히 빨아들여 갈라지는 것을 방지합니다.",
+                    caution: "와이어 브러시질을 할 때 작은 돌가루가 튈 수 있으니 보안경을 꼭 쓰세요."
+                },
+                {
+                    step_num: 2,
+                    title: "깊은 구멍(2cm 이상) 내부 메쉬 보강 및 1차 충진",
+                    instruction: "구멍 깊이가 2cm 이상 깊다면 철망(와이어 메쉬) 조각을 구멍 속에 넣거나, 수경 시멘트를 깊은 안쪽에 먼저 채워 표면 아래 5mm 깊이까지 단단한 받침대를 만듭니다.",
+                    pro_tip: "깊은 구멍을 한 번에 다 채우면 건조되면서 축 처지고 균열이 생기므로 2번에 나눠 작업하세요.",
+                    caution: "내부 단열재가 썩었는지 먼저 확인하고 건조된 상태에서 메우세요."
+                },
+                {
+                    step_num: 3,
+                    title: "외벽 전용 아크릴 스타코 패치 도포 및 질감 맞추기",
+                    instruction: "마진 흙손으로 스타코 패치를 푹 떠서 구멍에 꾹꾹 눌러 채운 뒤, 주변 벽면과 평평하게 펴 바릅니다. 젖은 스펀지나 붓 끝으로 톡톡 두드려 기존 외벽의 울퉁불퉁한 스타코 질감을 똑같이 흉내 냅니다.",
+                    pro_tip: "물에 젖은 주방 스펀지로 표면을 살살 돌려가며 두드리면 기존 거친 질감과 깜쪽같이 일치합니다.",
+                    caution: "테두리 경계면을 종이처럼 얇게 문질러 펴야 마른 후 턱이 생기지 않습니다."
+                },
+                {
+                    step_num: 4,
+                    title: "24시간 건조 후 테두리 방수 실리콘 코킹 및 외벽 페인트 마감",
+                    instruction: "패치가 24시간 동안 완전히 굳으면 창틀이나 몰딩 연결 부위에 방수 우레탄 씰런트를 쏘아 실링합니다. 그 후 100% 외벽용 아크릴 페인트를 2회 덧칠하여 완벽하게 마감합니다.",
+                    pro_tip: "떨어져 나온 외벽 조각(동전 크기)을 홈디포 페인트 코너로 가져가면 컴퓨터로 100% 동일한 색상을 무료 조색해 줍니다.",
+                    caution: "실내용 수성 페인트를 외벽에 바르면 자외선과 비바람에 금방 벗겨지므로 반드시 외벽용 페인트를 쓰세요."
+                }
+            ],
+            pro_trigger_conditions: "구멍 주변으로 손가락 굵기 이상의 기초 침하 균열이 번져 있거나, 외벽 내부 목조 스터드가 썩어 있다면 면허 시공업체를 불러야 합니다."
         }
     }
 };

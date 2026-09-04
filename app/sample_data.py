@@ -435,5 +435,78 @@ SAMPLE_SCENARIOS = {
             ],
             "pro_trigger_conditions": "If water is spraying under the sink from cracked supply risers, or if the faucet base is seized solid to the countertop with rust, call a licensed plumber."
         }
+    },
+    "exterior_wall_hole": {
+        "id": "exterior_wall_hole",
+        "title": "Exterior Stucco / Siding Wall Hole & Void Repair",
+        "category": "Exterior & Walls",
+        "thumbnail": "🧱",
+        "image_url": "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80",
+        "description": "Hole, crack, or missing chunk on an exterior house wall (Stucco, Concrete, or Siding) requiring weather-proof patching.",
+        "result": {
+            "problem_title": "Exterior Stucco / Concrete Weatherproof Hole & Void Patching",
+            "category": "Exterior & Walls",
+            "confidence_score": "High (97%)",
+            "verdict": "DIY_RECOMMENDED",
+            "difficulty": "Intermediate (Trowel & Weather-Seal)",
+            "estimated_time": "45 - 60 minutes",
+            "youtube_query": "how to patch hole in exterior stucco wall",
+            "youtube_video_id": "zZ4fO_k4W_U",
+            "cost_comparison": {
+                "diy_cost": "$18 - $35",
+                "pro_cost": "$250 - $450",
+                "estimated_savings": "$315",
+                "savings_percentage": "90%"
+            },
+            "summary": "Exterior wall holes allow rainwater, moisture, and pests to penetrate into the wood framing and insulation behind your home's exterior cladding. Patching the void with exterior-grade ready-mix acrylic stucco patch or hydraulic mortar and sealing the edges with 100% waterproof elastomeric sealant permanently stops water intrusion and restores structural weather protection.",
+            "safety_warnings": [
+                "Always wear safety goggles and heavy work gloves when chipping away loose concrete or stucco masonry.",
+                "Ensure no live exterior electrical conduit or gas lines run directly behind the exterior wall breach before applying tools.",
+                "Do not apply exterior patch when rain is forecasted within 24 hours or if temperatures are below 45°F (7°C)."
+            ],
+            "tools_needed": [
+                {"name": "Margin Trowel / Steel Pointing Trowel (2x5 inch)", "amazon_search": "pointing trowel masonry", "homedepot_search": "margin trowel"},
+                {"name": "Stiff Wire Bristle Brush", "amazon_search": "wire brush masonry", "homedepot_search": "wire brush"}
+            ],
+            "materials_needed": [
+                {"name": "Ready-Mix Exterior Acrylic Stucco / Concrete Patch (1 Qt)", "est_price": "$11.99", "amazon_search": "ready mix exterior stucco patch", "homedepot_search": "stucco patch"},
+                {"name": "Exterior Waterproof 100% Silicone/Polyurethane Caulk", "est_price": "$6.49", "amazon_search": "exterior polyurethane sealant masonry", "homedepot_search": "polyurethane sealant"}
+            ],
+            "steps": [
+                {
+                    "step_num": 1,
+                    "title": "Clear all loose stucco, crumbling masonry, and dust from the hole",
+                    "instruction": "Use a wire bristle brush and a flat screwdriver or cold chisel to chip away any crumbly, detached stucco edges until you hit firm, solid masonry. Blow out all powdery dust and wire brush the perimeter so the patch bonds cleanly.",
+                    "pro_tip": "Mist the hole lightly with water from a spray bottle right before applying patch; this prevents dry masonry from sucking water out of the wet patch too quickly.",
+                    "caution": "Wear eye protection; small concrete and stucco chips will fly when wire brushing.",
+                    "youtube_query": "how to prep exterior stucco hole for patch"
+                },
+                {
+                    "step_num": 2,
+                    "title": "Backfill deep voids and apply backing mesh if hole is over 1 inch",
+                    "instruction": "If the hole penetrates through the outer cement coat into the foam or wire lath cavity, cut a small piece of galvanized wire mesh or pack hydraulic cement into the deep void to create a solid base 1/4-inch below the finished surface.",
+                    "pro_tip": "For holes deeper than 1 inch, apply the patch in two layers: a scratch coat first, let it set for 20 minutes, then the finish coat.",
+                    "caution": "Never fill a deep 2-inch void in a single thick wet layer or it will sag and shrink-crack while drying.",
+                    "youtube_query": "how to backfill deep stucco hole"
+                },
+                {
+                    "step_num": 3,
+                    "title": "Apply exterior acrylic stucco patch and match existing wall texture",
+                    "instruction": "Scoop ready-mix stucco patch onto your margin trowel and firmly press it into the void, feathering the edges flush with the surrounding wall. To match the textured stucco finish, dab the wet patch surface with a damp sponge or stiff brush.",
+                    "pro_tip": "Use a wet kitchen sponge or stippling brush to gently swirl or dab the wet surface to perfectly mimic the rough stucco pattern.",
+                    "caution": "Feather the perimeter edges paper-thin so there is no raised ridge visible from the yard.",
+                    "youtube_query": "how to match stucco texture with sponge"
+                },
+                {
+                    "step_num": 4,
+                    "title": "Allow to cure, seal perimeter, and apply 100% exterior acrylic paint",
+                    "instruction": "Allow the patch to cure for 24 hours. Apply a fine bead of polyurethane masonry sealant around any adjoining window or trim joints, then roll on 2 coats of 100% exterior acrylic masonry paint to blend the repair invisibly with your home exterior.",
+                    "pro_tip": "Bring a small quarter-sized chip of original painted stucco to Home Depot for a free computer color match.",
+                    "caution": "Do not use interior latex paint on exterior masonry; it will peel within months under UV sun and rain.",
+                    "youtube_query": "how to paint and blend exterior stucco patch"
+                }
+            ],
+            "pro_trigger_conditions": "If the exterior hole shows structural foundation settlement cracks wider than 1/4 inch, or if wood framing behind the stucco is rotted from long-term water leaks, hire a licensed general contractor."
+        }
     }
 }

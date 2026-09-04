@@ -178,12 +178,87 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    const aiQuestionBox = document.getElementById("aiQuestionBox");
+    const aiQuestionTitle = document.getElementById("aiQuestionTitle");
+    const aiOptionsContainer = document.getElementById("aiOptionsContainer");
+
+    function showAiOptions(titleText, optionsList) {
+        if (!aiQuestionBox || !aiOptionsContainer) return;
+        aiQuestionTitle.textContent = titleText;
+        aiOptionsContainer.innerHTML = "";
+
+        optionsList.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "btn btn-ghost ai-option-btn";
+            btn.style.cssText = "text-align: left; justify-content: flex-start; padding: 12px 16px; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #ffffff; width: 100%; border-radius: 10px; cursor: pointer; transition: all 0.2s ease;";
+            btn.innerHTML = `<strong style="color: #38bdf8; margin-right: 8px;">${idx + 1}번</strong> ${opt.text}`;
+
+            btn.addEventListener("mouseover", () => {
+                btn.style.background = "rgba(56, 189, 248, 0.2)";
+                btn.style.borderColor = "#38bdf8";
+            });
+            btn.addEventListener("mouseout", () => {
+                btn.style.background = "rgba(255,255,255,0.06)";
+                btn.style.borderColor = "rgba(255,255,255,0.2)";
+            });
+
+            btn.addEventListener("click", () => {
+                const currentText = userNotesInput.value.trim();
+                userNotesInput.value = `${currentText}\n[선택 ${idx + 1}번: ${opt.text}]`;
+                aiQuestionBox.style.display = "none";
+                runDiagnosis();
+            });
+
+            aiOptionsContainer.appendChild(btn);
+        });
+
+        aiQuestionBox.style.display = "block";
+    }
+
     userNotesInput.addEventListener("input", () => {
         const text = userNotesInput.value.trim();
+        const lower = text.toLowerCase();
+        
+        // If user typed custom text, deselect pre-configured sample card
+        if (selectedSampleId) {
+            selectedSampleId = null;
+            clearActiveSampleCards();
+        }
+
         if (text.length > 0 || currentFile || selectedSampleId) {
             analyzeBtn.disabled = false;
         } else {
             analyzeBtn.disabled = true;
+            if (aiQuestionBox) aiQuestionBox.style.display = "none";
+        }
+
+        // Auto-suggest 1, 2, 3, 4 options if user notes contain broad keywords and no choice selected yet
+        if (!text.includes("[선택") && text.length >= 2) {
+            if (lower.includes("천장") || lower.includes("벽") || lower.includes("누수") || lower.includes("물") || lower.includes("leak")) {
+                showAiOptions("💡 AI 추가 확인 질문: 누수가 발생하는 구체적인 상황을 1, 2, 3, 4번에서 선택해 주세요.", [
+                    { text: "윗집 화장실/배관 사용 시에만 물이 젖어 나옴 (위층 방수층 손상)" },
+                    { text: "수도 사용과 상관없이 24시간 내내 물이 뚝뚝 떨어짐 (배관 파열)" },
+                    { text: "비가 오거나 강풍 불 때만 천장/벽지 쪽이 축축해짐 (지붕/외벽 누수)" },
+                    { text: "온수/보일러 가동 시에만 가열음과 함께 배관 누수됨 (온수 배관 부식)" }
+                ]);
+            } else if (lower.includes("전기") || lower.includes("스위치") || lower.includes("전등") || lower.includes("콘센트")) {
+                showAiOptions("💡 AI 추가 확인 질문: 전기 고장의 구체적인 증상을 1, 2, 3, 4번에서 선택해 주세요.", [
+                    { text: "스위치를 켜면 전등이 깜빡거리며 지직 소리가 남" },
+                    { text: "차단기(두꺼비집)가 자꾸 자동으로 내려감" },
+                    { text: "콘센트에서 탄 냄새나 불꽃(아크)이 튐" },
+                    { text: "스위치가 헐겁고 딸깍 소리가 나지 않음" }
+                ]);
+            } else if (lower.includes("문") || lower.includes("경첩") || lower.includes("도어")) {
+                showAiOptions("💡 AI 추가 확인 질문: 문 작동의 구체적인 문제점을 1, 2, 3, 4번에서 선택해 주세요.", [
+                    { text: "문 상단/바닥이 문틀에 닿아 뻑뻑하게 걸림" },
+                    { text: "문 손잡이나 도어락 래치가 안 잠김" },
+                    { text: "경첩 나사가 헛돌고 문이 아래로 처짐" },
+                    { text: "문을 열고 닫을 때 삐걱거리는 마찰 소음" }
+                ]);
+            } else {
+                if (aiQuestionBox) aiQuestionBox.style.display = "none";
+            }
         }
     });
 
@@ -240,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const SAMPLE_TITLES = {
         ko: {
+            exterior_wall_hole: { title: "건물 외벽(스타코/사이딩) 구멍", category: "외벽" },
             running_toilet: { title: "변기 물이 계속 샐 때", category: "배관" },
             disposal_jam: { title: "음식물 분쇄기 모터 걸림", category: "가전" },
             drywall_hole: { title: "문 손잡이 벽 구멍", category: "벽체" },
@@ -247,6 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
             water_heater_tank: { title: "온수기 내부 부식 & 누수", category: "위험" }
         },
         es: {
+            exterior_wall_hole: { title: "Agujero en pared exterior", category: "Exterior" },
             running_toilet: { title: "Inodoro con fuga continua", category: "Plomería" },
             disposal_jam: { title: "Triturador de basura atascado", category: "Aparatos" },
             drywall_hole: { title: "Agujero en panel de yeso", category: "Paredes" },
@@ -355,7 +432,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const formData = new FormData();
         if (currentFile) formData.append("image", currentFile);
-        if (selectedSampleId) formData.append("sample_id", selectedSampleId);
+
+        // Send sample_id ONLY if selected and user did not write custom text notes
+        if (selectedSampleId && (!notes || notes.length === 0)) {
+            formData.append("sample_id", selectedSampleId);
+        }
         if (notes) formData.append("notes", notes);
 
         const savedKey = localStorage.getItem("fixorpro_gemini_key");
@@ -389,17 +470,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function detectScenarioKey(data, sampleId) {
         if (sampleId) return sampleId;
-        const title = (data.problem_title || "").toLowerCase();
-        const cat = (data.category || "").toLowerCase();
-        const notes = (userNotesInput.value || "").toLowerCase();
-        const full = `${title} ${cat} ${notes}`;
-
-        if (full.includes("faucet") || full.includes("수도") || full.includes("꼭지") || full.includes("싱크") || full.includes("sink") || full.includes("cartridge") || full.includes("drip")) return "leaking_faucet";
-        if (full.includes("toilet") || full.includes("flapper") || full.includes("변기")) return "running_toilet";
-        if (full.includes("disposal") || full.includes("jam") || full.includes("분쇄기")) return "disposal_jam";
-        if (full.includes("drywall") || full.includes("hole") || full.includes("석고") || full.includes("벽")) return "drywall_hole";
-        if (full.includes("p-trap") || full.includes("trap") || full.includes("slip") || full.includes("트랩")) return "leaking_p_trap";
-        if (full.includes("water heater") || full.includes("heater") || full.includes("온수기")) return "water_heater_tank";
         return null;
     }
 
@@ -409,10 +479,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderDiagnosticReport(data, source) {
         activeReportData = data;
 
-        // Apply Deep Scenario Localization if available
-        const sKey = detectScenarioKey(data, selectedSampleId);
-        if (sKey && window.i18n && window.i18n.getLocalizedScenarioData) {
-            data = window.i18n.getLocalizedScenarioData(sKey, data);
+        // Apply Deep Scenario Localization ONLY for pre-defined 1-click sample scenarios
+        if (source === "sample" && selectedSampleId && window.i18n && window.i18n.getLocalizedScenarioData) {
+            data = window.i18n.getLocalizedScenarioData(selectedSampleId, data);
         }
 
         const isDIY = data.verdict === "DIY_RECOMMENDED";
@@ -448,6 +517,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Curated, 100% Embed-Verified Real DIY Video Tutorials (Tested & Active)
         const DIY_VIDEO_MAP = {
+            "stucco": "zZ4fO_k4W_U",      // Exterior Stucco Wall Repair
+            "exterior": "zZ4fO_k4W_U",
+            "siding": "zZ4fO_k4W_U",
+            "외벽": "zZ4fO_k4W_U",
             "toilet": "SGdDLHbP-l0",      // Replace Toilet Flapper
             "flapper": "SGdDLHbP-l0",
             "disposal": "R6o2XlrR_fU",    // Fix Jammed Garbage Disposal
@@ -716,6 +789,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     thumbtackSlug: "garbage-disposal-repair",
                     angiQuery: "garbage-disposal-repair",
                     yelpQuery: "garbage-disposal-repair"
+                };
+            }
+            // Exterior / Stucco / Siding Repair
+            if (fullText.includes("exterior") || fullText.includes("stucco") || fullText.includes("외벽") || fullText.includes("스타코") || fullText.includes("siding") || fullText.includes("사이딩") || fullText.includes("masonry") || fullText.includes("brick")) {
+                return {
+                    thumbtackSlug: "stucco-repair",
+                    angiQuery: "stucco-repair",
+                    yelpQuery: "stucco-repair"
                 };
             }
             // Drywall & Wall Repair

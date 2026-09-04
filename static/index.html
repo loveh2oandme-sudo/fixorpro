@@ -148,73 +148,133 @@
       </div>
     </section>
 
-    <!-- Interactive Upload Workspace (Mobile-Optimized Camera First) -->
+    <!-- Interactive Upload Workspace (Dual Mode: 📸 Photo & Quick Scan / 💬 AI Interactive Chat) -->
     <section class="upload-card glass-panel" id="workspaceSection">
       
-      <!-- Hidden File Inputs with Direct Camera Capture -->
-      <input type="file" id="fileInput" accept="image/*" style="display: none;">
-      <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
-
-      <!-- Drop Zone -->
-      <div class="drop-zone" id="dropZone">
-        <div class="drop-icon">📸</div>
-        <h3 class="drop-title" data-i18n="dropzone_title">Take or upload a photo of anything broken</h3>
-        <p class="drop-desc" data-i18n="dropzone_desc">Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors & appliances</p>
-        <div class="upload-btn-group">
-          <button type="button" class="btn btn-primary" id="btnCamera" style="font-size: 1rem; padding: 13px 24px;">
-            <span data-i18n="dropzone_btn_cam">📸 Snap with Camera</span>
-          </button>
-          <button type="button" class="btn btn-ghost" id="btnSelectFile" style="font-size: 1rem; padding: 13px 24px;">
-            <span data-i18n="dropzone_btn_file">📁 Choose from Photos</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Preview -->
-      <div class="preview-container" id="previewContainer">
-        <div class="preview-inner">
-          <div class="hud-image-wrapper">
-            <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Target">
-            <div class="hud-laser"></div>
-          </div>
-          <div class="preview-info">
-            <div id="previewFilename" class="preview-filename">TARGET_IMAGE.JPG</div>
-            <div id="previewMeta" class="preview-meta">READY FOR AI DIAGNOSIS</div>
-            <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 6px 12px; font-size: 0.8rem;">
-              ✕ Change Photo
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Notes Input -->
-      <input 
-        type="text" 
-        id="userNotes" 
-        class="input-notes" 
-        placeholder="Optional: Describe symptoms (e.g., 'Humming noise when turned on', 'Dripping every 5 seconds')..."
-      >
-
-      <!-- Action Button -->
-      <div class="action-bar">
-        <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.05rem; padding: 14px 28px; width: 100%; justify-content: center;" disabled>
-          <span>⚡ Run AI Diagnostic & Cost Check</span>
+      <!-- Diagnostic Mode Switcher Tabs -->
+      <div class="diag-tabs-wrap">
+        <button type="button" class="diag-tab-btn active" id="tabPhotoQuick">
+          <span>📸 사진 & 빠른 진단</span>
+        </button>
+        <button type="button" class="diag-tab-btn" id="tabAiChat">
+          <span>💬 AI 전문가 1:1 대화형 진단</span>
         </button>
       </div>
 
+      <!-- PANE 1: PHOTO & QUICK DIAGNOSTIC -->
+      <div id="panePhotoQuick" style="display: block;">
+        <!-- Hidden File Inputs with Direct Camera Capture -->
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
+
+        <!-- Drop Zone -->
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-icon">📸</div>
+          <h3 class="drop-title" data-i18n="dropzone_title">Take or upload a photo of anything broken</h3>
+          <p class="drop-desc" data-i18n="dropzone_desc">Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors & appliances</p>
+          <div class="upload-btn-group">
+            <button type="button" class="btn btn-primary" id="btnCamera" style="font-size: 1rem; padding: 13px 24px;">
+              <span data-i18n="dropzone_btn_cam">📸 Snap with Camera</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="btnSelectFile" style="font-size: 1rem; padding: 13px 24px;">
+              <span data-i18n="dropzone_btn_file">📁 Choose from Photos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-container" id="previewContainer">
+          <div class="preview-inner">
+            <div class="hud-image-wrapper">
+              <img id="previewThumb" class="preview-thumb" src="" alt="Diagnostic Target">
+              <div class="hud-laser"></div>
+            </div>
+            <div class="preview-info">
+              <div id="previewFilename" class="preview-filename">TARGET_IMAGE.JPG</div>
+              <div id="previewMeta" class="preview-meta">READY FOR AI DIAGNOSIS</div>
+              <button type="button" class="btn btn-ghost" id="removeImageBtn" style="padding: 6px 12px; font-size: 0.8rem;">
+                ✕ Change Photo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Input Area (Enlarged Multi-line Text Area) -->
+        <div class="user-notes-wrap" style="margin-top: 16px;">
+          <label for="userNotes" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 8px; display: block;">
+            📝 고장 증상 및 상황 설명:
+          </label>
+          <textarea 
+            id="userNotes" 
+            class="input-notes-textarea" 
+            rows="5"
+            placeholder="고장 증상이나 궁금한 사항을 자유롭게 작성해 주세요 (예: '천장에서 물이 샌다', '벽체에서 물 소리가 납니다')..."
+            style="width: 100%; min-height: 120px; padding: 14px 16px; background: rgba(15, 23, 42, 0.7); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #ffffff; font-size: 1rem; line-height: 1.6; resize: vertical; outline: none; font-family: inherit;"
+          ></textarea>
+        </div>
+
+        <!-- Dynamic AI Interactive Question & 1, 2, 3, 4 Option Box -->
+        <div id="aiQuestionBox" class="ai-question-card glass-panel" style="display: none; margin: 18px 0; padding: 20px; border-left: 4px solid #06b6d4; background: rgba(15, 23, 42, 0.85);">
+          <div class="ai-question-header" style="font-weight: 800; font-size: 1.05rem; color: #ffffff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+            <span>💡</span> <span id="aiQuestionTitle">AI 추가 확인 질문: 정확한 원인 파악을 위해 해당되는 증상을 선택하세요.</span>
+          </div>
+          <div id="aiOptionsContainer" class="ai-options-grid" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Injected dynamically via JS: 1, 2, 3, 4 option buttons -->
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="action-bar" style="margin-top: 16px;">
+          <button type="button" id="analyzeBtn" class="btn btn-emerald" style="font-size: 1.05rem; padding: 14px 28px; width: 100%; justify-content: center;" disabled>
+            <span>⚡ AI 진단 및 비용 점검 실행</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PANE 2: INTERACTIVE AI CHAT CONSULTATION -->
+      <div id="paneAiChat" style="display: none;" class="chat-workspace-pane">
+        <div class="chat-header">
+          <div class="chat-avatar">👨‍🔧</div>
+          <div>
+            <div class="chat-title">FixOrPro AI 인스펙터 & 마스터 기술자</div>
+            <div class="chat-subtitle">실시간 1:1 대화를 통해 고장 원인을 정밀 분석하고 맞춤 부품 및 수리법을 찾아드립니다.</div>
+          </div>
+        </div>
+
+        <!-- Messages Flow -->
+        <div class="chat-messages-container" id="chatMessages">
+          <div class="chat-bubble ai">
+            안녕하세요! 주택 수리 마스터 AI 인스펙터입니다. 🛠️<br><br>
+            어디에 어떤 고장이나 파손이 발생했나요? 편하게 말씀해 주세요. (예: <strong>"바깥 외벽에 구멍이 났어요"</strong>, <strong>"싱크대 수도꼭지가 안 잠겨요"</strong> 등)
+          </div>
+        </div>
+
+        <!-- Suggestion Chips -->
+        <div class="chat-suggestions-container" id="chatSuggestions">
+          <div class="chat-chip" data-text="바깥 외벽(스타코/사이딩)에 구멍이 났어요">🏠 건물 외벽 구멍 수리</div>
+          <div class="chat-chip" data-text="방 안 실내 석고보드 벽에 구멍이 났어요">🚪 실내 석고보드(Drywall) 구멍</div>
+          <div class="chat-chip" data-text="주방 싱크대 수도꼭지에서 물이 계속 뚝뚝 새요">🚰 싱크대 수도꼭지 누수</div>
+          <div class="chat-chip" data-text="변기에서 물 흐르는 쉬익 소리가 계속 나요">🚽 변기 물 샐 때</div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="chatForm" class="chat-input-row" onsubmit="return false;">
+          <input 
+            type="text" 
+            id="chatInput" 
+            class="chat-input-field" 
+            placeholder="AI 기술자에게 고장 증상을 말씀해 주세요..."
+            autocomplete="off"
+          >
+          <button type="submit" id="chatSendBtn" class="btn btn-primary chat-send-btn">
+            전송 🚀
+          </button>
+        </form>
+      </div>
+
     </section>
 
-    <!-- Instant Sample Scenarios Bar -->
-    <section class="samples-section" id="samplesSection">
-      <div class="section-label">
-        <h3 data-i18n="sample_banner_title"><span>💡</span> Instant 1-Click Test Scenarios:</h3>
-      </div>
-      <div class="sample-grid" id="sampleCardsContainer">
-        <!-- Injected dynamically via JS -->
-      </div>
-    </section>
-
-    <!-- Loading Box -->
+    <!-- Loading Box (PLACED IMMEDIATELY BELOW DIAGNOSTIC ACTION BUTTON) -->
     <div class="loading-box glass-panel" id="loadingBox">
       <div class="loading-spinner-wrap">
         <div class="cyber-spinner"></div>
@@ -224,7 +284,7 @@
     </div>
 
     <!-- =====================================================================
-         DIAGNOSTIC REPORT DASHBOARD (ALL SECTIONS STACKED VERTICALLY)
+         DIAGNOSTIC REPORT DASHBOARD (PLACED IMMEDIATELY BELOW ACTION BUTTON!)
          ===================================================================== -->
     <section class="report-container" id="reportContainer">
 
@@ -416,6 +476,16 @@
 
     </section>
 
+    <!-- Instant Sample Scenarios Bar (Placed below report dashboard) -->
+    <section class="samples-section" id="samplesSection" style="margin-top: 40px;">
+      <div class="section-label">
+        <h3 data-i18n="sample_banner_title"><span>💡</span> Instant 1-Click Test Scenarios:</h3>
+      </div>
+      <div class="sample-grid" id="sampleCardsContainer">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </section>
+
     <!-- =====================================================================
          MAIN SCREEN SAFETY DISCLAIMER & AFFILIATE DISCLOSURE (ALWAYS VISIBLE)
          ===================================================================== -->
@@ -497,6 +567,6 @@
     </div>
   </div>
 
-  <script src="/js/app.js?v=7.0.0"></script>
+  <script src="/js/app.js?v=9.0.0"></script>
 </body>
 </html>
