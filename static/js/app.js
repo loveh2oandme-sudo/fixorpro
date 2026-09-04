@@ -294,6 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (reportContainer) reportContainer.style.display = "none";
         if (loadingBox) loadingBox.style.display = "none";
         activeReportData = null;
+        currentNarrowLevel = 1;
+        narrowLevel1ChoiceText = "";
         try {
             sessionStorage.removeItem("fixorpro_active_report");
         } catch (e) {}
