@@ -134,5 +134,72 @@ async def analyze_repair_issue(
         raise e
 
 
+
+# Dynamic Question Narrowing Generator Prompt
+DYNAMIC_QUESTIONS_PROMPT = """You are FixOrPro, an expert AI Home Inspector.
+The user described a home repair issue or asked a question about a household problem.
+Analyze the user's text description carefully.
+Generate 4 distinct, mutually-exclusive clarifying scenarios/options (1번, 2번, 3번, 4번) that will help narrow down (핀포인트 좁히기) the exact root cause, location, size, or symptom of the problem.
+
+Respond STRICTLY in JSON format with this exact schema:
+{
+  "title": "💡 AI 추가 확인 질문: 정확한 원인 파악을 위해 해당되는 구체적 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+  "can_narrow_further": true,
+  "options": [
+    {"text": "1번 항목 내용 (구체적 상황 설명 및 원인)"},
+    {"text": "2번 항목 내용 (구체적 상황 설명 및 원인)"},
+    {"text": "3번 항목 내용 (구체적 상황 설명 및 원인)"},
+    {"text": "4번 항목 내용 (구체적 상황 설명 및 원인)"}
+  ]
+}
+
+Important Rules:
+1. Make options realistic, actionable, and specific to the user's described problem.
+2. Output all JSON string fields in Korean (한국어).
+"""
+
+async def generate_dynamic_questions(
+    user_notes: str,
+    level: int = 1,
+    previous_choice: Optional[str] = None,
+    api_key: Optional[str] = None
+) -> Dict[str, Any]:
+    """
+    Generates 4 dynamic narrowing options based on the user's text input.
+    """
+    effective_api_key = api_key or os.environ.get("GEMINI_API_KEY")
+    if not effective_api_key:
+        raise ValueError("NO_API_KEY")
+
+    client = genai.Client(api_key=effective_api_key)
+
+    prompt = DYNAMIC_QUESTIONS_PROMPT
+    prompt += f"\n\nUser Input Text: \"{user_notes.strip()}\""
+    if level > 1 and previous_choice:
+        prompt += f"\nUser previously selected in Level 1: \"{previous_choice}\"\nGenerate 4 deeper Level 2 micro-narrowing options to reach 100% exact cause."
+
+    response = client.models.generate_content(
+        model='gemini-2.5-flash',
+        contents=[prompt],
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            temperature=0.3,
+        )
+    )
+
+    response_text = response.text.strip()
+    if response_text.startswith("```json"):
+        response_text = response_text[7:]
+    if response_text.startswith("```"):
+        response_text = response_text[3:]
+    if response_text.endswith("```"):
+        response_text = response_text[:-3]
+    response_text = response_text.strip()
+
+    data = json.loads(response_text)
+    return data
+
+
 # Maintain backwards compatibility
 analyze_repair_image = analyze_repair_issue
+
