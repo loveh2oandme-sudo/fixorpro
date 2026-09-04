@@ -63,9 +63,9 @@
         if (explicit) detected = explicit;
 
         const transVal = `/en/${detected}`;
-        document.cookie = `googtrans=${transVal}; path=/`;
-        document.cookie = `googtrans=${transVal}; domain=.onrender.com; path=/`;
-        document.cookie = `googtrans=${transVal}; domain=${location.hostname}; path=/`;
+        if (!document.cookie.includes("googtrans=")) {
+          document.cookie = `googtrans=${transVal}; path=/`;
+        }
       } catch(err) {
         console.warn("Auto-detect init:", err);
       }
@@ -567,6 +567,6 @@
     </div>
   </div>
 
-  <script src="/js/app.js?v=9.0.0"></script>
+  <script src="/js/app.js?v=10.0.0"></script>
 </body>
 </html>

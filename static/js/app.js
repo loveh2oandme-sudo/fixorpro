@@ -478,6 +478,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ----------------------------------------------------------------------
     function renderDiagnosticReport(data, source) {
         activeReportData = data;
+        try {
+            sessionStorage.setItem("fixorpro_active_report", JSON.stringify({ data, source }));
+        } catch(e) {}
 
         // Apply Deep Scenario Localization ONLY for pre-defined 1-click sample scenarios
         if (source === "sample" && selectedSampleId && window.i18n && window.i18n.getLocalizedScenarioData) {
@@ -884,7 +887,21 @@ document.addEventListener("DOMContentLoaded", () => {
         previewContainer.style.display = "none";
         dropZone.style.display = "block";
         reportContainer.style.display = "none";
+        try {
+            sessionStorage.removeItem("fixorpro_active_report");
+        } catch(e) {}
         clearActiveSampleCards();
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    // Restore active report if page was reloaded or refreshed
+    try {
+        const savedReport = sessionStorage.getItem("fixorpro_active_report");
+        if (savedReport) {
+            const parsed = JSON.parse(savedReport);
+            if (parsed && parsed.data) {
+                renderDiagnosticReport(parsed.data, parsed.source || "live_ai");
+            }
+        }
+    } catch(e) {}
 });
