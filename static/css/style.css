@@ -1553,3 +1553,32 @@ html {
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
 
+/* ==========================================================================
+   SUPPRESS GOOGLE TRANSLATE FLOATING WIDGET & TOP-LEFT SPINNER
+   ========================================================================== */
+.goog-te-banner-frame,
+.goog-te-spinner-pos,
+.goog-te-spinner,
+.goog-te-balloon-frame,
+.skiptranslate,
+iframe.goog-te-banner-frame,
+iframe.goog-te-menu-frame,
+.VIpgJd-Z4w16d-OjeuPf,
+.VIpgJd-Z4w16d-wline,
+.VIpgJd-Z4w16d-a9v2ed,
+div[id*="goog-gt-"],
+#goog-gt-tt {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+

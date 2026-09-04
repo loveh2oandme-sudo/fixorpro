@@ -233,9 +233,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (aiQuestionBox) aiQuestionBox.style.display = "none";
         }
 
-        // Auto-suggest 1, 2, 3, 4 options if user notes contain broad keywords and no choice selected yet
-        if (!text.includes("[선택") && text.length >= 2) {
-            if (lower.includes("천장") || lower.includes("벽") || lower.includes("누수") || lower.includes("물") || lower.includes("leak")) {
+        // Auto-suggest 1, 2, 3, 4 options if user notes contain specific symptom keywords
+        const isNoise = lower.includes("소리") || lower.includes("소음") || lower.includes("쿵쿵") || lower.includes("드르륵");
+        const isLeak = lower.includes("누수") || lower.includes("물") || lower.includes("새다") || lower.includes("젖") || lower.includes("leak") || lower.includes("뚝뚝");
+
+        if (!text.includes("[선택") && text.length >= 2 && !isNoise) {
+            if (isLeak || ((lower.includes("천장") || lower.includes("벽")) && (lower.includes("물") || lower.includes("젖") || lower.includes("새")))) {
                 showAiOptions("💡 AI 추가 확인 질문: 누수가 발생하는 구체적인 상황을 1, 2, 3, 4번에서 선택해 주세요.", [
                     { text: "윗집 화장실/배관 사용 시에만 물이 젖어 나옴 (위층 방수층 손상)" },
                     { text: "수도 사용과 상관없이 24시간 내내 물이 뚝뚝 떨어짐 (배관 파열)" },
@@ -249,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     { text: "콘센트에서 탄 냄새나 불꽃(아크)이 튐" },
                     { text: "스위치가 헐겁고 딸깍 소리가 나지 않음" }
                 ]);
-            } else if (lower.includes("문") || lower.includes("경첩") || lower.includes("도어")) {
+            } else if (lower.includes("경첩") || lower.includes("도어락") || lower.includes("문틀")) {
                 showAiOptions("💡 AI 추가 확인 질문: 문 작동의 구체적인 문제점을 1, 2, 3, 4번에서 선택해 주세요.", [
                     { text: "문 상단/바닥이 문틀에 닿아 뻑뻑하게 걸림" },
                     { text: "문 손잡이나 도어락 래치가 안 잠김" },
@@ -259,6 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 if (aiQuestionBox) aiQuestionBox.style.display = "none";
             }
+        } else {
+            if (aiQuestionBox) aiQuestionBox.style.display = "none";
         }
     });
 
