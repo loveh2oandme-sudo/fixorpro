@@ -131,52 +131,66 @@ document.addEventListener("DOMContentLoaded", () => {
     // ----------------------------------------------------------------------
     // File Upload & Camera Handlers
     // ----------------------------------------------------------------------
-    dropZone.addEventListener("click", () => fileInput.click());
+    if (dropZone) {
+        dropZone.addEventListener("click", () => fileInput && fileInput.click());
+    }
 
-    document.getElementById("btnSelectFile").addEventListener("click", (e) => {
-        e.stopPropagation();
-        fileInput.click();
-    });
+    const btnSelectFile = document.getElementById("btnSelectFile");
+    if (btnSelectFile) {
+        btnSelectFile.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (fileInput) fileInput.click();
+        });
+    }
 
-    document.getElementById("btnCamera").addEventListener("click", (e) => {
-        e.stopPropagation();
-        cameraInput.click();
-    });
+    const btnCamera = document.getElementById("btnCamera");
+    if (btnCamera) {
+        btnCamera.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (cameraInput) cameraInput.click();
+        });
+    }
 
-    fileInput.addEventListener("change", (e) => {
-        if (e.target.files && e.target.files[0]) {
-            handleFileSelection(e.target.files[0]);
-        }
-    });
+    if (fileInput) {
+        fileInput.addEventListener("change", (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFileSelection(e.target.files[0]);
+            }
+        });
+    }
 
-    cameraInput.addEventListener("change", (e) => {
-        if (e.target.files && e.target.files[0]) {
-            handleFileSelection(e.target.files[0]);
-        }
-    });
+    if (cameraInput) {
+        cameraInput.addEventListener("change", (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFileSelection(e.target.files[0]);
+            }
+        });
+    }
 
     // Drag & Drop
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropZone.classList.add('dragover');
+    if (dropZone) {
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.add('dragover');
+            });
         });
-    });
 
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropZone.classList.remove('dragover');
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('dragover');
+            });
         });
-    });
 
-    dropZone.addEventListener("drop", (e) => {
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFileSelection(e.dataTransfer.files[0]);
-        }
-    });
+        dropZone.addEventListener("drop", (e) => {
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFileSelection(e.dataTransfer.files[0]);
+            }
+        });
+    }
 
     const aiQuestionBox = document.getElementById("aiQuestionBox");
     const aiQuestionTitle = document.getElementById("aiQuestionTitle");
@@ -366,19 +380,18 @@ document.addEventListener("DOMContentLoaded", () => {
             card.classList.add("active");
             
             const presetText = card.getAttribute("data-text");
-            userNotesInput.value = presetText;
+            if (userNotesInput) userNotesInput.value = presetText;
+            if (chatInput) chatInput.value = presetText;
             if (btnClearNotes) btnClearNotes.style.display = "inline-flex";
-            analyzeBtn.disabled = false;
+            if (analyzeBtn) analyzeBtn.disabled = false;
             
             resetDiagnosticView();
             
-            // Instantly fetch 1-2-3-4 narrowing options for the selected category
-            fetchAndShowNarrowQuestions(1, "");
-            
-            // Scroll smoothly to question box
-            const aiBox = document.getElementById("aiQuestionBox");
-            if (aiBox) {
-                aiBox.scrollIntoView({ behavior: "smooth", block: "center" });
+            // Trigger 1:1 AI chat response instantly
+            if (typeof handleChatSubmit === "function") {
+                handleChatSubmit();
+            } else {
+                fetchAndShowNarrowQuestions(1, "");
             }
         });
     });
@@ -398,15 +411,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".ext-chip[data-text]").forEach(chip => {
         chip.addEventListener("click", () => {
             const presetText = chip.getAttribute("data-text");
-            userNotesInput.value = presetText;
+            if (userNotesInput) userNotesInput.value = presetText;
+            if (chatInput) chatInput.value = presetText;
             if (btnClearNotes) btnClearNotes.style.display = "inline-flex";
-            analyzeBtn.disabled = false;
+            if (analyzeBtn) analyzeBtn.disabled = false;
             
             resetDiagnosticView();
-            fetchAndShowNarrowQuestions(1, "");
-            const aiBox = document.getElementById("aiQuestionBox");
-            if (aiBox) {
-                aiBox.scrollIntoView({ behavior: "smooth", block: "center" });
+            if (typeof handleChatSubmit === "function") {
+                handleChatSubmit();
+            } else {
+                fetchAndShowNarrowQuestions(1, "");
             }
         });
     });
@@ -1402,10 +1416,28 @@ document.addEventListener("DOMContentLoaded", () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    const chatSendBtn = document.getElementById("chatSendBtn");
+
     if (chatForm) {
         chatForm.addEventListener("submit", (e) => {
             e.preventDefault();
             handleChatSubmit();
+        });
+    }
+
+    if (chatSendBtn) {
+        chatSendBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            handleChatSubmit();
+        });
+    }
+
+    if (chatInput) {
+        chatInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleChatSubmit();
+            }
         });
     }
 
