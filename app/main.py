@@ -545,6 +545,65 @@ def get_smart_fallback(notes: Optional[str] = None) -> dict:
             ],
             "pro_trigger_conditions": "문틀 차체가 심하게 비틀려 주택 기초 침하가 의심되거나 방화문 현관 도어락 작동 불능 시 면허 전문가를 부르세요."
         }
+    elif any(k in text_query for k in ["마루", "바닥", "데크", "삐걱", "소리", "나무", "floor", "squeak", "deck", "hardwood", "creak"]):
+        return {
+            "problem_title": f"마루 바닥 삐걱거림 소음 및 틈새 마찰 수리 ({notes.strip() if notes else '마루 소리'})",
+            "category": "Flooring & Decks",
+            "confidence_score": "High (95%)",
+            "verdict": "DIY_RECOMMENDED",
+            "difficulty": "Beginner (초보자 10분 수리 가능)",
+            "estimated_time": "10 - 20 minutes",
+            "youtube_query": "how to fix squeaky hardwood floor without replacing wood",
+            "cost_comparison": {
+                "diy_cost": "$5 - $13 (윤활 흑연 가루 또는 수리 나사 키트)",
+                "pro_cost": "$200 - $350 (마루 기술자 출장비)",
+                "estimated_savings": "$220",
+                "savings_percentage": "95%"
+            },
+            "summary": f"고객님이 입력하신 증상('{notes.strip() if notes else '마루 소음'}'): 마루판을 새로 교체할 필요 없이, 마루판 사이 마찰 소음 또는 하부 합판(Subfloor) 헐거움으로 인한 삐걱거림 현상입니다. 흑연 윤활 가루 도포 및 전용 수리 나사로 10분 만에 소음을 완전 제거할 수 있습니다.",
+            "safety_warnings": [
+                "마루판 표면에 일반 윤활유(기름)를 대량 분사하면 바닥이 미끄러울 수 있으니 반드시 건식 흑연 가루나 전용 실리콘을 사용하세요.",
+                "나사를 박을 때 마루 아래 보일러 온수 파이프(배관) 위치를 피해서 작업하세요."
+            ],
+            "materials_needed": [
+                {"name": "마루 삐걱거림 제거용 건식 흑연 윤활 가루 (Powdered Graphite Lubricant)", "est_price": "$4.99", "amazon_search": "powdered graphite lubricant squeaky floor", "homedepot_search": "graphite lubricant"},
+                {"name": "마루 바닥 삐걱거림 수리 전용 나사 키트 (Squeeeek No More Hardwood Kit)", "est_price": "$12.99", "amazon_search": "squeeeeek no more hardwood floor kit", "homedepot_search": "squeak no more kit"}
+            ],
+            "tools_needed": [
+                {"name": "전동 드라이버 또는 망치", "amazon_search": "cordless drill driver", "homedepot_search": "drill driver"}
+            ],
+            "steps": [
+                {
+                    "step_num": 1,
+                    "title": "소리 나는 마루 마찰 위치 핀포인트 탐색",
+                    "instruction": "마루 위를 발로 밟으며 삐걱거리는 정확한 마루판 틈새 지점을 찾습니다.",
+                    "pro_tip": "마루판끼리 비벼지며 소리가 나는지, 하부 합판이 들떠 소리가 나는지 밟아보면 구분됩니다.",
+                    "caution": "마루판을 무리하게 드라이버로 쑤셔 틈을 벌리지 마세요."
+                },
+                {
+                    "step_num": 2,
+                    "title": "건식 흑연 가루(Graphite Powder) 틈새 침투",
+                    "instruction": "삐걱거리는 마루 틈새 사이에 흑연 윤활 가루를 노즐로 듬뿍 집어넣고 수건으로 마찰시켜 틈새로 넣어줍니다.",
+                    "pro_tip": "흑연 가루가 마루판 사이 마찰을 없애주므로 나무 교체 없이 소리가 즉시 멈춥니다.",
+                    "caution": "흑연 가루가 흰 옷이나 벽에 묻지 않도록 헝겊으로 잘 닦아내세요."
+                },
+                {
+                    "step_num": 3,
+                    "title": "하부 합판 들뜸 시 삐걱거림 수리 나사 고정",
+                    "instruction": "소리가 지속될 경우 Squeeeek No More 수리 나사를 마루 위에서 박아 스냅(부러뜨림) 마감하여 깔끔하게 고정합니다.",
+                    "pro_tip": "이 특수 나사는 마루판 속으로 들어가 머리가 자동으로 깔끔하게 잘려나갑니다.",
+                    "caution": "바닥 난방 파이프 깊이를 넘어서는 긴 나사를 사용하지 마세요."
+                },
+                {
+                    "step_num": 4,
+                    "title": "바닥 표면 청소 및 보행 테스트",
+                    "instruction": "남은 가루를 깨끗이 청소한 후 체중을 실어 밟아보며 소음 제거를 확인합니다.",
+                    "pro_tip": "습도가 건조해지면 마루 소리가 잦아지므로 실내 적정 습도(40~50%)를 유지하면 좋습니다.",
+                    "caution": "물걸레질 후 잔여 습기가 잘 마르도록 통풍시켜 주세요."
+                }
+            ],
+            "pro_trigger_conditions": "마루 전체가 푹 꺼지거나 누수로 인해 합판 전체가 상해 썩었을 경우에는 마루 전체 교체 전문가를 부르세요."
+        }
 
     if matched_key and matched_key in SAMPLE_SCENARIOS:
         return SAMPLE_SCENARIOS[matched_key]["result"]
