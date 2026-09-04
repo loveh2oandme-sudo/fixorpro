@@ -1116,4 +1116,307 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     } catch(e) {}
+
+    // ======================================================================
+    // FIXORPRO MOBILE APP NATIVE LOGIC (PWA, VOICE, BOTTOM NAV, 1:1 AI CHAT)
+    // ======================================================================
+
+    // 1. PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then(reg => {
+                console.log('FixOrPro PWA ServiceWorker active:', reg.scope);
+            }).catch(err => {
+                console.log('PWA ServiceWorker failed:', err);
+            });
+        });
+    }
+
+    // 2. Mobile Bottom Navigation Tabs Handler
+    const bnavChat = document.getElementById("bnavChat");
+    const bnavPhoto = document.getElementById("bnavPhoto");
+    const bnavParts = document.getElementById("bnavParts");
+    const bnavSettings = document.getElementById("bnavSettings");
+
+    const panePhotoQuick = document.getElementById("panePhotoQuick");
+    const paneAiChat = document.getElementById("paneAiChat");
+    const tabPhotoQuick = document.getElementById("tabPhotoQuick");
+    const tabAiChat = document.getElementById("tabAiChat");
+
+    function setActiveTab(activeNavBtn, activePane) {
+        [bnavChat, bnavPhoto, bnavParts, bnavSettings].forEach(b => {
+            if (b) b.classList.remove("active");
+        });
+        if (activeNavBtn) activeNavBtn.classList.add("active");
+
+        if (activePane === "chat") {
+            if (paneAiChat) paneAiChat.style.display = "block";
+            if (panePhotoQuick) panePhotoQuick.style.display = "none";
+            if (tabAiChat) tabAiChat.classList.add("active");
+            if (tabPhotoQuick) tabPhotoQuick.classList.remove("active");
+        } else if (activePane === "photo") {
+            if (paneAiChat) paneAiChat.style.display = "none";
+            if (panePhotoQuick) panePhotoQuick.style.display = "block";
+            if (tabPhotoQuick) tabPhotoQuick.classList.add("active");
+            if (tabAiChat) tabAiChat.classList.remove("active");
+            const ws = document.getElementById("workspaceSection");
+            if (ws) ws.scrollIntoView({ behavior: "smooth" });
+        } else if (activePane === "parts") {
+            if (reportContainer && reportContainer.style.display === "block") {
+                reportContainer.scrollIntoView({ behavior: "smooth" });
+            } else {
+                showToast("🛠️ 수리 부품 및 전문가 예약 카드: AI 대화 또는 진단을 실행해 주세요.");
+            }
+        } else if (activePane === "settings") {
+            showToast("⚙️ 설정: Gemini API Key & Amazon 파트너 설정을 엽니다.");
+        }
+    }
+
+    if (bnavChat) bnavChat.addEventListener("click", () => setActiveTab(bnavChat, "chat"));
+    if (bnavPhoto) bnavPhoto.addEventListener("click", () => setActiveTab(bnavPhoto, "photo"));
+    if (bnavParts) bnavParts.addEventListener("click", () => setActiveTab(bnavParts, "parts"));
+    if (bnavSettings) bnavSettings.addEventListener("click", () => setActiveTab(bnavSettings, "settings"));
+
+    if (tabPhotoQuick) tabPhotoQuick.addEventListener("click", () => setActiveTab(bnavPhoto, "photo"));
+    if (tabAiChat) tabAiChat.addEventListener("click", () => setActiveTab(bnavChat, "chat"));
+
+    // 3. Voice Input (Microphone Speech Recognition)
+    const chatMicBtn = document.getElementById("chatMicBtn");
+    const btnMicInput = document.getElementById("btnMicInput");
+    const chatInput = document.getElementById("chatInput");
+
+    let isListening = false;
+    let recognition = null;
+
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        const SpeechClass = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechClass();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'ko-KR';
+
+        recognition.onstart = () => {
+            isListening = true;
+            if (chatMicBtn) chatMicBtn.classList.add("listening");
+            showToast("🎙️ 음성 듣는 중... 말씀해 주세요!");
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            if (chatInput) {
+                chatInput.value = transcript;
+            }
+            if (userNotesInput) {
+                userNotesInput.value = transcript;
+            }
+            showToast(`🎙️ 인식됨: "${transcript}"`);
+            // Auto submit speech input into 1:1 chat!
+            handleChatSubmit();
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech Recognition Error:", event.error);
+            showToast("🎙️ 음성 인식 오류: 다시 시도해 주세요.");
+            isListening = false;
+            if (chatMicBtn) chatMicBtn.classList.remove("listening");
+        };
+
+        recognition.onend = () => {
+            isListening = false;
+            if (chatMicBtn) chatMicBtn.classList.remove("listening");
+        };
+    }
+
+    function toggleVoiceInput() {
+        if (!recognition) {
+            showToast("🎙️ 브라우저가 음성 인식을 지원하지 않습니다. 텍스트로 작성해 주세요!");
+            return;
+        }
+        if (isListening) {
+            recognition.stop();
+        } else {
+            recognition.start();
+        }
+    }
+
+    if (chatMicBtn) chatMicBtn.addEventListener("click", toggleVoiceInput);
+    if (btnMicInput) btnMicInput.addEventListener("click", toggleVoiceInput);
+
+    // 4. Photo Attachment Button in Chat Bar
+    const chatPhotoBtn = document.getElementById("chatPhotoBtn");
+    if (chatPhotoBtn) {
+        chatPhotoBtn.addEventListener("click", () => {
+            setActiveTab(bnavPhoto, "photo");
+            if (fileInput) fileInput.click();
+        });
+    }
+
+    // 5. Interactive 1:1 AI Diagnostic Chat Logic
+    const chatForm = document.getElementById("chatForm");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatSuggestions = document.getElementById("chatSuggestions");
+    let chatHistory = [];
+
+    async function handleChatSubmit() {
+        if (!chatInput) return;
+        const msg = chatInput.value.strip ? chatInput.value.strip() : chatInput.value.trim();
+        if (!msg) return;
+
+        chatInput.value = "";
+
+        // User message bubble
+        appendChatBubble("user", msg);
+        chatHistory.push({ role: "user", content: msg });
+
+        // AI Typing indicator bubble
+        const typingId = "typing_" + Date.now();
+        appendChatBubble("ai", "⚡ AI 기술자가 대답을 작성하는 중입니다...", typingId);
+
+        try {
+            const savedKey = localStorage.getItem("fixorpro_gemini_key");
+            const res = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    messages: chatHistory,
+                    api_key: savedKey || "",
+                    language: window.i18n ? window.i18n.getLanguage() : "ko"
+                })
+            });
+
+            const typingEl = document.getElementById(typingId);
+            if (typingEl) typingEl.remove();
+
+            if (!res.ok) throw new Error("Chat response failed");
+            const data = await res.json();
+
+            const replyText = data.reply || "죄송합니다. 대답을 생성하지 못했습니다.";
+            appendChatBubble("ai", replyText);
+            chatHistory.push({ role: "model", content: replyText });
+
+            // If AI chat returned a report scenario or data, render IN-CHAT Action Card!
+            if (data.report_data) {
+                renderInChatActionCard(data.report_data);
+            } else if (data.report_scenario && SAMPLE_SCENARIOS[data.report_scenario]) {
+                renderInChatActionCard(SAMPLE_SCENARIOS[data.report_scenario]["result"]);
+            }
+
+            // Update chat suggestion chips if provided
+            if (data.suggestions && chatSuggestions) {
+                chatSuggestions.innerHTML = "";
+                data.suggestions.forEach(sugText => {
+                    const chip = document.createElement("div");
+                    chip.className = "chat-chip";
+                    chip.textContent = sugText;
+                    chip.setAttribute("data-text", sugText);
+                    chip.addEventListener("click", () => {
+                        chatInput.value = sugText;
+                        handleChatSubmit();
+                    });
+                    chatSuggestions.appendChild(chip);
+                });
+            }
+        } catch(err) {
+            const typingEl = document.getElementById(typingId);
+            if (typingEl) typingEl.remove();
+            appendChatBubble("ai", "⚠️ 연결에 실패했습니다. 다시 시도해 주세요.");
+        }
+    }
+
+    function appendChatBubble(role, text, id = null) {
+        if (!chatMessages) return;
+        const bubble = document.createElement("div");
+        bubble.className = `chat-bubble ${role}`;
+        if (id) bubble.id = id;
+        bubble.innerHTML = text.replace(/\n/g, "<br>");
+        chatMessages.appendChild(bubble);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function renderInChatActionCard(reportData) {
+        if (!chatMessages || !reportData) return;
+
+        const cardContainer = document.createElement("div");
+        cardContainer.className = "in-chat-action-card";
+
+        let partsHtml = "";
+        const materials = reportData.materials_needed || [];
+        const tools = reportData.tools_needed || [];
+
+        [...materials, ...tools].forEach(item => {
+            const itemName = item.name || "수리 부품/공구";
+            const price = item.est_price || "$8.99";
+            const kw = item.amazon_search || item.homedepot_search || itemName;
+            const amzUrl = `https://www.amazon.com/s?k=${encodeURIComponent(kw)}&tag=${AMAZON_TAG}`;
+            const hdUrl = `https://www.homedepot.com/s/${encodeURIComponent(kw)}`;
+
+            partsHtml += `
+              <div class="in-chat-part-item">
+                <div>
+                  <div class="in-chat-part-name">${itemName}</div>
+                  <div class="in-chat-part-price">${price}</div>
+                </div>
+                <div class="in-chat-buy-group">
+                  <a href="${amzUrl}" target="_blank" rel="noopener noreferrer" class="btn-buy-mini btn-buy-amz">
+                    🛒 Amazon
+                  </a>
+                  <a href="${hdUrl}" target="_blank" rel="noopener noreferrer" class="btn-buy-mini btn-buy-hd">
+                    🧡 Home Depot
+                  </a>
+                </div>
+              </div>
+            `;
+        });
+
+        const isProNeeded = reportData.verdict === "CALL_A_PRO";
+        let proHtml = "";
+        if (isProNeeded) {
+            proHtml = `
+              <a href="https://www.thumbtack.com" target="_blank" rel="noopener noreferrer" class="btn-pro-mini">
+                🚨 고위험 작업: 로컬 기술자 1-Click 예약하기 (Thumbtack / Angi)
+              </a>
+            `;
+        }
+
+        cardContainer.innerHTML = `
+          <div class="in-chat-card-title">
+            🛒 1-Click 최저가 부품 구매 &amp; 전문가 연결
+          </div>
+          <div>${partsHtml}</div>
+          ${proHtml}
+          <div style="margin-top: 10px; text-align: right;">
+            <button type="button" class="btn btn-ghost btn-show-full-report" style="font-size: 0.8rem; color: #38bdf8;">
+              📋 전체 진단 리포트 &amp; 수리 단계 펼쳐보기 ➔
+            </button>
+          </div>
+        `;
+
+        const showReportBtn = cardContainer.querySelector(".btn-show-full-report");
+        if (showReportBtn) {
+            showReportBtn.addEventListener("click", () => {
+                renderDiagnosticReport(reportData, "chat_action");
+            });
+        }
+
+        chatMessages.appendChild(cardContainer);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    if (chatForm) {
+        chatForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            handleChatSubmit();
+        });
+    }
+
+    document.querySelectorAll(".chat-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+            const text = chip.getAttribute("data-text");
+            if (chatInput && text) {
+                chatInput.value = text;
+                handleChatSubmit();
+            }
+        });
+    });
 });
+

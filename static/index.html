@@ -11,9 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/css/style.css?v=8.0.0">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <script src="/js/i18n.js?v=8.0.0"></script>
+  <link rel="stylesheet" href="/css/style.css?v=9.0.0">
+  <script src="/js/i18n.js?v=9.0.0"></script>
 </head>
 <body>
   <!-- Site Navigation Header -->
@@ -35,109 +40,68 @@
 
   <main class="container">
 
-    <!-- Hero Section (Friendly, High-Converting Copy) -->
-    <section class="hero">
-      <div class="hero-pill">
-        <span data-i18n="hero_badge">🇺🇸 Instant Home Repair Diagnostic Engine • DIY vs Pro Cost Estimator</span>
-      </div>
-      <h2 class="hero-title" data-i18n="hero_title">
-        Don’t spend <span class="gradient-text">$200 on a contractor</span> for a $15 fix.
-      </h2>
-      <p class="hero-subtitle" data-i18n="hero_desc">
-        Snap a photo of anything broken. Our AI diagnoses the problem, tells you if it's safe to DIY, and finds the exact replacement parts in 5 seconds.
-      </p>
-
-      <!-- Metric Chips -->
-      <div class="metrics-row">
-        <div class="metric-chip">
-          <span>⚡</span>
-          <span><strong>5-Second</strong> Instant Diagnosis</span>
-        </div>
-        <div class="metric-chip">
-          <span>💰</span>
-          <span><strong>~$185 Average</strong> Saved Per Fix</span>
-        </div>
-        <div class="metric-chip">
-          <span>🛡️</span>
-          <span><strong>Safety-First</strong> Pro Warnings</span>
-        </div>
-      </div>
-
-      <!-- Primary 6 Categories Hub + Extended Card -->
-      <div class="category-hub-section">
-        <div class="category-hub-title">
-          <span>👇 어디에 고장이 발생했나요? 1클릭으로 바로 진단을 시작하세요:</span>
-        </div>
-        <div class="category-hub-grid">
-          <div class="category-hub-card" data-cat="sink" data-text="주방/욕실 배관 P-트랩 누수">
-            <span class="category-icon">🚰</span>
-            <span class="category-name">주방/욕실 배관</span>
-            <span class="category-sub">싱크대, 세면대, P-트랩 누수</span>
-          </div>
-          <div class="category-hub-card" data-cat="toilet" data-text="변기 수조 물 소리 및 누수">
-            <span class="category-icon">🚽</span>
-            <span class="category-name">변기 & 하수관</span>
-            <span class="category-sub">수조 소음, 플래퍼, 오수 누수</span>
-          </div>
-          <div class="category-hub-card" data-cat="waterheater" data-text="온수기 하단 배수 밸브 누수">
-            <span class="category-icon">🔥</span>
-            <span class="category-name">온수기 & 보일러</span>
-            <span class="category-sub">배수 밸브, T&P 밸브, 탱크</span>
-          </div>
-          <div class="category-hub-card" data-cat="electrical" data-text="전등 깜빡임 및 조명 스위치 불꽃">
-            <span class="category-icon">⚡</span>
-            <span class="category-name">전기 & 스위치</span>
-            <span class="category-sub">콘센트, 차단기, 전등 불꽃</span>
-          </div>
-          <div class="category-hub-card" data-cat="drywall" data-text="방문 손잡이 석고보드 구멍">
-            <span class="category-icon">🧱</span>
-            <span class="category-name">석고보드 & 외벽</span>
-            <span class="category-sub">실내 석고 구멍, 외벽 스타코</span>
-          </div>
-          <div class="category-hub-card" data-cat="door" data-text="방문 뻑뻑함 및 경첩 나사 헛돌음">
-            <span class="category-icon">🚪</span>
-            <span class="category-name">방문 & 경첩</span>
-            <span class="category-sub">문틀 걸림, 도어락, 경첩 수리</span>
-          </div>
-          <div class="category-hub-card special-card" id="btnToggleExtended">
-            <span class="category-icon">🛠️</span>
-            <span class="category-name">기타 모든 수리</span>
-            <span class="category-sub">에어컨, 가전, 차고문 전체보기</span>
-          </div>
-        </div>
-
-        <!-- Extended Category Drawer -->
-        <div class="extended-drawer" id="extendedDrawer">
-          <div style="font-weight: 700; font-size: 0.9rem; color: #38bdf8; margin-bottom: 8px;">
-            🔍 기타 주택 / 가전 세부 수리 항목 선택:
-          </div>
-          <div class="extended-grid">
-            <div class="ext-chip" data-text="에어컨 찬바람 안 나오고 물 새요">❄️ 에어컨/HVAC</div>
-            <div class="ext-chip" data-text="세탁기/식기세척기 누수 및 소음">🧺 대형 가전</div>
-            <div class="ext-chip" data-text="차고 문(Garage Door) 체인 헛돌음">🚗 차고 문</div>
-            <div class="ext-chip" data-text="지붕 싱글 날아감 및 빗물받이 막힘">🏠 지붕/물받이</div>
-            <div class="ext-chip" data-text="창틀 유리 균열 및 방충망 파손">🪟 창문/방충망</div>
-            <div class="ext-chip" data-text="목재 데크 및 마루판 들뜸 수리">🪵 마루/데크</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Upload Workspace (Dual Mode: 📸 Photo & Quick Scan / 💬 AI Interactive Chat) -->
-    <section class="upload-card glass-panel" id="workspaceSection">
+    <!-- Interactive Upload Workspace (DEFAULT APP LAUNCH SCREEN: 💬 AI 1:1 Chat / 📸 Photo Scan) -->
+    <section class="upload-card glass-panel" id="workspaceSection" style="margin-top: 16px;">
       
       <!-- Diagnostic Mode Switcher Tabs -->
       <div class="diag-tabs-wrap">
-        <button type="button" class="diag-tab-btn active" id="tabPhotoQuick">
-          <span>📸 사진 & 빠른 진단</span>
-        </button>
-        <button type="button" class="diag-tab-btn" id="tabAiChat">
+        <button type="button" class="diag-tab-btn active" id="tabAiChat">
           <span>💬 AI 전문가 1:1 대화형 진단</span>
+        </button>
+        <button type="button" class="diag-tab-btn" id="tabPhotoQuick">
+          <span>📸 사진 &amp; 빠른 진단</span>
         </button>
       </div>
 
+      <!-- PANE 2: INTERACTIVE AI CHAT CONSULTATION (DEFAULT MOBILE APP VIEW) -->
+      <div id="paneAiChat" style="display: block;" class="chat-workspace-pane">
+        <div class="chat-header">
+          <div class="chat-avatar">👨‍🔧</div>
+          <div>
+            <div class="chat-title">FixOrPro Mobile AI 1:1 인스펙터</div>
+            <div class="chat-subtitle">AI 기술자와 실시간 음성/문자 대화로 문제를 탐색하고 최저가 부품 및 전문가를 즉시 연결합니다.</div>
+          </div>
+        </div>
+
+        <!-- Messages Flow -->
+        <div class="chat-messages-container" id="chatMessages">
+          <div class="chat-bubble ai">
+            안녕하세요! 주택 수리 마스터 AI 기술자입니다. 🛠️<br><br>
+            어디에 어떤 고장이나 누수가 발생했나요? 편하게 음성으로 말씀하시거나 텍스트로 적어주세요! (예: <strong>"싱크대 밑에서 물이 뚝뚝 떨어져"</strong>, <strong>"실내 석고 벽 구멍"</strong>)
+          </div>
+        </div>
+
+        <!-- Suggestion Chips -->
+        <div class="chat-suggestions-container" id="chatSuggestions">
+          <div class="chat-chip" data-text="바깥 외벽(스타코/사이딩)에 구멍이 났어요">🏠 건물 외벽 구멍 수리</div>
+          <div class="chat-chip" data-text="방 안 실내 석고보드 벽에 구멍이 났어요">🚪 실내 석고보드(Drywall) 구멍</div>
+          <div class="chat-chip" data-text="주방 싱크대 수도꼭지에서 물이 계속 뚝뚝 새요">🚰 싱크대 수도꼭지 누수</div>
+          <div class="chat-chip" data-text="변기에서 물 흐르는 쉬익 소리가 계속 나요">🚽 변기 물 샐 때</div>
+        </div>
+
+        <!-- Chat Input Form with Voice & Photo Inputs -->
+        <form id="chatForm" class="chat-input-row" onsubmit="return false;">
+          <button type="button" id="chatMicBtn" class="mic-btn" title="음성 대화 시작">
+            🎙️
+          </button>
+          <button type="button" id="chatPhotoBtn" class="mic-btn" title="수리 부위 사진 첨부">
+            📷
+          </button>
+          <input 
+            type="text" 
+            id="chatInput" 
+            class="chat-input-field" 
+            placeholder="AI에게 대화하듯 물어보세요..."
+            autocomplete="off"
+          >
+          <button type="submit" id="chatSendBtn" class="btn btn-primary chat-send-btn">
+            전송 🚀
+          </button>
+        </form>
+      </div>
+
       <!-- PANE 1: PHOTO & QUICK DIAGNOSTIC -->
-      <div id="panePhotoQuick" style="display: block;">
+      <div id="panePhotoQuick" style="display: none;">
         <!-- Hidden File Inputs with Direct Camera Capture -->
         <input type="file" id="fileInput" accept="image/*" style="display: none;">
         <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
@@ -146,7 +110,7 @@
         <div class="drop-zone" id="dropZone">
           <div class="drop-icon">📸</div>
           <h3 class="drop-title" data-i18n="dropzone_title">Take or upload a photo of anything broken</h3>
-          <p class="drop-desc" data-i18n="dropzone_desc">Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors & appliances</p>
+          <p class="drop-desc" data-i18n="dropzone_desc">Toilets, garbage disposals, drywall holes, leaking pipes, water heaters, switches, doors &amp; appliances</p>
           <div class="upload-btn-group">
             <button type="button" class="btn btn-primary" id="btnCamera" style="font-size: 1rem; padding: 13px 24px;">
               <span data-i18n="dropzone_btn_cam">📸 Snap with Camera</span>
@@ -205,7 +169,7 @@
         <div id="aiQuestionBox" class="ai-question-card glass-panel" style="display: none; margin: 18px 0; padding: 20px; border-left: 4px solid #06b6d4; background: rgba(15, 23, 42, 0.85); border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
           <div class="ai-question-header" style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
             <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;">
-              <span>💡</span> <span id="aiQuestionTitle">AI 추가 확인 질문: 정확한 원인 파악을 위해 해당되는 증상을 선택하세요.</span>
+              <span id="aiQuestionTitle">💡 AI 추가 확인 질문: 정확한 원인 파악을 위해 해당되는 증상을 선택하세요.</span>
             </div>
             <span id="aiLevelBadge" style="background: #06b6d4; color: #0f172a; font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; white-space: nowrap;">1차 좁히기</span>
           </div>
@@ -227,47 +191,94 @@
         </div>
       </div>
 
-      <!-- PANE 2: INTERACTIVE AI CHAT CONSULTATION -->
-      <div id="paneAiChat" style="display: none;" class="chat-workspace-pane">
-        <div class="chat-header">
-          <div class="chat-avatar">👨‍🔧</div>
-          <div>
-            <div class="chat-title">FixOrPro AI 인스펙터 & 마스터 기술자</div>
-            <div class="chat-subtitle">실시간 1:1 대화를 통해 고장 원인을 정밀 분석하고 맞춤 부품 및 수리법을 찾아드립니다.</div>
-          </div>
-        </div>
+    </section>
 
-        <!-- Messages Flow -->
-        <div class="chat-messages-container" id="chatMessages">
-          <div class="chat-bubble ai">
-            안녕하세요! 주택 수리 마스터 AI 인스펙터입니다. 🛠️<br><br>
-            어디에 어떤 고장이나 파손이 발생했나요? 편하게 말씀해 주세요. (예: <strong>"바깥 외벽에 구멍이 났어요"</strong>, <strong>"싱크대 수도꼭지가 안 잠겨요"</strong> 등)
-          </div>
-        </div>
+    <!-- Hero & Category Section (Supplementary Information Below App Workspace) -->
+    <section class="hero" style="margin-top: 30px;">
+      <div class="hero-pill">
+        <span data-i18n="hero_badge">🇺🇸 Instant Home Repair Diagnostic Engine • DIY vs Pro Cost Estimator</span>
+      </div>
+      <h2 class="hero-title" data-i18n="hero_title">
+        Don’t spend <span class="gradient-text">$200 on a contractor</span> for a $15 fix.
+      </h2>
+      <p class="hero-subtitle" data-i18n="hero_desc">
+        Snap a photo of anything broken. Our AI diagnoses the problem, tells you if it's safe to DIY, and finds the exact replacement parts in 5 seconds.
+      </p>
 
-        <!-- Suggestion Chips -->
-        <div class="chat-suggestions-container" id="chatSuggestions">
-          <div class="chat-chip" data-text="바깥 외벽(스타코/사이딩)에 구멍이 났어요">🏠 건물 외벽 구멍 수리</div>
-          <div class="chat-chip" data-text="방 안 실내 석고보드 벽에 구멍이 났어요">🚪 실내 석고보드(Drywall) 구멍</div>
-          <div class="chat-chip" data-text="주방 싱크대 수도꼭지에서 물이 계속 뚝뚝 새요">🚰 싱크대 수도꼭지 누수</div>
-          <div class="chat-chip" data-text="변기에서 물 흐르는 쉬익 소리가 계속 나요">🚽 변기 물 샐 때</div>
+      <!-- Metric Chips -->
+      <div class="metrics-row">
+        <div class="metric-chip">
+          <span>⚡</span>
+          <span><strong>5-Second</strong> Instant Diagnosis</span>
         </div>
-
-        <!-- Chat Input Form -->
-        <form id="chatForm" class="chat-input-row" onsubmit="return false;">
-          <input 
-            type="text" 
-            id="chatInput" 
-            class="chat-input-field" 
-            placeholder="AI 기술자에게 고장 증상을 말씀해 주세요..."
-            autocomplete="off"
-          >
-          <button type="submit" id="chatSendBtn" class="btn btn-primary chat-send-btn">
-            전송 🚀
-          </button>
-        </form>
+        <div class="metric-chip">
+          <span>💰</span>
+          <span><strong>~$185 Average</strong> Saved Per Fix</span>
+        </div>
+        <div class="metric-chip">
+          <span>🛡️</span>
+          <span><strong>Safety-First</strong> Pro Warnings</span>
+        </div>
       </div>
 
+      <!-- Primary 6 Categories Hub + Extended Card -->
+      <div class="category-hub-section">
+        <div class="category-hub-title">
+          <span>👇 또는 아래 카테고리를 1클릭하여 진단을 시작하세요:</span>
+        </div>
+        <div class="category-hub-grid">
+          <div class="category-hub-card" data-cat="sink" data-text="주방/욕실 배관 P-트랩 누수">
+            <span class="category-icon">🚰</span>
+            <span class="category-name">주방/욕실 배관</span>
+            <span class="category-sub">싱크대, 세면대, P-트랩 누수</span>
+          </div>
+          <div class="category-hub-card" data-cat="toilet" data-text="변기 수조 물 소리 및 누수">
+            <span class="category-icon">🚽</span>
+            <span class="category-name">변기 &amp; 하수관</span>
+            <span class="category-sub">수조 소음, 플래퍼, 오수 누수</span>
+          </div>
+          <div class="category-hub-card" data-cat="waterheater" data-text="온수기 하단 배수 밸브 누수">
+            <span class="category-icon">🔥</span>
+            <span class="category-name">온수기 &amp; 보일러</span>
+            <span class="category-sub">배수 밸브, T&amp;P 밸브, 탱크</span>
+          </div>
+          <div class="category-hub-card" data-cat="electrical" data-text="전등 깜빡임 및 조명 스위치 불꽃">
+            <span class="category-icon">⚡</span>
+            <span class="category-name">전기 &amp; 스위치</span>
+            <span class="category-sub">콘센트, 차단기, 전등 불꽃</span>
+          </div>
+          <div class="category-hub-card" data-cat="drywall" data-text="방문 손잡이 석고보드 구멍">
+            <span class="category-icon">🧱</span>
+            <span class="category-name">석고보드 &amp; 외벽</span>
+            <span class="category-sub">실내 석고 구멍, 외벽 스타코</span>
+          </div>
+          <div class="category-hub-card" data-cat="door" data-text="방문 뻑뻑함 및 경첩 나사 헛돌음">
+            <span class="category-icon">🚪</span>
+            <span class="category-name">방문 &amp; 경첩</span>
+            <span class="category-sub">문틀 걸림, 도어락, 경첩 수리</span>
+          </div>
+          <div class="category-hub-card special-card" id="btnToggleExtended">
+            <span class="category-icon">🛠️</span>
+            <span class="category-name">기타 모든 수리</span>
+            <span class="category-sub">에어컨, 가전, 차고문 전체보기</span>
+          </div>
+        </div>
+
+        <!-- Extended Category Drawer -->
+        <div class="extended-drawer" id="extendedDrawer">
+          <div style="font-weight: 700; font-size: 0.9rem; color: #38bdf8; margin-bottom: 8px;">
+            🔍 기타 주택 / 가전 세부 수리 항목 선택:
+          </div>
+          <div class="extended-grid">
+            <div class="ext-chip" data-text="에어컨 찬바람 안 나오고 물 새요">❄️ 에어컨/HVAC</div>
+            <div class="ext-chip" data-text="세탁기/식기세척기 누수 및 소음">🧺 대형 가전</div>
+            <div class="ext-chip" data-text="차고 문(Garage Door) 체인 헛돌음">🚗 차고 문</div>
+            <div class="ext-chip" data-text="지붕 싱글 날아감 및 빗물받이 막힘">🏠 지붕/물받이</div>
+            <div class="ext-chip" data-text="창틀 유리 균열 및 방충망 파손">🪟 창문/방충망</div>
+            <div class="ext-chip" data-text="목재 데크 및 마루판 들뜸 수리">🪵 마루/데크</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Loading Box (PLACED IMMEDIATELY BELOW DIAGNOSTIC ACTION BUTTON) -->
@@ -561,7 +572,25 @@
         </div>
       </div>
     </div>
-  </div>
+  <!-- FixOrPro Mobile Native App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button type="button" class="bottom-nav-item active" id="bnavChat">
+      <span class="nav-icon">💬</span>
+      <span>AI 1:1 대화</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnavPhoto">
+      <span class="nav-icon">📷</span>
+      <span>사진 스캔</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnavParts">
+      <span class="nav-icon">🛠️</span>
+      <span>부품 & 전문가</span>
+    </button>
+    <button type="button" class="bottom-nav-item" id="bnavSettings">
+      <span class="nav-icon">⚙️</span>
+      <span>설정</span>
+    </button>
+  </nav>
 
   <script src="/js/app.js?v=10.0.0"></script>
 </body>

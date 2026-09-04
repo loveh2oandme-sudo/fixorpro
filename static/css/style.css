@@ -1725,5 +1725,187 @@ body {
   color: #ffffff;
 }
 
+/* ==========================================================================
+   Mobile Native App Navigation & Action Card Styling (FixOrPro Mobile App)
+   ========================================================================== */
+
+/* Bottom Navigation Bar for Mobile App View */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  width: 25%;
+}
+
+.bottom-nav-item .nav-icon {
+  font-size: 1.35rem;
+  margin-bottom: 2px;
+}
+
+.bottom-nav-item.active {
+  color: #38bdf8;
+  font-weight: 800;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* Voice Microphone Input Button */
+.mic-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mic-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+}
+
+.mic-btn.listening {
+  background: rgba(244, 63, 94, 0.3) !important;
+  border-color: #f43f5e !important;
+  color: #f43f5e !important;
+  animation: pulse-mic 1.2s infinite alternate;
+}
+
+@keyframes pulse-mic {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
+  100% { transform: scale(1.1); box-shadow: 0 0 0 12px rgba(244, 63, 94, 0); }
+}
+
+/* In-Chat Action Cards (Parts Procurement & Contractor Cards) */
+.in-chat-action-card {
+  margin-top: 12px;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.in-chat-card-title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.in-chat-part-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.in-chat-part-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #ffffff;
+}
+
+.in-chat-part-price {
+  font-weight: 800;
+  color: #10b981;
+  font-size: 0.85rem;
+}
+
+.in-chat-buy-group {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-buy-mini {
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-buy-amz {
+  background: #ff9900;
+  color: #111111;
+}
+
+.btn-buy-hd {
+  background: #f96302;
+  color: #ffffff;
+}
+
+.btn-pro-mini {
+  background: #00838f;
+  color: #ffffff;
+  width: 100%;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* App Mode Layout Optimizations (Standalone Desktop / Mobile App View) */
+@media all and (display-mode: standalone) {
+  .site-header {
+    padding: 8px 0;
+  }
+  .hero {
+    margin-top: 16px !important;
+  }
+}
+
+
+
 
 
