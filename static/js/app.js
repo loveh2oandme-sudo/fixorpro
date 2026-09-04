@@ -1273,7 +1273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function handleChatSubmit() {
         if (!chatInput) return;
-        const msg = chatInput.value.strip ? chatInput.value.strip() : chatInput.value.trim();
+        const msg = chatInput.value.trim();
         if (!msg) return;
 
         chatInput.value = "";
@@ -1311,8 +1311,18 @@ document.addEventListener("DOMContentLoaded", () => {
             // If AI chat returned a report scenario or data, render IN-CHAT Action Card!
             if (data.report_data) {
                 renderInChatActionCard(data.report_data);
-            } else if (data.report_scenario && SAMPLE_SCENARIOS[data.report_scenario]) {
-                renderInChatActionCard(SAMPLE_SCENARIOS[data.report_scenario]["result"]);
+            } else if (data.report_scenario) {
+                try {
+                    const sampleRes = await fetch(`/api/samples/${data.report_scenario}`);
+                    if (sampleRes.ok) {
+                        const sampleData = await sampleRes.json();
+                        if (sampleData && sampleData.result) {
+                            renderInChatActionCard(sampleData.result);
+                        }
+                    }
+                } catch(sErr) {
+                    console.warn("Failed to fetch scenario data:", sErr);
+                }
             }
 
             // Update chat suggestion chips if provided
@@ -1337,12 +1347,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function formatMarkdown(text) {
+        if (!text) return "";
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\*(.*?)\*/g, "<em>$1</em>")
+            .replace(/`([^`]+)`/g, "<code>$1</code>")
+            .replace(/\n/g, "<br>");
+    }
+
     function appendChatBubble(role, text, id = null) {
         if (!chatMessages) return;
         const bubble = document.createElement("div");
         bubble.className = `chat-bubble ${role}`;
         if (id) bubble.id = id;
-        bubble.innerHTML = text.replace(/\n/g, "<br>");
+        bubble.innerHTML = formatMarkdown(text);
         chatMessages.appendChild(bubble);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }

@@ -348,8 +348,34 @@ async def narrow_question(req: NarrowRequest):
 
 
 def get_smart_fallback(notes: Optional[str] = None) -> dict:
-    text_query = (notes or "").lower()
+    text_query = (notes or "").lower().strip()
     matched_key = None
+
+    greeting_words = ["하이", "하이라고", "하이요", "안녕", "안녕하세요", "hi", "hello", "hey", "ㅎㅇ", "방가", "반가워", "반갑습니다", "테스트", "test"]
+    if text_query in greeting_words or any(text_query.startswith(g) for g in ["하이", "안녕", "hi", "hello", "hey"]) or any(g in text_query for g in ["하이라고", "하이요", "안녕하세요"]):
+        return {
+            "problem_title": "FixOrPro AI 1:1 대화형 진단 서비스",
+            "category": "Interactive Consultation",
+            "confidence_score": "High (99%)",
+            "verdict": "DIY_RECOMMENDED",
+            "difficulty": "Beginner (1:1 대화로 진단 진행)",
+            "estimated_time": "1분 소요",
+            "youtube_query": "home repair diy basic guide",
+            "cost_comparison": {
+                "diy_cost": "무료 AI 진단",
+                "pro_cost": "$150+ (전문가 출장)",
+                "estimated_savings": "$150+",
+                "savings_percentage": "100%"
+            },
+            "summary": "안녕하세요! FixOrPro AI 집수리 마스터입니다. 어디에 어떤 고장이나 누수가 발생했나요? '싱크대 누수', '석고보드 구멍', '변기 물 샐 때'처럼 구체적인 증상을 입력해 주시거나 사진을 첨부해 주세요!",
+            "safety_warnings": [
+                "전기, 가스, 대형 누수 작업 시에는 반드시 메인 밸브 및 차단기를 먼저 꺼주세요."
+            ],
+            "materials_needed": [],
+            "tools_needed": [],
+            "steps": [],
+            "pro_trigger_conditions": "위험한 고전압, 가스, 원인 불명 대형 누수의 경우 검증된 라이선스 기술자를 연결해 드립니다."
+        }
 
     if (any(w in text_query for w in ["벽", "wall", "천장", "ceiling"]) and any(w in text_query for w in ["물", "새", "누수", "leak", "drip", "젖"])):
         return {
@@ -800,7 +826,31 @@ async def chat_diagnostic(payload: dict):
 
     # Smart Interactive Rule-based Dialogue Engine
     text = last_user_msg.lower()
-    
+    clean_text = text.strip().rstrip("!?.~ ")
+
+    # 0. Greetings / Hello / Test messages
+    greeting_words = ["하이", "하이라고", "하이요", "하이~", "안녕", "안녕하세요", "hi", "hello", "hey", "ㅎㅇ", "방가", "반가워", "반갑습니다", "테스트", "test"]
+    is_greeting = (
+        clean_text in greeting_words
+        or any(clean_text.startswith(w) for w in ["하이", "안녕", "hi", "hello", "hey", "ㅎㅇ", "방가"])
+        or any(w in clean_text for w in ["하이라고", "하이요", "안녕하세요", "반갑습니다"])
+    )
+
+    if is_greeting:
+        reply = (
+            "안녕하세요! 👨‍🔧 **FixOrPro AI 집수리 마스터**입니다.\n\n"
+            "어디에 어떤 고장이나 누수가 발생했나요?\n"
+            "대화창에 증상을 자유롭게 적어주시거나 아래 **추천 버튼**을 선택해 주세요!\n\n"
+            "• 예시 1: *\"싱크대 밑에서 물이 뚝뚝 새요\"*\n"
+            "• 예시 2: *\"방 안 실내 석고 벽에 구멍이 났어요\"*\n"
+            "• 예시 3: *\"변기 물 소리가 안 멈춰요\"*"
+        )
+        return {
+            "reply": reply,
+            "suggestions": ["🏠 건물 외벽 구멍 수리", "🚰 싱크대 수도꼭지 누수", "🚽 변기 물 샐 때", "🚪 실내 석고보드 구멍"],
+            "report_scenario": None
+        }
+
     # 1. Exterior Wall / Stucco / Siding
     if any(w in text or w in full_conversation_text for w in ["외벽", "바깥", "exterior", "stucco", "스타코", "사이딩", "외부 벽", "시멘트"]):
         reply = (
