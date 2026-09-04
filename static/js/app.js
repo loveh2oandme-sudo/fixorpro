@@ -280,6 +280,137 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ----------------------------------------------------------------------
+    // Web Speech API - Voice Input (마이크 음성 받아쓰기)
+    // ----------------------------------------------------------------------
+    const btnMicInput = document.getElementById("btnMicInput");
+    const micIcon = document.getElementById("micIcon");
+    const micText = document.getElementById("micText");
+    let recognition = null;
+    let isRecording = false;
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (btnMicInput) {
+        if (!SpeechRecognition) {
+            btnMicInput.title = "이 브라우저는 음성 인식을 지원하지 않습니다 (Chrome, Safari, Edge 지원)";
+        } else {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = "ko-KR";
+
+            recognition.onstart = () => {
+                isRecording = true;
+                if (micIcon) micIcon.textContent = "🔴";
+                if (micText) micText.textContent = "듣는 중...";
+                btnMicInput.style.borderColor = "#ef4444";
+                btnMicInput.style.color = "#f87171";
+                btnMicInput.style.background = "rgba(239, 68, 68, 0.2)";
+                showToast("🎙️ 음성을 듣고 있습니다. 고장 증상을 말씀해 주세요!");
+            };
+
+            recognition.onresult = (event) => {
+                let transcript = "";
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                if (transcript.trim()) {
+                    userNotesInput.value = transcript.trim();
+                    if (btnClearNotes) btnClearNotes.style.display = "inline-flex";
+                    analyzeBtn.disabled = false;
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.warn("Speech recognition error:", event.error);
+                stopRecording();
+                if (event.error !== "no-speech") {
+                    showToast("⚠️ 음성 인식 오류: 마이크 권한을 확인해 주세요.");
+                }
+            };
+
+            recognition.onend = () => {
+                stopRecording();
+            };
+
+            function stopRecording() {
+                isRecording = false;
+                if (micIcon) micIcon.textContent = "🎙️";
+                if (micText) micText.textContent = "음성 입력";
+                btnMicInput.style.borderColor = "#10b981";
+                btnMicInput.style.color = "#34d399";
+                btnMicInput.style.background = "rgba(16, 185, 129, 0.1)";
+            }
+
+            btnMicInput.addEventListener("click", () => {
+                if (isRecording) {
+                    recognition.stop();
+                } else {
+                    try {
+                        recognition.start();
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            });
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // FixOrPro 3.0 Category Hub & Extended Drawer Click Handlers
+    // ----------------------------------------------------------------------
+    document.querySelectorAll(".category-hub-card[data-text]").forEach(card => {
+        card.addEventListener("click", () => {
+            document.querySelectorAll(".category-hub-card").forEach(c => c.classList.remove("active"));
+            card.classList.add("active");
+            
+            const presetText = card.getAttribute("data-text");
+            userNotesInput.value = presetText;
+            if (btnClearNotes) btnClearNotes.style.display = "inline-flex";
+            analyzeBtn.disabled = false;
+            
+            resetDiagnosticView();
+            
+            // Instantly fetch 1-2-3-4 narrowing options for the selected category
+            fetchAndShowNarrowQuestions(1, "");
+            
+            // Scroll smoothly to question box
+            const aiBox = document.getElementById("aiQuestionBox");
+            if (aiBox) {
+                aiBox.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
+
+    const btnToggleExtended = document.getElementById("btnToggleExtended");
+    const extendedDrawer = document.getElementById("extendedDrawer");
+    if (btnToggleExtended && extendedDrawer) {
+        btnToggleExtended.addEventListener("click", () => {
+            const isVisible = extendedDrawer.style.display === "block";
+            extendedDrawer.style.display = isVisible ? "none" : "block";
+            if (!isVisible) {
+                extendedDrawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+    }
+
+    document.querySelectorAll(".ext-chip[data-text]").forEach(chip => {
+        chip.addEventListener("click", () => {
+            const presetText = chip.getAttribute("data-text");
+            userNotesInput.value = presetText;
+            if (btnClearNotes) btnClearNotes.style.display = "inline-flex";
+            analyzeBtn.disabled = false;
+            
+            resetDiagnosticView();
+            fetchAndShowNarrowQuestions(1, "");
+            const aiBox = document.getElementById("aiQuestionBox");
+            if (aiBox) {
+                aiBox.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
+
     if (btnSkipNarrow) {
         btnSkipNarrow.addEventListener("click", () => {
             if (aiQuestionBox) aiQuestionBox.style.display = "none";

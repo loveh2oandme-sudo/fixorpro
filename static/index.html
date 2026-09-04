@@ -62,6 +62,65 @@
           <span><strong>Safety-First</strong> Pro Warnings</span>
         </div>
       </div>
+
+      <!-- Primary 6 Categories Hub + Extended Card -->
+      <div class="category-hub-section">
+        <div class="category-hub-title">
+          <span>👇 어디에 고장이 발생했나요? 1클릭으로 바로 진단을 시작하세요:</span>
+        </div>
+        <div class="category-hub-grid">
+          <div class="category-hub-card" data-cat="sink" data-text="주방/욕실 배관 P-트랩 누수">
+            <span class="category-icon">🚰</span>
+            <span class="category-name">주방/욕실 배관</span>
+            <span class="category-sub">싱크대, 세면대, P-트랩 누수</span>
+          </div>
+          <div class="category-hub-card" data-cat="toilet" data-text="변기 수조 물 소리 및 누수">
+            <span class="category-icon">🚽</span>
+            <span class="category-name">변기 & 하수관</span>
+            <span class="category-sub">수조 소음, 플래퍼, 오수 누수</span>
+          </div>
+          <div class="category-hub-card" data-cat="waterheater" data-text="온수기 하단 배수 밸브 누수">
+            <span class="category-icon">🔥</span>
+            <span class="category-name">온수기 & 보일러</span>
+            <span class="category-sub">배수 밸브, T&P 밸브, 탱크</span>
+          </div>
+          <div class="category-hub-card" data-cat="electrical" data-text="전등 깜빡임 및 조명 스위치 불꽃">
+            <span class="category-icon">⚡</span>
+            <span class="category-name">전기 & 스위치</span>
+            <span class="category-sub">콘센트, 차단기, 전등 불꽃</span>
+          </div>
+          <div class="category-hub-card" data-cat="drywall" data-text="방문 손잡이 석고보드 구멍">
+            <span class="category-icon">🧱</span>
+            <span class="category-name">석고보드 & 외벽</span>
+            <span class="category-sub">실내 석고 구멍, 외벽 스타코</span>
+          </div>
+          <div class="category-hub-card" data-cat="door" data-text="방문 뻑뻑함 및 경첩 나사 헛돌음">
+            <span class="category-icon">🚪</span>
+            <span class="category-name">방문 & 경첩</span>
+            <span class="category-sub">문틀 걸림, 도어락, 경첩 수리</span>
+          </div>
+          <div class="category-hub-card special-card" id="btnToggleExtended">
+            <span class="category-icon">🛠️</span>
+            <span class="category-name">기타 모든 수리</span>
+            <span class="category-sub">에어컨, 가전, 차고문 전체보기</span>
+          </div>
+        </div>
+
+        <!-- Extended Category Drawer -->
+        <div class="extended-drawer" id="extendedDrawer">
+          <div style="font-weight: 700; font-size: 0.9rem; color: #38bdf8; margin-bottom: 8px;">
+            🔍 기타 주택 / 가전 세부 수리 항목 선택:
+          </div>
+          <div class="extended-grid">
+            <div class="ext-chip" data-text="에어컨 찬바람 안 나오고 물 새요">❄️ 에어컨/HVAC</div>
+            <div class="ext-chip" data-text="세탁기/식기세척기 누수 및 소음">🧺 대형 가전</div>
+            <div class="ext-chip" data-text="차고 문(Garage Door) 체인 헛돌음">🚗 차고 문</div>
+            <div class="ext-chip" data-text="지붕 싱글 날아감 및 빗물받이 막힘">🏠 지붕/물받이</div>
+            <div class="ext-chip" data-text="창틀 유리 균열 및 방충망 파손">🪟 창문/방충망</div>
+            <div class="ext-chip" data-text="목재 데크 및 마루판 들뜸 수리">🪵 마루/데크</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Interactive Upload Workspace (Dual Mode: 📸 Photo & Quick Scan / 💬 AI Interactive Chat) -->
@@ -117,11 +176,14 @@
 
         <!-- Notes Input Area (Enlarged Multi-line Text Area) -->
         <div class="user-notes-wrap" style="margin-top: 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
             <label for="userNotes" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">
               📝 고장 증상 및 질문 작성:
             </label>
-            <div style="display: flex; gap: 8px; align-items: center;">
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <button type="button" id="btnMicInput" class="btn btn-ghost" style="padding: 6px 14px; font-size: 0.85rem; border: 1px solid #10b981; color: #34d399; background: rgba(16, 185, 129, 0.1); border-radius: 20px; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
+                <span id="micIcon">🎙️</span> <span id="micText">음성 입력</span>
+              </button>
               <button type="button" id="btnClearNotes" class="btn btn-ghost" style="padding: 5px 12px; font-size: 0.8rem; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); border-radius: 16px; display: none;">
                 ✕ 내용 지우기
               </button>
