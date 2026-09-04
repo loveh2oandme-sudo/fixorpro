@@ -11,7 +11,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.sample_data import SAMPLE_SCENARIOS
-from app.ai_diagnostics import analyze_repair_image
+from app.ai_diagnostics import analyze_repair_image, generate_dynamic_questions
+from pydantic import BaseModel
 
 # Load .env file if present
 load_dotenv()
@@ -72,7 +73,166 @@ async def get_sample_result(sample_id: str):
     return SAMPLE_SCENARIOS[sample_id]
 
 
+class NarrowRequest(BaseModel):
+    notes: str
+    level: int = 1
+    previous_choice: Optional[str] = None
+    api_key: Optional[str] = None
+
+
+@app.post("/api/narrow")
+async def narrow_question(req: NarrowRequest):
+    """
+    Dynamic Question Narrowing Endpoint (1, 2, 3, 4 Options)
+    - Receives user symptom description.
+    - Generates 4 distinct options to narrow down the problem (Level 1 or Level 2).
+    """
+    notes = req.notes.strip() if req.notes else ""
+    if not notes:
+        raise HTTPException(status_code=400, detail="Text description required for question narrowing.")
+
+    user_or_env_key = req.api_key or os.environ.get("GEMINI_API_KEY")
+
+    if user_or_env_key:
+        try:
+            res = await generate_dynamic_questions(
+                user_notes=notes,
+                level=req.level,
+                previous_choice=req.previous_choice,
+                api_key=user_or_env_key
+            )
+            return {
+                "status": "success",
+                "title": res.get("title", f"💡 [{req.level}차 좁히기] AI 추가 확인 질문: 1, 2, 3, 4번 중 선택해 주세요."),
+                "level": req.level,
+                "can_narrow_further": res.get("can_narrow_further", req.level == 1),
+                "options": res.get("options", [])
+            }
+        except Exception as e:
+            logger.error(f"Gemini dynamic question generation failed: {e}")
+
+    # Intelligent Fallback Generator for Demo / Non-API-Key Mode
+    text_lower = notes.lower()
+    
+    # Leak / Water issues
+    if any(k in text_lower for k in ["누수", "물", "새", "젖", "leak", "drip", "천장", "수도"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 누수가 발생하는 구체적인 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "윗집/상부 수전 및 배관 사용 시에만 축축해짐 (방수층/배수관 누수)"},
+                    {"text": "수도 사용과 무관하게 24시간 계속 물이 뚝뚝 떨어짐 (급수 배관 파열)"},
+                    {"text": "비가 오거나 날씨 악화 시 천장/외벽 쪽으로 물이 스며듦 (지붕/외벽 방수)"},
+                    {"text": "싱크대/세면대 아윗쪽 P-트랩 연결 너트 부위 수분 흘러내림 (연결부 마모)"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 상황의 세부 상태를 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "물에 젖은 표면이 석고보드(Drywall)이고 변색 및 곰팡이가 피어남"},
+                    {"text": "물방울이 떨어져 바닥 받침 양동이를 놓아야 할 정도로 낙수량이 많음"},
+                    {"text": "누수 부위에 전등이나 콘센트 등 전기 전선관이 인접해 있음"},
+                    {"text": "배관 밸브를 잠그면 물 떨어짐이 즉시 멈춤"}
+                ]
+            }
+
+    # Electrical issues
+    elif any(k in text_lower for k in ["전기", "스위치", "전등", "콘센트", "차단기", "light", "switch", "outlet", "spark"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 전기 고장의 구체적 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "스위치를 켤 때 전등이 깜빡거리거나 불꽃(아크) 소리가 남"},
+                    {"text": "두꺼비집(차단기)이 특정 가전/스위치 사용 시 즉시 내려감"},
+                    {"text": "콘센트 탄 냄새가 나거나 가전 플러그가 헐겁게 빠짐"},
+                    {"text": "조명 스위치 덮개가 파손되거나 딸깍 감이 없음"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 전기 고장의 세부 증상을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "120V 일반 조명/소형 가전 회로 라인임"},
+                    {"text": "240V 대형 가전(건조기/오븐/에어컨) 차단기 회로 라인임"},
+                    {"text": "전선 피복 타는 냄새나 검은 탄 자국이 외부에 보임"},
+                    {"text": "단순 스위치/콘센트 기계적 부품 노후화 마모임"}
+                ]
+            }
+
+    # Wall / Hole issues
+    elif any(k in text_lower for k in ["벽", "구멍", "석고", "hole", "wall", "drywall", "stucco", "외벽"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 벽면 파손 위치와 재질을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "🏠 건물 외벽 (바깥 스타코 미장 / 사이딩 / 콘크리트 구멍)"},
+                    {"text": "🚪 방 안 실내 석고보드 (Drywall / 문 손잡이 충격 구멍)"},
+                    {"text": "🪟 창틀 주변 석고보드 균열 및 수분 손상"},
+                    {"text": "📐 벽면 못 자국 / 작은 균열 및 페인트 칠 들뜸"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 구멍의 크기 및 상태를 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "구멍 크기가 주먹 크기 미만 (4인치 이하)"},
+                    {"text": "구멍 크기가 농구공 이상으로 큼 (8인치 이상)"},
+                    {"text": "구멍 안쪽에 전선관이나 배관 파이프가 지나감"},
+                    {"text": "단순 표면 미장 마감재 및 페인트만 떨어진 상태"}
+                ]
+            }
+
+    # General fallback options for any input
+    else:
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": f"💡 [1차 좁히기] AI 추가 확인 질문: '{notes[:30]}' 관련 구체적 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": f"1번: {notes[:20]} 관련 부품 노후화 및 기계적 고장/작동 이상"},
+                    {"text": f"2번: {notes[:20]} 관련 누수/수분 침투 또는 습기 손상"},
+                    {"text": f"3번: {notes[:20]} 관련 외부 충격/균열 및 구조적 파손"},
+                    {"text": f"4번: {notes[:20]} 관련 전기/전원 결선 불량 및 접촉 이상"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": f"💡 [2차 정밀 좁히기] 선택하신 증상의 세부 긴급도 및 범위를 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "1번: 기본 수공구로 30분 내 DIY 교체 가능 수준"},
+                    {"text": "2번: 전원/메인 급수 밸브 차단 후 안전 확인 필요 수준"},
+                    {"text": "3번: 호환 교체 부품 구매 후 1:1 맞춤 교체 작업 수준"},
+                    {"text": "4번: 면허 전문가(배관공/전기기사) 출장 수리 권장 수준"}
+                ]
+            }
+
+
 @app.post("/api/analyze")
+
 async def analyze_image(
     image: Optional[UploadFile] = File(None),
     sample_id: Optional[str] = Form(None),

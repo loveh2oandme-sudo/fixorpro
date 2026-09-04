@@ -117,25 +117,43 @@
 
         <!-- Notes Input Area (Enlarged Multi-line Text Area) -->
         <div class="user-notes-wrap" style="margin-top: 16px;">
-          <label for="userNotes" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 8px; display: block;">
-            📝 고장 증상 및 상황 설명:
-          </label>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label for="userNotes" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">
+              📝 고장 증상 및 질문 작성:
+            </label>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button type="button" id="btnClearNotes" class="btn btn-ghost" style="padding: 5px 12px; font-size: 0.8rem; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); border-radius: 16px; display: none;">
+                ✕ 내용 지우기
+              </button>
+              <button type="button" id="btnNarrowQuestions" class="btn btn-ghost" style="padding: 6px 14px; font-size: 0.85rem; border: 1px solid #06b6d4; color: #38bdf8; background: rgba(6, 182, 212, 0.1); border-radius: 20px; display: flex; align-items: center; gap: 6px;">
+                <span>🔍 1·2·3·4 좁히기 질문</span>
+              </button>
+            </div>
+          </div>
           <textarea 
             id="userNotes" 
             class="input-notes-textarea" 
             rows="5"
-            placeholder="고장 증상이나 궁금한 사항을 자유롭게 작성해 주세요 (예: '천장에서 물이 샌다', '벽체에서 물 소리가 납니다')..."
+            placeholder="고장 증상이나 궁금한 사항을 자유롭게 작성해 주세요 (예: '천장에서 물이 샌다', '벽체에 구멍이 생겼습니다')..."
             style="width: 100%; min-height: 120px; padding: 14px 16px; background: rgba(15, 23, 42, 0.7); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #ffffff; font-size: 1rem; line-height: 1.6; resize: vertical; outline: none; font-family: inherit;"
           ></textarea>
         </div>
 
         <!-- Dynamic AI Interactive Question & 1, 2, 3, 4 Option Box -->
-        <div id="aiQuestionBox" class="ai-question-card glass-panel" style="display: none; margin: 18px 0; padding: 20px; border-left: 4px solid #06b6d4; background: rgba(15, 23, 42, 0.85);">
-          <div class="ai-question-header" style="font-weight: 800; font-size: 1.05rem; color: #ffffff; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-            <span>💡</span> <span id="aiQuestionTitle">AI 추가 확인 질문: 정확한 원인 파악을 위해 해당되는 증상을 선택하세요.</span>
+        <div id="aiQuestionBox" class="ai-question-card glass-panel" style="display: none; margin: 18px 0; padding: 20px; border-left: 4px solid #06b6d4; background: rgba(15, 23, 42, 0.85); border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
+          <div class="ai-question-header" style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+            <div style="font-weight: 800; font-size: 1.05rem; color: #ffffff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;">
+              <span>💡</span> <span id="aiQuestionTitle">AI 추가 확인 질문: 정확한 원인 파악을 위해 해당되는 증상을 선택하세요.</span>
+            </div>
+            <span id="aiLevelBadge" style="background: #06b6d4; color: #0f172a; font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; white-space: nowrap;">1차 좁히기</span>
           </div>
           <div id="aiOptionsContainer" class="ai-options-grid" style="display: flex; flex-direction: column; gap: 10px;">
             <!-- Injected dynamically via JS: 1, 2, 3, 4 option buttons -->
+          </div>
+          <div style="margin-top: 14px; text-align: right;">
+            <button type="button" id="btnSkipNarrow" class="btn btn-ghost" style="font-size: 0.8rem; color: rgba(255,255,255,0.6); padding: 4px 10px;">
+              ⚡ 좁히기 없이 바로 최종 진단 실행 ➔
+            </button>
           </div>
         </div>
 

@@ -181,89 +181,160 @@ document.addEventListener("DOMContentLoaded", () => {
     const aiQuestionBox = document.getElementById("aiQuestionBox");
     const aiQuestionTitle = document.getElementById("aiQuestionTitle");
     const aiOptionsContainer = document.getElementById("aiOptionsContainer");
+    const aiLevelBadge = document.getElementById("aiLevelBadge");
+    const btnNarrowQuestions = document.getElementById("btnNarrowQuestions");
+    const btnSkipNarrow = document.getElementById("btnSkipNarrow");
 
-    function showAiOptions(titleText, optionsList) {
-        if (!aiQuestionBox || !aiOptionsContainer) return;
-        aiQuestionTitle.textContent = titleText;
-        aiOptionsContainer.innerHTML = "";
+    let currentNarrowLevel = 1;
+    let narrowLevel1ChoiceText = "";
 
-        optionsList.forEach((opt, idx) => {
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "btn btn-ghost ai-option-btn";
-            btn.style.cssText = "text-align: left; justify-content: flex-start; padding: 12px 16px; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #ffffff; width: 100%; border-radius: 10px; cursor: pointer; transition: all 0.2s ease;";
-            btn.innerHTML = `<strong style="color: #38bdf8; margin-right: 8px;">${idx + 1}번</strong> ${opt.text}`;
+    async function fetchAndShowNarrowQuestions(level = 1, previousChoice = "") {
+        const text = userNotesInput.value.trim();
+        if (!text) {
+            showToast("⚠️ 고장 증상이나 질문을 먼저 작성해 주세요.");
+            return;
+        }
 
-            btn.addEventListener("mouseover", () => {
-                btn.style.background = "rgba(56, 189, 248, 0.2)";
-                btn.style.borderColor = "#38bdf8";
+        currentNarrowLevel = level;
+        if (aiLevelBadge) {
+            aiLevelBadge.textContent = level === 1 ? "1차 좁히기" : "2차 정밀 좁히기";
+            aiLevelBadge.style.background = level === 1 ? "#06b6d4" : "#10b981";
+        }
+
+        if (aiQuestionTitle) aiQuestionTitle.textContent = level === 1 ? "🔍 1차 좁히기 질문을 분석하고 있습니다..." : "🔍 2차 정밀 좁히기 질문을 분석 중입니다...";
+        if (aiOptionsContainer) {
+            aiOptionsContainer.innerHTML = `<div style="color: rgba(255,255,255,0.7); text-align: center; padding: 15px;">⚡ AI가 구체적인 4가지 선택지(1~4번)를 생성 중입니다...</div>`;
+        }
+        if (aiQuestionBox) aiQuestionBox.style.display = "block";
+
+        const savedKey = localStorage.getItem("fixorpro_gemini_key");
+
+        try {
+            const res = await fetch("/api/narrow", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    notes: text,
+                    level: level,
+                    previous_choice: previousChoice,
+                    api_key: savedKey || ""
+                })
             });
-            btn.addEventListener("mouseout", () => {
-                btn.style.background = "rgba(255,255,255,0.06)";
-                btn.style.borderColor = "rgba(255,255,255,0.2)";
+
+            if (!res.ok) throw new Error("Question narrowing API error");
+            const data = await res.json();
+
+            if (aiQuestionTitle) aiQuestionTitle.textContent = data.title;
+            if (!aiOptionsContainer) return;
+            aiOptionsContainer.innerHTML = "";
+
+            if (!data.options || data.options.length === 0) {
+                if (aiQuestionBox) aiQuestionBox.style.display = "none";
+                return;
+            }
+
+            data.options.forEach((opt, idx) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn btn-ghost ai-option-btn";
+                btn.style.cssText = "text-align: left; justify-content: flex-start; padding: 14px 16px; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #ffffff; width: 100%; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; line-height: 1.5;";
+                btn.innerHTML = `<strong style="color: #38bdf8; margin-right: 8px; font-size: 1.05rem;">${idx + 1}번</strong> ${opt.text}`;
+
+                btn.addEventListener("mouseover", () => {
+                    btn.style.background = "rgba(56, 189, 248, 0.2)";
+                    btn.style.borderColor = "#38bdf8";
+                });
+                btn.addEventListener("mouseout", () => {
+                    btn.style.background = "rgba(255,255,255,0.06)";
+                    btn.style.borderColor = "rgba(255,255,255,0.2)";
+                });
+
+                btn.addEventListener("click", () => {
+                    const currentNotes = userNotesInput.value.trim();
+                    
+                    if (level === 1 && data.can_narrow_further) {
+                        narrowLevel1ChoiceText = opt.text;
+                        userNotesInput.value = `${currentNotes}\n[1차 좁히기 선택: ${idx + 1}번 - ${opt.text}]`;
+                        showToast(`💡 1차 선택 완료 (${idx + 1}번)! 2차 세부 좁히기 질문을 불러옵니다...`);
+                        fetchAndShowNarrowQuestions(2, opt.text);
+                    } else {
+                        userNotesInput.value = `${currentNotes}\n[2차 좁히기 선택: ${idx + 1}번 - ${opt.text}]`;
+                        if (aiQuestionBox) aiQuestionBox.style.display = "none";
+                        showToast("🎯 핀포인트 좁히기 완료! 최종 AI 진단을 실행합니다.");
+                        runDiagnosis();
+                    }
+                });
+
+                aiOptionsContainer.appendChild(btn);
             });
 
-            btn.addEventListener("click", () => {
-                const currentText = userNotesInput.value.trim();
-                userNotesInput.value = `${currentText}\n[선택 ${idx + 1}번: ${opt.text}]`;
-                aiQuestionBox.style.display = "none";
-                runDiagnosis();
-            });
-
-            aiOptionsContainer.appendChild(btn);
-        });
-
-        aiQuestionBox.style.display = "block";
+        } catch (err) {
+            console.error("Failed to fetch narrowing questions:", err);
+            if (aiQuestionBox) aiQuestionBox.style.display = "none";
+        }
     }
 
+    if (btnNarrowQuestions) {
+        btnNarrowQuestions.addEventListener("click", () => {
+            fetchAndShowNarrowQuestions(1, "");
+        });
+    }
+
+    if (btnSkipNarrow) {
+        btnSkipNarrow.addEventListener("click", () => {
+            if (aiQuestionBox) aiQuestionBox.style.display = "none";
+            runDiagnosis();
+        });
+    }
+
+    const btnClearNotes = document.getElementById("btnClearNotes");
+
+    function resetDiagnosticView() {
+        if (aiQuestionBox) aiQuestionBox.style.display = "none";
+        if (reportContainer) reportContainer.style.display = "none";
+        if (loadingBox) loadingBox.style.display = "none";
+        activeReportData = null;
+        if (narrowDebounceTimer) clearTimeout(narrowDebounceTimer);
+    }
+
+    if (btnClearNotes) {
+        btnClearNotes.addEventListener("click", () => {
+            userNotesInput.value = "";
+            btnClearNotes.style.display = "none";
+            resetDiagnosticView();
+            if (!currentFile && !selectedSampleId) {
+                analyzeBtn.disabled = true;
+            }
+            showToast("🧹 증상 설명 및 솔루션 리포트가 지워졌습니다.");
+        });
+    }
+
+    let narrowDebounceTimer = null;
     userNotesInput.addEventListener("input", () => {
         const text = userNotesInput.value.trim();
-        const lower = text.toLowerCase();
-        
-        // If user typed custom text, deselect pre-configured sample card
+
+        if (text.length > 0) {
+            if (btnClearNotes) btnClearNotes.style.display = "inline-flex";
+            analyzeBtn.disabled = false;
+        } else {
+            if (btnClearNotes) btnClearNotes.style.display = "none";
+            resetDiagnosticView();
+            if (!currentFile && !selectedSampleId) {
+                analyzeBtn.disabled = true;
+            }
+        }
+
         if (selectedSampleId) {
             selectedSampleId = null;
             clearActiveSampleCards();
         }
 
-        if (text.length > 0 || currentFile || selectedSampleId) {
-            analyzeBtn.disabled = false;
-        } else {
-            analyzeBtn.disabled = true;
-            if (aiQuestionBox) aiQuestionBox.style.display = "none";
-        }
-
-        // Auto-suggest 1, 2, 3, 4 options if user notes contain specific symptom keywords
-        const isNoise = lower.includes("소리") || lower.includes("소음") || lower.includes("쿵쿵") || lower.includes("드르륵");
-        const isLeak = lower.includes("누수") || lower.includes("물") || lower.includes("새다") || lower.includes("젖") || lower.includes("leak") || lower.includes("뚝뚝");
-
-        if (!text.includes("[선택") && text.length >= 2 && !isNoise) {
-            if (isLeak || ((lower.includes("천장") || lower.includes("벽")) && (lower.includes("물") || lower.includes("젖") || lower.includes("새")))) {
-                showAiOptions("💡 AI 추가 확인 질문: 누수가 발생하는 구체적인 상황을 1, 2, 3, 4번에서 선택해 주세요.", [
-                    { text: "윗집 화장실/배관 사용 시에만 물이 젖어 나옴 (위층 방수층 손상)" },
-                    { text: "수도 사용과 상관없이 24시간 내내 물이 뚝뚝 떨어짐 (배관 파열)" },
-                    { text: "비가 오거나 강풍 불 때만 천장/벽지 쪽이 축축해짐 (지붕/외벽 누수)" },
-                    { text: "온수/보일러 가동 시에만 가열음과 함께 배관 누수됨 (온수 배관 부식)" }
-                ]);
-            } else if (lower.includes("전기") || lower.includes("스위치") || lower.includes("전등") || lower.includes("콘센트")) {
-                showAiOptions("💡 AI 추가 확인 질문: 전기 고장의 구체적인 증상을 1, 2, 3, 4번에서 선택해 주세요.", [
-                    { text: "스위치를 켜면 전등이 깜빡거리며 지직 소리가 남" },
-                    { text: "차단기(두꺼비집)가 자꾸 자동으로 내려감" },
-                    { text: "콘센트에서 탄 냄새나 불꽃(아크)이 튐" },
-                    { text: "스위치가 헐겁고 딸깍 소리가 나지 않음" }
-                ]);
-            } else if (lower.includes("경첩") || lower.includes("도어락") || lower.includes("문틀")) {
-                showAiOptions("💡 AI 추가 확인 질문: 문 작동의 구체적인 문제점을 1, 2, 3, 4번에서 선택해 주세요.", [
-                    { text: "문 상단/바닥이 문틀에 닿아 뻑뻑하게 걸림" },
-                    { text: "문 손잡이나 도어락 래치가 안 잠김" },
-                    { text: "경첩 나사가 헛돌고 문이 아래로 처짐" },
-                    { text: "문을 열고 닫을 때 삐걱거리는 마찰 소음" }
-                ]);
-            } else {
-                if (aiQuestionBox) aiQuestionBox.style.display = "none";
-            }
-        } else {
-            if (aiQuestionBox) aiQuestionBox.style.display = "none";
+        // Auto fetch 1, 2, 3, 4 choices when user writes 4+ characters and hasn't selected options yet
+        if (!text.includes("[1차 좁히기") && text.length >= 4) {
+            clearTimeout(narrowDebounceTimer);
+            narrowDebounceTimer = setTimeout(() => {
+                fetchAndShowNarrowQuestions(1, "");
+            }, 1000);
         }
     });
 
