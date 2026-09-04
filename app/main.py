@@ -113,26 +113,113 @@ async def narrow_question(req: NarrowRequest):
 
     # Intelligent Fallback Generator for Demo / Non-API-Key Mode
     text_lower = notes.lower()
-    
-    # Leak / Water issues
-    if any(k in text_lower for k in ["누수", "물", "새", "젖", "leak", "drip", "천장", "수도"]):
+
+    # 1. Sink & Drain Leaks (Check FIRST before general water/leak keywords!)
+    if any(k in text_lower for k in ["싱크대", "세면대", "싱크", "p-트랩", "트랩", "배수구", "하수구", "p-trap", "trap", "sink"]):
         if req.level == 1:
             return {
                 "status": "success",
-                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 누수가 발생하는 구체적인 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 싱크대/세면대 누수가 발생하는 구체적인 부위를 1, 2, 3, 4번에서 선택해 주세요.",
                 "level": 1,
                 "can_narrow_further": True,
                 "options": [
-                    {"text": "윗집/상부 수전 및 배관 사용 시에만 축축해짐 (방수층/배수관 누수)"},
-                    {"text": "수도 사용과 무관하게 24시간 계속 물이 뚝뚝 떨어짐 (급수 배관 파열)"},
-                    {"text": "비가 오거나 날씨 악화 시 천장/외벽 쪽으로 물이 스며듦 (지붕/외벽 방수)"},
-                    {"text": "싱크대/세면대 아윗쪽 P-트랩 연결 너트 부위 수분 흘러내림 (연결부 마모)"}
+                    {"text": "1번: 싱크대/세면대 하부 U자형 P-트랩 연결 너트 부식 마모 및 미세 누수"},
+                    {"text": "2번: 싱크대 위 수도꼭지(수전) 내부 카트리지/호스 연결부 누수"},
+                    {"text": "3번: 음식물 분쇄기(Disposal) 이음매 고무 가스켓 부식 및 체결부 누수"},
+                    {"text": "4번: 배출구 호스 막힘으로 인한 하수관 역류 및 싱크대 하부 장 침수"}
                 ]
             }
         else:
             return {
                 "status": "success",
-                "title": "💡 [2차 정밀 좁히기] 선택하신 상황의 세부 상태를 1, 2, 3, 4번에서 선택해 주세요.",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 싱크대 누수의 세부 상태를 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "수도꼭지(수전)를 틀 때만 배수관/P-트랩 연결 조인트에서 물이 떨어짐"},
+                    {"text": "수도 사용과 무관하게 24시간 내내 급수 밸브 호스에서 뚝뚝 새어나옴"},
+                    {"text": "싱크대 하부 목재 바닥판이 물에 불어 곰팡이가 피고 습기가 찬 상태임"},
+                    {"text": "앵글 밸브(급수 밸브) 나사산 부식으로 밸브 자체에서 누수됨"}
+                ]
+            }
+
+    # 2. Toilet Leaks
+    elif any(k in text_lower for k in ["변기", "수조", "toilet", "flapper", "필밸브"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 변기 고장/누수의 구체적 증상을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "1번: 변기 수조 내부 플래퍼 고무 마모로 세면수 지속 흘러내림 ('쉬익' 소음)"},
+                    {"text": "2번: 변기 하단 왁스 링(Wax Ring) 마모로 바닥 틈새 오수 누수"},
+                    {"text": "3번: 변기 급수 호스(Supply Line) 및 앵글 밸브 연결 너트 미세 누수"},
+                    {"text": "4번: 수조 부속(필밸브) 장착 불량으로 수위 조절 실패 오버플로우"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 변기 문제의 세부 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "물 내린 후에도 수조 안에서 물 소리가 꺼지지 않고 계속 남"},
+                    {"text": "변기 바닥 타일 사이 실리콘/시멘트 틈새로 오수가 스며나옴"},
+                    {"text": "수조 레버를 눌러도 줄이 빠져서 물이 안 내려감"},
+                    {"text": "변기 도기 표면에 균열(금)이 가서 물이 비침"}
+                ]
+            }
+
+    # 3. Water Heater / Boiler Leaks
+    elif any(k in text_lower for k in ["온수기", "보일러", "water heater", "boiler", "tank"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 온수기/보일러 누수 부위를 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "1번: 온수기 하단 배수 밸브(Drain Valve) 연결부 미세 누수"},
+                    {"text": "2번: 온수기 상단 급수/온수 PEX 연결관 너트 부식 누수"},
+                    {"text": "3번: 압력 구출 밸브(T&P Valve) 과열 과압으로 인한 퇴출수 방출"},
+                    {"text": "4번: 온수기 내동 탱크 차체 부식으로 바닥 전체 침수 누수"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 온수기 문제의 세부 증상을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "온수기 바닥 물받이 팬(Drain Pan)에 물이 고여 있음"},
+                    {"text": "온수를 가동할 때만 배관 조인트에서 가열음과 함께 물이 새어남"},
+                    {"text": "온수기 내부 녹물이 흘러나와 바닥이 녹색/갈색으로 오염됨"},
+                    {"text": "메인 차단 밸브를 잠그면 온수기 물 유출이 멈춤"}
+                ]
+            }
+
+    # 4. Ceiling / Wall In-Wall Pipe Leaks
+    elif any(k in text_lower for k in ["누수", "물", "새", "젖", "leak", "drip", "천장", "수도"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 천장/벽체 누수가 발생하는 구체적인 상황을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "1번: 윗집/상부 화장실 및 배관 사용 시에만 천장이 축축해짐 (방수층/배수관 누수)"},
+                    {"text": "2번: 수도 사용과 무관하게 24시간 계속 물이 뚝뚝 떨어짐 (급수 배관 파열)"},
+                    {"text": "3번: 비가 오거나 날씨 악화 시 천장/외벽 쪽으로 물이 스며듦 (지붕/외벽 방수)"},
+                    {"text": "4번: 온수/보일러 가동 시에만 가열음과 함께 벽 속 배관 누수됨 (온수 배관 부식)"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 천장/벽체 누수의 세부 상태를 1, 2, 3, 4번에서 선택해 주세요.",
                 "level": 2,
                 "can_narrow_further": False,
                 "options": [
@@ -143,8 +230,8 @@ async def narrow_question(req: NarrowRequest):
                 ]
             }
 
-    # Electrical issues
-    elif any(k in text_lower for k in ["전기", "스위치", "전등", "콘센트", "차단기", "light", "switch", "outlet", "spark"]):
+    # 5. Electrical issues
+    elif any(k in text_lower for k in ["전기", "스위치", "전등", "콘센트", "차단기", "두꺼비집", "light", "switch", "outlet", "spark", "breaker"]):
         if req.level == 1:
             return {
                 "status": "success",
@@ -152,10 +239,10 @@ async def narrow_question(req: NarrowRequest):
                 "level": 1,
                 "can_narrow_further": True,
                 "options": [
-                    {"text": "스위치를 켤 때 전등이 깜빡거리거나 불꽃(아크) 소리가 남"},
-                    {"text": "두꺼비집(차단기)이 특정 가전/스위치 사용 시 즉시 내려감"},
-                    {"text": "콘센트 탄 냄새가 나거나 가전 플러그가 헐겁게 빠짐"},
-                    {"text": "조명 스위치 덮개가 파손되거나 딸깍 감이 없음"}
+                    {"text": "1번: 스위치를 켤 때 전등이 깜빡거리거나 불꽃(아크) 소리가 남"},
+                    {"text": "2번: 두꺼비집(차단기)이 특정 가전/스위치 사용 시 즉시 내려감"},
+                    {"text": "3번: 콘센트 탄 냄새가 나거나 가전 플러그가 헐겁게 빠짐"},
+                    {"text": "4번: 조명 스위치 덮개가 파손되거나 딸깍 감이 없음"}
                 ]
             }
         else:
@@ -172,7 +259,7 @@ async def narrow_question(req: NarrowRequest):
                 ]
             }
 
-    # Wall / Hole issues
+    # 6. Wall / Hole issues
     elif any(k in text_lower for k in ["벽", "구멍", "석고", "hole", "wall", "drywall", "stucco", "외벽"]):
         if req.level == 1:
             return {
@@ -181,10 +268,10 @@ async def narrow_question(req: NarrowRequest):
                 "level": 1,
                 "can_narrow_further": True,
                 "options": [
-                    {"text": "🏠 건물 외벽 (바깥 스타코 미장 / 사이딩 / 콘크리트 구멍)"},
-                    {"text": "🚪 방 안 실내 석고보드 (Drywall / 문 손잡이 충격 구멍)"},
-                    {"text": "🪟 창틀 주변 석고보드 균열 및 수분 손상"},
-                    {"text": "📐 벽면 못 자국 / 작은 균열 및 페인트 칠 들뜸"}
+                    {"text": "1번: 🏠 건물 외벽 (바깥 스타코 미장 / 사이딩 / 콘크리트 구멍)"},
+                    {"text": "2번: 🚪 방 안 실내 석고보드 (Drywall / 문 손잡이 충격 구멍)"},
+                    {"text": "3번: 🪟 창틀 주변 석고보드 균열 및 수분 손상"},
+                    {"text": "4번: 📐 벽면 못 자국 / 작은 균열 및 페인트 칠 들뜸"}
                 ]
             }
         else:
@@ -201,7 +288,36 @@ async def narrow_question(req: NarrowRequest):
                 ]
             }
 
-    # General fallback options for any input
+    # 7. Door / Hinge / Lock issues
+    elif any(k in text_lower for k in ["문", "경첩", "도어락", "문틀", "손잡이", "door", "hinge", "lock"]):
+        if req.level == 1:
+            return {
+                "status": "success",
+                "title": "💡 [1차 좁히기] AI 추가 확인 질문: 문 작동의 구체적인 문제점을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 1,
+                "can_narrow_further": True,
+                "options": [
+                    {"text": "1번: 문 상단/바닥이 문틀에 닿아 뻑뻑하게 걸림"},
+                    {"text": "2번: 문 손잡이나 도어락 래치가 안 잠김"},
+                    {"text": "3번: 경첩 나사가 헛돌고 문이 아래로 처짐"},
+                    {"text": "4번: 문을 열고 닫을 때 삐걱거리는 마찰 소음"}
+                ]
+            }
+        else:
+            return {
+                "status": "success",
+                "title": "💡 [2차 정밀 좁히기] 선택하신 문 문제의 세부 증상을 1, 2, 3, 4번에서 선택해 주세요.",
+                "level": 2,
+                "can_narrow_further": False,
+                "options": [
+                    {"text": "3인치 긴 수리 나사로 상단 경첩을 고정해야 하는 처짐 상태"},
+                    {"text": "문고리 실리콘 윤활 스프레이 도포가 필요한 뻑뻑함"},
+                    {"text": "문틀 걸쇠(Strike Plate) 위치 조정이 필요한 불일치"},
+                    {"text": "도어락 전자 장치 고장으로 1:1 교체 필요"}
+                ]
+            }
+
+    # 8. General fallback options for any input
     else:
         if req.level == 1:
             return {
@@ -232,7 +348,6 @@ async def narrow_question(req: NarrowRequest):
 
 
 @app.post("/api/analyze")
-
 async def analyze_image(
     image: Optional[UploadFile] = File(None),
     sample_id: Optional[str] = Form(None),
